@@ -1,2 +1,1 @@
-# prjFinal
-Projeto Final de curso
+# ProjectoFinal

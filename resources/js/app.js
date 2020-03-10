@@ -35,7 +35,7 @@ import VueClipboard from 'vue-clipboard2';
 VueClipboard.config.autoSetContainer = true // add this line
 Vue.use(VueClipboard);
 
-import VeeValidate from 'vee-validate';
+import * as VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);
 
 import VueRouter from 'vue-router';

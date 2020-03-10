@@ -31,7 +31,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="./">
-      <img width="50" height="50" src="../img/logo.png" alt="CIIC">
+      <img width="200" height="42" src="../img/logo.png" alt="CIIC">
 
       </a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -159,7 +159,7 @@
 /***************************** INICIO NAV BAR *****************************/
 
 #mainNav{
-  background-color: #212529;
+  background-color: #5caceb;
   padding-top: 10px;
   padding-bottom: 10px;
 }

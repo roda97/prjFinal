@@ -335,6 +335,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
 
             <li class="nav-item">
+              <a class="nav-link" href="./">
+                <i class="nav-icon fas fa-home red"></i>
+                  <p>Return to site</p>
+              </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
@@ -344,14 +350,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-            </li>
-            <!--HOME QUE REALMENTE REENCAMINHA PARA A PÁGINA PRINCIPAL!!!!-->
-            <!--FEITO JÁ POR NÓS E NÃO PELO GRUPO ANTIGO-->
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="./">
-                <i class="nav-icon fas fa-home red"></i>
-                <p>Home</p>
-              </a>
             </li>
 
         </ul>

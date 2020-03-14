@@ -31,7 +31,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="./">
-      <img width="200" height="42" src="../img/logo.png" alt="CIIC">
+      <img width="200" height="50" src="../img/ciiclogo.png" alt="CIIC">
 
       </a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <div class="navbar-nav text-uppercase ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="./#news">News</a>
+          </li>
         <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="./#mission">Mission</a>
           </li>
@@ -51,9 +54,6 @@
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="./#labs">Laboratories</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="./#news">News</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="./#contact">Contact</a>
@@ -68,7 +68,7 @@
             <div class="top-right links">
             @auth
               <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="{{ url('/home') }}">Home</a>
+                  <a class="nav-link js-scroll-trigger" href="{{ url('/home') }}">Dashboard</a>
               </li> 
               @else
               <li class="nav-item">
@@ -86,8 +86,8 @@
   <header class="masthead">
     <div class="container">
       <div class="intro-text">
-        <div class="intro-lead-in">AWARDS</div>
-        <h1>Recognitions throughout the years</h1>
+        <h1 class="banner-grid">AWARDS</h1>
+        <h1 class="banner-grid">Recognitions throughout the years</h1>
        <!-- <br><br><br><br><br><br>
         <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#awards">Começar</a> -->
       </div>
@@ -159,39 +159,19 @@
 /***************************** INICIO NAV BAR *****************************/
 
 #mainNav{
-  background-color: #5caceb;
+  background-color: white;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
 a.nav-link.js-scroll-trigger:hover{
-  background-color: #404347;
+  background-color: white;
   color: white;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.banner-grid {
+        background: url("../img/bg_grid.png");
+    }
 
 /***************************** FIM NAV BAR *****************************/
 

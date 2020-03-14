@@ -44,7 +44,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="#page-top">
-                <img width="200" height="42" src="../img/logo.png" alt="CIIC">
+                <img width="200" height="50" src="../img/ciiclogo.png" alt="CIIC">
 
             </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <div class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#news">News</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#mission">Mission</a>
                     </li>
@@ -64,9 +67,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#labs">Laboratories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#news">News</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#contacts">Contact</a>
@@ -82,7 +82,7 @@
                     <div class="top-right links">
                         @auth
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{{ url('/home') }}">Home</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ url('/home') }}">Dashboard</a>
                         </li>
                         @else
                         <li class="nav-item">
@@ -100,13 +100,132 @@
     <header class="masthead">
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">Polytechnic Institute of Leiria</div>
-                <h1>Computer Science and Communication Research Centre</h1>
+                <h1 class="banner-grid">Polytechnic Institute of Leiria<h1>
+                <h1 class="banner-grid">Computer Science and Communication Research Centre</h1>
                 <!-- <br><br><br><br><br><br>
         <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#awards">Começar</a> -->
             </div>
         </div>
     </header>
+
+    <!-- Noticias -->
+    <section id="news">
+        <div class="container">
+            <div class="col-md-12">
+                <div id="blogCarousel" class="carousel slide container-blog" data-ride="carousel">
+                    <!--
+               <ol class="carousel-indicators">
+                 <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
+                 <li data-target="#blogCarousel" data-slide-to="1"></li>
+               </ol>
+               -->
+                    <!-- Carousel items -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                @foreach (\App\News::all()->reverse()->take(3) as $new)
+                                <div class="col-md-4">
+                                    <div class="item-box-blog">
+                                        <a class="portfolio-link" data-toggle="modal" href="#portfolioModalNew{{ $new->id }}">
+                                            <img class="img-fluid" src="img/news/{{ $new->new_img_path }}" alt="">
+                                        </a>
+                                        <!--   <div class="item-box-blog-image"> -->
+                                        <!--    <figure> <img alt="new" id="img_news" alt="" src="img/news/{{ $new->new_img_path }}"> </figure> -->
+                                       <!-- <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">{{ $new->created_at->format('d/m/Y') }}</span> </div>-->
+                                        <!--  </div> -->
+                                        <div class="item-box-blog-body">
+                                            <!--Heading-->
+                                            <div class="item-box-blog-heading">
+                                                <a tabindex="0">
+                                                    <h5>{{ $new->title }}</h5>
+                                                </a>
+                                            </div>
+                                            <div class="item-box-blog-text">
+                                                <p>{{ $new->description }}</p>
+                                            </div>
+                                        </div>
+                                        <!--<a href="#" tabindex="0" class="btn btn-dark">Read more</a>-->
+                                        <!--Read More Button-->
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <!--.row-->
+                        </div>
+                        <!--.item-->
+                        <!-- foi aqui -->
+                        <!--.item-->
+                    </div>
+                    <!--.carousel-inner-->
+                </div>
+                <!--.Carousel-->
+            </div>
+        </div>
+        <div class="card-tools" style="text-align:center">
+            <a class="btn btn-dark" href="./newslist">More News</a>
+            <!--  <router-link to="/awardslist"><button class="btn btn-dark"> See More </button></router-link>
+-->
+        </div>
+    </section>
+
+    @foreach (\App\News::all() as $new)
+    <div class="portfolio-modal modal fade" id="portfolioModalNew{{ $new->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <div class="modal-body">
+                                <!-- Project Details Go Here -->
+                                <h2 class="text-uppercase">{{$new->title}}</h2>
+                                <!--
+                                <p class="item-intro text-muted" style="font-weight: bold;">News Info</p>
+                                -->
+                                @if($new->new_img_path != null)
+                                <!-- <img class="img-fluid d-block mx-auto" src="img/news/{{ $new->new_img_path }}" alt=""> -->
+
+                                <ul class="list-inline">
+                                    <!--
+                                    @endif @if($new->title != null)
+                                    <li><span style="font-weight: bold;">Title: </span>{{$new->title}}</li>
+-->
+                                    @endif @if($new->author != null)
+                                    <li><span style="font-weight: bold;">Author: </span>{{$new->author}}</li>
+                                    @endif @if($new->created_at != null)
+                                    <li><span style="font-weight: bold;">Date: </span>{{$new->created_at->format('d/m/Y')}}</li>
+                                    @endif @if($new->description != null)
+                                    <li><span style="font-weight: bold;">Description: </span>{{ $new->description }} </li>
+
+                                    <!-- News Body Content -->
+
+                                    @endif @if($new->text != null)
+                                    <div id="span_text">
+                                        <li><span style="font-weight: bold;"><!--Text--></span></li>
+
+                                        {!!$new->text!!}
+                                    </div>
+                                    <!-- End of News Body Content -->
+
+                                    @endif
+                                </ul>
+                                <button class="btn btn-dark" data-dismiss="modal" type="button">
+                                    <i class="fas fa-times"></i> Close New</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
 
     <!-- Mission -->
     <section id="mission">
@@ -326,130 +445,7 @@
     </div>
     </section>
 
-    <!-- Noticias -->
-    <section id="news">
-        <div class="container">
-            <div class="row blog">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">News</h2>
-                    <h3 class="section-subheading text-muted">Read our most recent scientific publications</h3>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div id="blogCarousel" class="carousel slide container-blog" data-ride="carousel">
-                    <!--
-               <ol class="carousel-indicators">
-                 <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
-                 <li data-target="#blogCarousel" data-slide-to="1"></li>
-               </ol>
-               -->
-                    <!-- Carousel items -->
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="row">
-                                @foreach (\App\News::all()->reverse()->take(3) as $new)
-                                <div class="col-md-4">
-                                    <div class="item-box-blog">
-                                        <a class="portfolio-link" data-toggle="modal" href="#portfolioModalNew{{ $new->id }}">
-                                            <img class="img-fluid" src="img/news/{{ $new->new_img_path }}" alt="">
-                                        </a>
-                                        <!--   <div class="item-box-blog-image"> -->
-                                        <!--    <figure> <img alt="new" id="img_news" alt="" src="img/news/{{ $new->new_img_path }}"> </figure> -->
-                                       <!-- <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">{{ $new->created_at->format('d/m/Y') }}</span> </div>-->
-                                        <!--  </div> -->
-                                        <div class="item-box-blog-body">
-                                            <!--Heading-->
-                                            <div class="item-box-blog-heading">
-                                                <a tabindex="0">
-                                                    <h5>{{ $new->title }}</h5>
-                                                </a>
-                                            </div>
-                                            <div class="item-box-blog-text">
-                                                <p>{{ $new->description }}</p>
-                                            </div>
-                                        </div>
-                                        <!--<a href="#" tabindex="0" class="btn btn-dark">Read more</a>-->
-                                        <!--Read More Button-->
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                            <!--.row-->
-                        </div>
-                        <!--.item-->
-                        <!-- foi aqui -->
-                        <!--.item-->
-                    </div>
-                    <!--.carousel-inner-->
-                </div>
-                <!--.Carousel-->
-            </div>
-        </div>
-        <div class="card-tools" style="text-align:center">
-            <a class="btn btn-dark" href="./newslist">More News</a>
-            <!--  <router-link to="/awardslist"><button class="btn btn-dark"> See More </button></router-link>
--->
-        </div>
-    </section>
-
-    @foreach (\App\News::all() as $new)
-    <div class="portfolio-modal modal fade" id="portfolioModalNew{{ $new->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-
-                <div class="close-modal" data-dismiss="modal">
-                    <div class="lr">
-                        <div class="rl"></div>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 mx-auto">
-                            <div class="modal-body">
-                                <!-- Project Details Go Here -->
-                                <h2 class="text-uppercase">{{$new->title}}</h2>
-                                <!--
-                                <p class="item-intro text-muted" style="font-weight: bold;">News Info</p>
-                                -->
-                                @if($new->new_img_path != null)
-                                <!-- <img class="img-fluid d-block mx-auto" src="img/news/{{ $new->new_img_path }}" alt=""> -->
-
-                                <ul class="list-inline">
-                                    <!--
-                                    @endif @if($new->title != null)
-                                    <li><span style="font-weight: bold;">Title: </span>{{$new->title}}</li>
--->
-                                    @endif @if($new->author != null)
-                                    <li><span style="font-weight: bold;">Author: </span>{{$new->author}}</li>
-                                    @endif @if($new->created_at != null)
-                                    <li><span style="font-weight: bold;">Date: </span>{{$new->created_at->format('d/m/Y')}}</li>
-                                    @endif @if($new->description != null)
-                                    <li><span style="font-weight: bold;">Description: </span>{{ $new->description }} </li>
-
-                                    <!-- News Body Content -->
-
-                                    @endif @if($new->text != null)
-                                    <div id="span_text">
-                                        <li><span style="font-weight: bold;"><!--Text--></span></li>
-
-                                        {!!$new->text!!}
-                                    </div>
-                                    <!-- End of News Body Content -->
-
-                                    @endif
-                                </ul>
-                                <button class="btn btn-dark" data-dismiss="modal" type="button">
-                                    <i class="fas fa-times"></i> Close New</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endforeach
+    
 
     <section id="contacts">
         <div class="container">
@@ -537,13 +533,17 @@
     }
     
     #mainNav {
-        background-color: #5caceb;
+        background-color: white;
         padding-top: 10px;
         padding-bottom: 10px;
     }
+
+    .banner-grid {
+        background: url("../img/bg_grid.png");
+    }
     
     a.nav-link.js-scroll-trigger:hover {
-        background-color: #404347;
+        background-color: white;
         color: white;
     }
     

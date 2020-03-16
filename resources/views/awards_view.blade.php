@@ -43,7 +43,10 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="./#news">News</a>
           </li>
-        <li class="nav-item">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="./#about">About Us</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="./#mission">Mission</a>
           </li>
           <li class="nav-item">
@@ -176,6 +179,10 @@ a.nav-link.js-scroll-trigger:hover{
 /***************************** FIM NAV BAR *****************************/
 
 #mission {
+  .section_clear;
+}
+
+#about {
   .section_clear;
 }
 

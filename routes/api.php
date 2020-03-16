@@ -25,6 +25,9 @@ Route::get('patents', 'PatentsController@getAll');
 Route::get('mission/getMission/{id}', 'MissionController@getMission');
 Route::put('mission/edit/{id}', 'MissionController@editMission');//->middleware('can:admin');
 
+Route::get('about/getAbout/{id}', 'AboutController@getAbout');
+Route::put('about/edit/{id}', 'AboutController@editAbout');
+
 Route::get('roles/{name}', 'RoleController@name');
 Route::get('roles', 'RoleController@getAll');
 Route::get('memberRoles', 'RoleController@getRoles');

@@ -47,6 +47,12 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <div class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="./#news">News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="./#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="./#mission">Mission</a>
                     </li>
                     <li class="nav-item">
@@ -57,9 +63,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="./#labs">Laboratories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="./#news">News</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="./#contact">Contact</a>
@@ -212,6 +215,10 @@
         color: white;
     }
     /***************************** FIM NAV BAR *****************************/
+
+    #about {
+        .section_clear;
+    }
 
     #mission {
         .section_clear;

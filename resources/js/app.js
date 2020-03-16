@@ -87,6 +87,7 @@ const labs = Vue.component('awards', require('./components/Labs.vue').default);
 const patents = Vue.component('patents', require('./components/Patent.vue').default);
 const roles = Vue.component('roles', require('./components/Roles.vue').default);
 const missionEdit = Vue.component('missionEdit', require('./components/MissionEdit.vue').default);
+const aboutEdit = Vue.component('aboutEdit', require('./components/AboutEdit.vue').default);
 
 const associateResearchers = Vue.component('associateResearchers', require('./components/AssociateResearchersToProjects.vue').default);
 const associatePartners = Vue.component('associatePartners', require('./components/AssociatePartnersToProjects.vue').default);
@@ -123,6 +124,7 @@ const routes = [
     {path: '/patents', component: patents},
     {path: '/roles', component: roles},
     {path: '/missionEdit', component: missionEdit},
+    {path: '/aboutEdit', component: aboutEdit},
 
     /* CIENCIA VITAE */
     {path: '/cv_degrees', component: cv_degrees},

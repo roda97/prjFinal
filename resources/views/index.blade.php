@@ -57,6 +57,9 @@
                         <a class="nav-link js-scroll-trigger" href="#news">News</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#mission">Mission</a>
                     </li>
                     <li class="nav-item">
@@ -226,6 +229,20 @@
         </div>
     </div>
     @endforeach
+
+    <!-- About us -->
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">About us</h2>
+                    <h3 class="section-subheading text-muted">CIIC – Computer Science and Communication Research Centre</h3> @foreach (\App\About::all()->take(1) as $about)
+                    <p class="text-muted">{{ $about->text }}</p>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Mission -->
     <section id="mission">
@@ -559,7 +576,10 @@
         color: white !important;
     }
     /***************************** FIM NAV BAR *****************************/
-    
+    #about {
+        .section_clear;
+    }
+
     #mission {
         .section_clear;
     }

@@ -1,14 +1,14 @@
-<template>
+<!--<template>
 <div class=container>
     <h1>Editing Front Page About Us Text</h1>
     <!--<tinymce id="d1" :other_options="tinyOptions" v-model="editorContent"></tinymce>-->
     <!--<input id="text_box" v-model="this.text">-->
-    <textarea v-model="text" class=text_area cols="60" rows="8"> {{ this.text }} </textarea>
+    <!--<textarea v-model="text" class=text_area cols="60" rows="8"> {{ this.text }} </textarea>
     <button v-on:click="updateAbout">Edit About us Text</button>
 </div>
-</template>
+</template>-->
 
-<script>
+<!--<script>
 export default {
     data() {
         return {
@@ -73,4 +73,4 @@ export default {
 
 <style>
 .text_area {width:80%;height:300px;border: 1px dotted #000099;}
-</style>
+</style>-->

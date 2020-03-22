@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+/*namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -12,8 +12,8 @@ class AboutResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    /*public function toArray($request)
     {
         return parent::toArray($request);
     }
-}
+}*/

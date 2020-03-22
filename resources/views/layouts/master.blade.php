@@ -102,13 +102,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <!--
               <li class="nav-item">
               <router-link to="/aboutEdit" class="nav-link">
                 <i class="fas fa-align-left"></i>
                 <p>About Us Text Edit</p>
               </router-link>
-            </li> 
+              
+            </li>
+            --> 
             <li class="nav-item">
                 <router-link to="/missionEdit" class="nav-link">
                   <i class="fas fa-align-left"></i>

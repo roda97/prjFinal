@@ -56,30 +56,70 @@
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#news">News</a>
                     </li>
+                    <!--
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#about">About Us</a>
+                    </li>-->
+                    <!--Menu About us-->
+                    <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                About Us <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/userslist">{{ __('People') }}</a>
+                                <a class="dropdown-item" href="#mission">{{ __('Mission') }}</a>
+                                <!--falta a rota para a seguinte:
+                                <a class="dropdown-item" href="#objetives">{{ __('Objetives') }}</a>
+                                -->
+                                <a class="dropdown-item" href="#labs">{{ __('Laboratories') }}</a>
+                            </div>
                     </li>
+
+                    <!--Menu Research-->
+                    <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Research <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/teamslist">{{ __('Teams') }}</a>
+                                <!--falta a rota para a seguinte:
+                                <a class="dropdown-item" href="#">{{ __('Outcomes') }}</a>
+                                -->
+                                <a class="dropdown-item" href="#portfolio">{{ __('Projects') }}</a>
+                            </div>
+                    </li>
+
+                    <!--Mission
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#mission">Mission</a>
-                    </li>
+                    </li>-->
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
                     </li>
+
+                    <!--Projects
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#portfolio">Projects</a>
-                    </li>
+                    </li>-->
+
+                    <!--Laboratories
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#labs">Laboratories</a>
-                    </li>
+                    </li>-->
+
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#contacts">Contact</a>
                     </li>
+
+                    <!--Members
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="/userslist">Members</a>
-                    </li>
+                    </li>-->
+
+                    <!--Teams
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="/teamslist">Teams</a>
-                    </li>
+                    </li>-->
 
                     @if (Route::has('login'))
                     <div class="top-right links">
@@ -231,18 +271,7 @@
     @endforeach
 
     <!-- About us -->
-    <section id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">About us</h2>
-                    <h3 class="section-subheading text-muted">CIIC – Computer Science and Communication Research Centre</h3> @foreach (\App\About::all()->take(1) as $about)
-                    <p class="text-muted">{{ $about->text }}</p>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Mission -->
     <section id="mission">

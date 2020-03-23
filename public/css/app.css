@@ -5806,7 +5806,7 @@ button.close, button.mailbox-attachment-close {
 .carousel-inner {
   position: relative;
   width: 100%;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .carousel-item {
@@ -7688,7 +7688,7 @@ button.bg-dark:focus {
 
 .pt-4,
 .py-4 {
-  padding-top: 1.5rem !important;
+  padding-top: 16rem !important;
 }
 
 .pr-4, .card-body.p-0 .table thead > tr > th:last-of-type,
@@ -7701,7 +7701,7 @@ button.bg-dark:focus {
 
 .pb-4,
 .py-4 {
-  padding-bottom: 1.5rem !important;
+  padding-bottom: 16rem !important;
 }
 
 .pl-4, .card-body.p-0 .table thead > tr > th:first-of-type,
@@ -16312,7 +16312,7 @@ textarea.form-control.is-invalid {
 .btn {
   display: inline-block;
   font-weight: 400;
-  color: #212529;
+  color: #b99828;
   text-align: center;
   vertical-align: middle;
   -webkit-user-select: none;
@@ -16356,9 +16356,9 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #3490dc;
-  border-color: #3490dc;
+  color: black;
+  background-color: #fed136;
+  border-color: #fed136;
 }
 
 .btn-primary:hover {
@@ -16949,7 +16949,7 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #3490dc;
+  color: #ca9c00;
   text-decoration: none;
 }
 
@@ -20362,7 +20362,7 @@ a.close.disabled {
 .carousel-inner {
   position: relative;
   width: 100%;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .carousel-inner::after {
@@ -22489,7 +22489,7 @@ button.bg-dark:focus {
 
 .pt-4,
 .py-4 {
-  padding-top: 1.5rem !important;
+  padding-top: 16rem !important;
 }
 
 .pr-4,
@@ -22499,7 +22499,7 @@ button.bg-dark:focus {
 
 .pb-4,
 .py-4 {
-  padding-bottom: 1.5rem !important;
+  padding-bottom: 16rem !important;
 }
 
 .pl-4,
@@ -30591,7 +30591,7 @@ readers do not read off random characters that represent icons */
 }
 
 .navbar-laravel {
-  background-color: #fff;
+  background-color: #fed136;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 

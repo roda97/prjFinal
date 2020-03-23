@@ -2373,7 +2373,7 @@ textarea.form-control {
 .btn {
   display: inline-block;
   font-weight: 400;
-  color: #212529;
+  color: #b99828;
   text-align: center;
   vertical-align: middle;
   -webkit-user-select: none;
@@ -8014,7 +8014,7 @@ button.bg-dark:focus {
 
 .pt-4,
 .py-4 {
-  padding-top: 1.5rem !important;
+  padding-top: 16rem !important;
 }
 
 .pr-4,
@@ -8024,7 +8024,7 @@ button.bg-dark:focus {
 
 .pb-4,
 .py-4 {
-  padding-bottom: 1.5rem !important;
+  padding-bottom: 16rem !important;
 }
 
 .pl-4,

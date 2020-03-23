@@ -31,7 +31,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="./">
-                <img width="200" height="50" src="../img/ciiclogo.png" alt="CIIC">
+                <img width="400" height="100" src="../img/ciiclogo.png" alt="CIIC">
 
             </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <div class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="./#news">News</a>
+                        <a class="nav-link js-scroll-trigger" href="./#about">About Us</a>
                     </li>
                     <!--
                     <li class="nav-item">
@@ -146,8 +146,8 @@
     
     #mainNav {
         background-color: white;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 0px;
+        padding-bottom: 0px;
     }
     
     a.nav-link.js-scroll-trigger:hover {

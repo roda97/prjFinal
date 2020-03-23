@@ -5806,7 +5806,7 @@ button.close, button.mailbox-attachment-close {
 .carousel-inner {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .carousel-item {
@@ -20362,7 +20362,7 @@ a.close.disabled {
 .carousel-inner {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .carousel-inner::after {

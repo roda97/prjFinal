@@ -34,63 +34,7 @@
 <body id="page-top">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="./">
-                <img width="400" height="100" src="../img/ciiclogo.png" alt="CIIC">
-
-            </a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <div class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="./#about">About Us</a>
-                    </li>
-                    <!--
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="./#about">About Us</a>
-                    </li>-->
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="./#mission">Mission</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="./#awards">Awards</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#portfolio">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="./#labs">Laboratories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="./#contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="./userslist">Members</a>
-                    </li>
-                    <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="./teamslist">Teams</a>
-          </li>
-                    @if (Route::has('login'))
-                    <div class="top-right links">
-                        @auth
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{{ url('/home') }}">Dashboard</a>
-                        </li>
-                        @else
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{{ url('login') }}">Login</a>
-                        </li>
-                        @endauth
-                    </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </nav>
+    @include('navigation_view')
 
     <!-- Header -->
     <header class="masthead">

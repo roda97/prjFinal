@@ -3,7 +3,7 @@
 
 <head>
 
-    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -31,119 +31,20 @@
 
     <style>
         #map {
-            height: 400 px;
-            width: 100 %;
+            height: 400px; 
+            width: 100%;
         }
     </style>
 
 </head>
 
 <body id="page-top">
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">
-                <img width="400" height="100" src="../img/ciiclogo.png" alt="CIIC">
-
-            </a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <div class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">About Us</a>
-                    </li>
-                    <!--
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">About Us</a>
-                    </li>-->
-                    <!--Menu About us-->
-                    <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                About Us <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                <a class="nav-link js-scroll-trigger" href="/userslist">{{ __('People') }}</a>
-                                <a class="nav-link js-scroll-trigger" href="#mission">{{ __('Mission') }}</a>
-                                <!--falta a rota para a seguinte:
-                                <a class="dropdown-item" href="#objetives">{{ __('Objetives') }}</a>
-                                -->
-                                <a class="nav-link js-scroll-trigger" href="#labs">{{ __('Laboratories') }}</a>
-                            </div>
-                    </li>
-
-                    <!--Menu Research-->
-                    <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            Research <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                <a class="nav-link js-scroll-trigger" href="/teamslist">{{ __('Teams') }}</a>
-                                <!--falta a rota para a seguinte:
-                                <a class="dropdown-item" href="#">{{ __('Outcomes') }}</a>
-                                -->
-                                <a class="nav-link js-scroll-trigger" href="#portfolio">{{ __('Projects') }}</a>
-                            </div>
-                    </li>
-
-                    <!--Mission
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#mission">Mission</a>
-                    </li>-->
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
-                    </li>
-
-                    <!--Projects
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#portfolio">Projects</a>
-                    </li>-->
-
-                    <!--Laboratories
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#labs">Laboratories</a>
-                    </li>-->
-
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#contacts">Contact</a>
-                    </li>
-
-                    <!--Members
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/userslist">Members</a>
-                    </li>-->
-
-                    <!--Teams
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/teamslist">Teams</a>
-                    </li>-->
-
-                    @if (Route::has('login'))
-                    <div class="top-right links">
-                        @auth
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{{ url('/home') }}">Dashboard</a>
-                        </li>
-                        @else
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{{ url('login') }}">Login</a>
-                        </li>
-                        @endauth
-                    </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </nav>
-
+    @include('navigation_view')
     <!-- Header -->
     <header class="masthead">
         <div class="container">
             <div class="intro-text">
-                <h1 class="banner-grid">Polytechnic Institute of Leiria<h1>
+                <h1 class="banner-grid">Polytechnic Institute of Leiria</h1>
                 <h1 class="banner-grid">Computer Science and Communication Research Centre</h1>
                 <!-- <br><br><br><br><br><br>
         <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#awards">Começar</a> -->
@@ -250,7 +151,7 @@
                                     <!-- News Body Content -->
 
                                     @endif @if($new->text != null)
-                                    <div id="span_text">
+                                    <div id="span_text_news">
                                         <li><span style="font-weight: bold;"><!--Text--></span></li>
 
                                         {!!$new->text!!}
@@ -276,7 +177,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">About us</h2>
+                    <h2 class="section-heading text-uppercase">What is CIIC</h2>
                     <h3 class="section-subheading text-muted">CIIC – Computer Science and Communication Research Centre</h3> @foreach (\App\About::all()->take(1) as $about)
                     <p class="text-muted">{{ $about->text }}</p>
                     @endforeach
@@ -617,23 +518,23 @@
     }
     /***************************** FIM NAV BAR *****************************/
     #about {
-        .section_clear;
+        background-color: #ffffff !important;
     }
 
     #mission {
-        .section_clear;
+        background-color: #ffffff !important;
     }
     
     #awards {
-        .section_clear;
+        background-color: #ffffff !important;
     }
     
     #news {
-        .section-dark;
+        background-color: #f8f9fa !important;
     }
     
     #labs {
-        .section-dark;
+        background-color: #f8f9fa !important;
     }
     
     #img_news {
@@ -652,14 +553,7 @@
     .intro-lead-in h1 {
         font-weight: bold;
     }
-    
-    .section-dark {
-        background-color: #f8f9fa !important;
-    }
-    
-    .section-clear {
-        background-color: #ffffff !important;
-    }
+
     
     .modal-content {
         opacity: 0.95;
@@ -680,7 +574,11 @@
     }
     
     /***************/
-    
+    #span_text_news{
+        padding: 25px;
+    }
+
+
     .cta-100 {
         margin-top: 100px;
         padding-left: 8%;

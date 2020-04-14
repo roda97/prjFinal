@@ -167,23 +167,23 @@
     }
     /***************************** FIM NAV BAR *****************************/
     #about {
-        .section_clear;
+        background-color: #ffffff !important;
     }
 
     #mission {
-        .section_clear;
+        background-color: #ffffff !important;
     }
     
     #awards {
-        .section_clear;
+        background-color: #ffffff !important;
     }
     
     #news {
-        .section-dark;
+        background-color: #f8f9fa !important;
     }
     
     #labs {
-        .section-dark;
+        background-color: #f8f9fa !important;
     }
     
     #img_news {
@@ -202,15 +202,7 @@
     .intro-lead-in h1 {
         font-weight: bold;
     }
-    
-    .section-dark {
-        background-color: #f8f9fa !important;
-    }
-    
-    .section-clear {
-        background-color: #ffffff !important;
-    }
-    
+      
     .modal-content {
         opacity: 0.95;
     }

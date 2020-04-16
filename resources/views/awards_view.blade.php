@@ -103,7 +103,12 @@
 <style>
 /***************************** INICIO NAV BAR *****************************/
 
-#mainNav{
+::selection {
+  color: red;
+  background: yellow;
+}
+
+#mainNav::selection{
   background-color: white;
   padding-top: 0px;
   padding-bottom: 0px;

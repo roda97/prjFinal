@@ -22,13 +22,13 @@
                                 About us  <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownAbout">
-                                <a class="nav-link js-scroll-trigger" href="#about">What is CIIC</a>
+                                <a class="nav-link js-scroll-trigger" href="/#about">What is CIIC</a>
                                 <a class="nav-link js-scroll-trigger" href="/userslist">{{ __('People') }}</a>
-                                <a class="nav-link js-scroll-trigger" href="#mission">{{ __('Mission') }}</a>
+                                <a class="nav-link js-scroll-trigger" href="/#mission">{{ __('Mission') }}</a>
                                 <!--falta a rota para a seguinte:
                                 <a class="dropdown-item" href="#objetives">{{ __('Objetives') }}</a>
                                 -->
-                                <a class="nav-link js-scroll-trigger" href="#labs">{{ __('Laboratories') }}</a>
+                                <a class="nav-link js-scroll-trigger" href="/#labs">{{ __('Laboratories') }}</a>
                                 
                             </div>
                     </li>
@@ -43,7 +43,7 @@
                                 <!--falta a rota para a seguinte:
                                 <a class="dropdown-item" href="#">{{ __('Outcomes') }}</a>
                                 -->
-                                <a class="nav-link js-scroll-trigger" href="#portfolio">{{ __('Projects') }}</a>
+                                <a class="nav-link js-scroll-trigger" href="/#portfolio">{{ __('Projects') }}</a>
                             </div>
                     </li>
 
@@ -52,7 +52,7 @@
                         <a class="nav-link js-scroll-trigger" href="#mission">Mission</a>
                     </li>-->
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
+                        <a class="nav-link js-scroll-trigger" href="/#awards">Awards</a>
                     </li>
 
                     <!--Projects
@@ -66,7 +66,7 @@
                     </li>-->
 
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#contacts">Contact</a>
+                        <a class="nav-link js-scroll-trigger" href="/#contacts">Contact</a>
                     </li>
 
                     <!--Members
@@ -98,3 +98,22 @@
     </nav>
 </body>
 </html>
+
+<style>
+
+/*.nav-item {
+    background: black;
+    box-shadow: 5px 5px 5px #fed136;
+}
+
+.nav-item .active{
+    background: #fed136;
+    box-shadow: 5px 5px 5px #fed136;
+}
+
+a::selection {
+  color: red;
+  background: yellow;
+}*/
+
+</style>

@@ -167,7 +167,7 @@ sup {
 }
 
 a {
-  color: #fed136;
+  color: #007bff;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
@@ -2921,7 +2921,7 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #fed136;
+  color: #007bff;
   background-color: transparent;
 }
 
@@ -4675,7 +4675,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #fed136;
+  color: #007bff;
   background-color: #ffffff;
   border: 1px solid #dee2e6;
 }
@@ -13088,7 +13088,7 @@ label:not(.form-check-label):not(.custom-file-label) {
  * ----------------------
  */
 a.text-muted:hover {
-  color: #fed136 !important;
+  color: #007bff !important;
 }
 
 .border-transparent {

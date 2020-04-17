@@ -76,7 +76,7 @@
   </section>
 
 
-<!-- END BODY -- >
+<!-- END BODY -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -103,12 +103,7 @@
 <style>
 /***************************** INICIO NAV BAR *****************************/
 
-::selection {
-  color: red;
-  background: yellow;
-}
-
-#mainNav::selection{
+#mainNav{
   background-color: white;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -122,6 +117,8 @@ a.nav-link.js-scroll-trigger:hover{
 .banner-grid {
         background: url("../img/bg_grid.png");
     }
+
+
 
 /***************************** FIM NAV BAR *****************************/
 

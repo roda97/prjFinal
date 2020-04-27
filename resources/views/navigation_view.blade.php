@@ -22,13 +22,13 @@
                                 About us  <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownAbout">
-                                <a id="item-what" class="nav-link dropdown-item" href="/#about">What is CIIC</a>
+                                <a id="item-what" class="nav-link js-scroll-trigger" href="{{ url('/#about') }}">What is CIIC</a>
                                 <a class="nav-link dropdown-item {{ (request()->is('userslist')) ? 'active' : '' }}" href="/userslist">{{ __('People') }}</a>
-                                <a id="item-mission" class="nav-link dropdown-item" href="/#mission">{{ __('Mission') }}</a>
+                                <a id="item-mission" class="nav-link js-scroll-trigger" href="/#mission">{{ __('Mission') }}</a>
                                 <!--falta a rota para a seguinte:
                                 <a class="dropdown-item" href="#objetives">{{ __('Objetives') }}</a>
                                 -->
-                                <a id="item-labs" class="nav-link dropdown-item" href="/#labs">{{ __('Laboratories') }}</a>
+                                <a id="item-labs" class="nav-link js-scroll-trigger" href="/#labs">{{ __('Laboratories') }}</a>
                                 
                             </div>
                     </li>
@@ -39,11 +39,11 @@
                             Research <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownResearch">
-                                <a class="nav-link dropdown-item {{ (request()->is('teamslist')) ? 'active' : '' }}" href="/teamslist">{{ __('Teams') }}</a>
+                                <a class="nav-link js-scroll-trigger {{ (request()->is('teamslist')) ? 'active' : '' }}" href="/teamslist">{{ __('Teams') }}</a>
                                 <!--falta a rota para a seguinte:
                                 <a class="dropdown-item" href="#">{{ __('Outcomes') }}</a>
                                 -->
-                                <a id="item-portfolio" class="nav-link dropdown-item" href="/#portfolio">{{ __('Projects') }}</a>
+                                <a id="item-portfolio" class="nav-link js-scroll-trigger" href="/#portfolio">{{ __('Projects') }}</a>
                             </div>
                     </li>
 
@@ -111,7 +111,7 @@
                         </li>
                         @else
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{{ url('login') }}">Login</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ url('/login') }}">Login</a>
                         </li>
                         @endauth
                     </div>

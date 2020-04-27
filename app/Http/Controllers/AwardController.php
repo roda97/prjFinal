@@ -38,7 +38,7 @@ class AwardController extends Controller
         $award = Award::findOrFail($id);
 
         $request->validate([
-            'name' => 'required|unique:awards,title,'.$award->id,
+            'title' => 'required|unique:awards,title,'.$award->id,
             'description' => 'required|min:10',
         ]);
 

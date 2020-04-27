@@ -61,8 +61,8 @@
 	        <select name="partnerSelected" v-model="form.partnerSelected" class="form-control" 
             :class="{'is-invalid': form.errors.has('partnerSelected')}"> 
            <option :value="''" disabled selected> - Please select a Partner - </option> 
-           <!--<option v-for="partner in partners" :value="partner.id" :key="partner.id">{{ partner.name }}</option>-->
-           <option v-for="(partner, i) in partners" :value="partner.id" :key="i">{{ partner.name }}</option>
+           <option v-for="partner in partners" :value="partner.partner_id" 
+           :key="partner.partner_id">{{ partner.name }}</option>
            </select>
            <has-error :form="form" field="partnerSelected"></has-error>
         </div>
@@ -96,7 +96,6 @@
 		data: function () {
 		return {
         editmode: false,
-        partners: [],
         partners:[],
         projects:[],
         form : new Form({
@@ -237,7 +236,6 @@
 
             })
           })         
-          this.loadPartners();
           this.loadPartners();
           this.loadProjects();
           Fire.$on('refresh',()=>{

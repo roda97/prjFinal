@@ -11,14 +11,14 @@
                 </div>
                 -->
             <div class="card-tools">
-                                <download-csv
-	class   = "btn btn-dark"
-	:data   = "data_to_csv"
-	name    = "CIIC_DB_Person_Info.csv">
+              <download-csv
+                class   = "btn btn-dark"
+                :data   = "data_to_csv"
+                name    = "CIIC_DB_Person_Info.csv">
 
-	<font color="white">EXPORT CIIC TABLE TO CSV</font>
+	              <font color="white">EXPORT CIIC TABLE TO CSV</font>
 
-</download-csv>
+              </download-csv>
               <button class="btn btn-success" @click="saveCienciaVitaeToLocalDataBase()">UPDATE TO CIIC DATABASE</button>
             </div>
           </div>

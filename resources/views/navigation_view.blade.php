@@ -2,7 +2,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="index.php">
+            <a class="navbar-brand js-scroll-trigger" href="/">
                 <img width="400" height="100" src="../img/ciiclogo.png" alt="CIIC">
 
             </a>

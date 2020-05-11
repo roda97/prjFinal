@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div id="table" class="container" >
     <div class="row mt-5">
        <div class="col-md-12">
             <div class="card">
@@ -26,6 +26,10 @@
                     <td>{{ team.keywords }}</td>
                     <td>{{ team.scientific_domains }}</td>
                     <td>{{ team.application_domains }}</td>
+                    <td>
+                          <toggle-button @change="alterToActive(team)" :value=!!+team.isActive :color="{checked: '#00FF00', 
+                            unchecked: '#FF0000'}" :labels="{checked: 'ON', unchecked: 'OFF'}" />
+                    </td>
                     <td>
                         <a href="#" @click="editModal(team)">
                             <i class ="fa fa-edit blue"></i>
@@ -89,7 +93,7 @@
     
 </template>
 
-<script type="text/javascript">
+<script>
   // Component code (not registered)
 
 	export default{
@@ -103,10 +107,51 @@
             keywords:'',
             scientific_domains:'',
             application_domains:''
-            }), 
+            }),
+            showMessage: false,
+            successMessage: '',
 		}
     },
     methods:{
+       alterToActive(team) {
+            axios.put("api/teams/alterToActive/" + team.id)
+                .then(response => {
+                    team.isActive = !team.isActive;
+                    this.showSuccess = true;
+                    this.successMessage = 'State of Team Changed!';
+                })
+                .catch(erros => {
+                    console.log(erros);
+                });
+
+            axios({
+                    method: 'post',
+                    url: 'api/teamActiveHistory/insertTeamRecord',
+                    data: {
+                        'team_id': team.id,
+                        'changed_to': !team.isActive,
+                    },
+                })
+
+                .then(function (response) {
+                    Swal.fire({
+                        type: 'success',
+                        title: 'New history entry created!',
+                        showConfirmButton: true,
+                    })
+                    console.log(response);
+                })
+
+                .catch(function (error) {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Couldnt create history entry!',
+                    })
+                    console.log(error);
+                });
+        },
+
       newModal(){
         this.editmode = false;
         this.form.clear();
@@ -222,8 +267,12 @@
           Fire.$on('refresh',()=>{
             this.loadTeams();
           })
-        },  
-	}
+        },
+        
+       
+  }
+  
+
 </script>
 <style scoped>
 	tr.activerow {

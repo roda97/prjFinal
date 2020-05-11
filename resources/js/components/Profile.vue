@@ -19,6 +19,7 @@
                     style="background-image:url('./img/user-cover.jpg')">
                 <h3 class="widget-user-username">{{this.form.name}}</h3>
                 <h5 class="widget-user-desc">{{this.form.academic_degree}}</h5>
+                <h5 class="widget-user-desc">{{this.form.career}}</h5>
               </div>
               <div class="widget-user-image">
                 <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar">
@@ -94,7 +95,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label class="col-sm-2 control-label">Academic Degree</label>
+                        <label class="col-sm-12">Academic Degree</label>
 
                         <div class="col-sm-10">
                           <select name="academic_degree" v-model="form.academic_degree" class="form-control" placeholder="Academic Degree"
@@ -127,6 +128,20 @@
                       </div>
 
                       <div class="form-group">
+                        <label class="col-sm-12">Career</label>
+
+                        <div class="col-sm-10">
+                          <select name="career" v-model="form.career" class="form-control" placeholder="career"
+                          :class="{'is-invalid': form.errors.has('career')}">
+                            <option value="Professor">Professor</option>
+                            <option value="Tecnico">Tecnico</option>
+                            <option value="Estudante">Estudante</option>
+                          </select>
+                          <has-error :form="form" field="career"></has-error>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
                         <label for="inputScience" class="col-sm-2 control-label">Science ID</label>
 
                         <div class="col-sm-10">
@@ -145,9 +160,9 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="inputPassword" class="col-sm-12 control-label">Password (leave empty if not changing)</label>
+                        <label for="inputPassword" class="col-sm-12">Password (leave empty if not changing)</label>
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-10">
                           <input type="password" v-model="form.password" class="form-control" id="inputPassport" placeholder="Password"
                           :class="{'is-invalid': form.errors.has('password')}">
                           <has-error :form="form" field="password"></has-error>
@@ -184,6 +199,7 @@
                   academic_degree: '',
                   role: '',
                   department: '',
+                  career: '',
                   science_id: '',
                   photo:'',
                 })

@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div id="table" class="container" >
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="card">
@@ -22,6 +22,7 @@
                                 <th>Institution</th>
                                 <th>Academic Degree</th>
                                 <th>Department</th>
+                                <th>Career</th>
                                 <th>User science</th>
                                 <th>Photo</th>
                                 <th>Status</th>
@@ -38,8 +39,10 @@
                                 <td>{{ user.institution_name }}</td>
                                 <td>{{ user.academic_degree }}</td>
                                 <td>{{ user.department}}</td>
+                                <td>{{ user.career}}</td>
                                 <td>{{ user.science_id }}</td>
-                                <td><img width="80" :src="'img/profile/'+ user.photo"></td>
+                                <td v-if="user.photo == null"><img width="80" v-bind:src="'img/man.png'" ></td>
+                                <td v-if="user.photo != null"><img width="80" v-bind:src="'img/profile/' + user.photo"></td>
                                 <td>
                                     <toggle-button @change="alterIsActive(user)" :value=!!+user.isActive :color="{checked: '#00FF00', 
                                 unchecked: '#FF0000'}" :labels="{checked: 'ON', unchecked: 'OFF'}" />
@@ -118,18 +121,6 @@
                         </div>
 
                         <div class="form-group">
-                            <select name="role" v-model="form.role"
-           class="form-control" :class="{'is-invalid': form.errors.has('role')}">
-              <option :value="''" disabled selected>- Select a role -</option>
-              <option value="External Member">External Member</option>
-              <option value="Integrated Member">Integrated Member</option>
-              <option value="Effective member">Effective member</option>
-              <option value="Full member">Full member</option>
-          </select>
-                            <has-error :form="form" field="role"></has-error>
-                        </div>
-
-                        <div class="form-group">
                             <select name="department" v-model="form.department"
            class="form-control" :class="{'is-invalid': form.errors.has('department')}">
               <option :value="''" disabled selected> - Select a department - </option> 
@@ -143,8 +134,20 @@
               <option value="Gestão e Economia">Gestão e Economia</option>
               <option value="Matemática">Matemática</option>
           </select>
-                            <has-error :form="form" field="department"></has-error>
+              <has-error :form="form" field="department"></has-error>
                         </div>
+
+          <div class="form-group">
+                            <select name="career" v-model="form.career"
+           class="form-control" :class="{'is-invalid': form.errors.has('career')}">
+              <option :value="''" disabled selected> - Select a career - </option> 
+              <option value="Estudante">Estudante</option>
+              <option value="Tecnico">Tecnico</option>
+              <option value="Professor">Professor</option>
+          </select>
+              <has-error :form="form" field="career"></has-error>
+                        </div>
+                          
 
                         <div class="form-group">
                             <input type="text" name="science_id" v-model="form.science_id" placeholder="User Science"
@@ -188,6 +191,7 @@ export default {
                 department: '',
                 science_id: '',
                 photo: '',
+                career: '',
             }),
             showMessage: false,
             successMessage: '',
@@ -413,3 +417,8 @@ export default {
     },
 }
 </script>
+<style>
+#table{
+    max-width: max-content;
+}
+</style>

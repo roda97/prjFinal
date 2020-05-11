@@ -43,13 +43,12 @@
 -->
     <!-- BODY HERE -->
 
-
     <div class="container" id="inicial_table">
         <div class="d-flex justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="text-center">Scientifc Committee</h5>
+                        <h5 class="text-center">CIIC Coordinator</h5>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover">
@@ -59,51 +58,7 @@
                                     <th>Degree</th>
                                 </tr>
 
-                                @foreach($roles as $role) @if($role->scientific_committees_id == 1)
-                                <tr>
-                                    <td>{{$role->user_name}}</td>
-
-                                    @if($role->degree == 'Postgraduate Academic Degree')
-                                    <td>PhD</td>
-
-                                    @elseif($role->degree == 'Master of Science')
-                                    <td>MSc</td>
-
-                                    @elseif(!$role->degree)
-                                    <td>---</td>
-                                    @endif
-
-                                </tr>
-                                @endif @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-    <div class="container">
-        <div class="d-flex justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="text-center">Full Members</h5>
-                    </div>
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover">
-                            <tbody>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Degree</th>
-                                </tr>
-
-                                @foreach($roles as $role) @if($role->name == 'Full Member' && $role->user_name != 'Admin')
+                                @foreach($roles as $role) @if($role->name == 'Full Member' && $role->function == 'CIIC Coordinator' && $role->user_name != 'Admin')
                                 <tr>
                                     <td>{{$role->user_name}}</td>
 
@@ -137,7 +92,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="text-center">Effective Member</h5>
+                        <h5 class="text-center">CIIC Coordinating Committee</h5>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover">
@@ -147,46 +102,7 @@
                                     <th>Degree</th>
                                 </tr>
 
-                                @foreach($roles as $role) @if($role->name == 'Effective Member' && $role->user_name != 'Admin')
-                                <tr>
-                                    <td>{{$role->user_name}}</td>
-
-                                    @if($role->degree == 'Postgraduate Academic Degree')
-                                    <td>PhD</td>
-
-                                    @elseif($role->degree == 'Master of Science')
-                                    <td>MSc</td>
-
-                                    @elseif(!$role->degree)
-                                    <td>---</td>
-                                    @endif
-
-                                </tr>
-                                @endif @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-        <div class="d-flex justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="text-center">Integrated Member</h5>
-                    </div>
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover">
-                            <tbody>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Degree</th>
-                                </tr>
-
-                                @foreach($roles as $role) @if($role->name == 'Integrated Member' && $role->user_name != 'Admin')
+                                @foreach($roles as $role) @if($role->name == 'Full Member' && $role->function == 'CIIC Coordinating Committee' && $role->user_name != 'Admin')
                                 <tr>
                                     <td>{{$role->user_name}}</td>
 
@@ -248,6 +164,84 @@
                 </div>
             </div>
         </div>
+
+        <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Collaborator Member</h5>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Degree</th>
+                                </tr>
+
+                                @foreach($roles as $role) @if($role->name == 'Collaborator Member' && $role->user_name != 'Admin')
+                                <tr>
+                                    <td>{{$role->user_name}}</td>
+
+                                    @if($role->degree == 'Postgraduate Academic Degree')
+                                    <td>PhD</td>
+
+                                    @elseif($role->degree == 'Master of Science')
+                                    <td>MSc</td>
+
+                                    @elseif(!$role->degree)
+                                    <td>---</td>
+                                    @endif
+
+                                </tr>
+                                @endif @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="text-center">Full Member</h5>
+                        </div>
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Degree</th>
+                                    </tr>
+    
+                                    @foreach($roles as $role) @if($role->name == 'Full Member' && $role->user_name != 'Admin')
+                                    <tr>
+                                        <td>{{$role->user_name}}</td>
+    
+                                        @if($role->degree == 'Postgraduate Academic Degree')
+                                        <td>PhD</td>
+    
+                                        @elseif($role->degree == 'Master of Science')
+                                        <td>MSc</td>
+    
+                                        @elseif(!$role->degree)
+                                        <td>---</td>
+                                        @endif
+    
+                                    </tr>
+                                    @endif @endforeach
+    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>

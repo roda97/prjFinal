@@ -31,6 +31,7 @@ class RoleController extends Controller
         'roles.name AS name',
         'roles.function AS function',
         'users.name AS user_name',
+        'users.career AS user_career',
         'user_roles.role_id')
         ->orderBy('user_roles.user_id')
         ->get();
@@ -58,6 +59,7 @@ class RoleController extends Controller
         ->select(
         'user_roles.id AS row_id',
         'user_roles.user_id',
+        'users.career AS user_career',
         'roles.name AS name',
         'roles.function AS function',
         'users.name AS user_name',

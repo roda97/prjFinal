@@ -84,4 +84,12 @@ class TeamsController extends Controller
 
         return $teams;
     }
+
+    public function alterToActive($id)
+    {
+        $team = Team::findOrFail($id);
+        $team->isActive = !$team->isActive;
+        $team->save();
+        return new TeamsResource($team);
+    }
 }

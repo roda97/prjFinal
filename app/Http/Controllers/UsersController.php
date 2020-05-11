@@ -73,6 +73,7 @@ return $subset;
             'academic_degree' => 'required',
             //'role' => 'required',
             'department' => 'required',
+            'career' => 'required',
             'institution_name' => 'required|string',
             'science_id' => 'required|string',
         ]);
@@ -113,6 +114,7 @@ return $subset;
             'academic_degree' => 'required',
             //'role' => 'required',
             'department' => 'required',
+            'career' => 'required',
             'institution_name' => 'required|string',
             'science_id' => 'required|string',
         ]);
@@ -126,6 +128,7 @@ return $subset;
         $user->academic_degree = $request->academic_degree;
         //$user->role = $request->role;
         $user->department = $request->department;
+        $user->career = $request->career;
         $user->science_id = $request->science_id;
         $user->created_at = Carbon::now();
         $user->updated_at = Carbon::now();
@@ -157,6 +160,7 @@ return $subset;
             'academic_degree' => 'required',
             //'role' => 'required',
             'department' => 'required',
+            'career' => 'required',
             'institution_name' => 'required|string',
             'science_id' => 'required|string',
         ]);
@@ -225,9 +229,9 @@ return $subset;
                     ->orWhere('email', 'LIKE', "%$search%")
                     ->orWhere('institution_name', 'LIKE', "%$search%")
                     ->orWhere('academic_degree', 'LIKE', "%$search%")
-                    ->orWhere('role', 'LIKE', "%$search%")
                     ->orWhere('science_id', 'LIKE', "%$search%")
-                    ->orWhere('department', 'LIKE', "%$search%");
+                    ->orWhere('department', 'LIKE', "%$search%")
+                    ->orWhere('career', 'LIKE', "%$search%");
             })->get();
         } else {
             $users = User::all();

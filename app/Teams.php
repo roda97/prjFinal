@@ -11,6 +11,7 @@ class Teams extends Model
         'keywords',
         'scientific_domains',
         'application_domains',
+        'isActive',
         'updated_at'
     ];
 

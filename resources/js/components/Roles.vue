@@ -41,74 +41,6 @@
        <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Effective Member Table</h3>
-              </div>
-              <!-- /.card-header Full Member -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
-                  <tbody><tr>
-                    <th>User ID</th>
-                    <th>User Name</th>
-                    <th>Role Name</th>
-                    <th>Role Function</th>
-                    <th>Actions</th>
-                  </tr>               
-                  <tr v-for="memberRole in memberRoles" :key="memberRole.id">            
-                    <td v-if= "memberRole['name'] == 'Effective Member'">{{ memberRole.user_id }}</td>
-                    <td v-if= "memberRole['name'] == 'Effective Member'">{{ memberRole.user_name }}</td>
-                    <td v-if= "memberRole['name'] == 'Effective Member'">{{ memberRole.name }}</td>
-                    <td v-if= "memberRole['name'] == 'Effective Member'">{{ memberRole.function }}</td>
-                    <td v-if= "memberRole['name'] == 'Effective Member'">
-                        <a href="#" @click="deleteMember(memberRole.row_id)">
-                            <i class ="fa fa-trash red"></i>
-                        </a>
-                    </td>
-                  </tr>
-                </tbody></table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          </div>
-          <div class="row mt-5">
-       <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Integrated Member Table</h3>
-              </div>
-              <!-- /.card-header Full Member -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
-                  <tbody><tr>
-                    <th>User ID</th>
-                    <th>User Name</th>
-                    <th>Role Name</th>
-                    <th>Role Function</th>
-                    <th>Actions</th>
-                  </tr>               
-                  <tr v-for="memberRole in memberRoles" :key="memberRole.id">            
-                    <td v-if= "memberRole['name'] == 'Integrated Member'">{{ memberRole.user_id }}</td>
-                    <td v-if= "memberRole['name'] == 'Integrated Member'">{{ memberRole.user_name }}</td>
-                    <td v-if= "memberRole['name'] == 'Integrated Member'">{{ memberRole.name }}</td>
-                    <td v-if= "memberRole['name'] == 'Integrated Member'">{{ memberRole.function }}</td>
-                    <td v-if= "memberRole['name'] == 'Integrated Member'">
-                        <a href="#" @click="deleteMember(memberRole.row_id)">
-                            <i class ="fa fa-trash red"></i>
-                        </a>
-                    </td>
-                  </tr>
-                </tbody></table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          </div>
-          <div class="row mt-5">
-       <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
                 <h3 class="card-title">External Member Table</h3>
               </div>
               <!-- /.card-header Full Member -->
@@ -127,6 +59,40 @@
                     <td v-if= "memberRole['name'] == 'External Member'">{{ memberRole.name }}</td>
                     <td v-if= "memberRole['name'] == 'External Member'">{{ memberRole.function }}</td>
                     <td v-if= "memberRole['name'] == 'External Member'">
+                        <a href="#" @click="deleteMember(memberRole.row_id)">
+                            <i class ="fa fa-trash red"></i>
+                        </a>
+                    </td>
+                  </tr>
+                </tbody></table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          </div>
+          <div class="row mt-5">
+       <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Collaborator Member Table</h3>
+              </div>
+              <!-- /.card-header Full Member -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <tbody><tr>
+                    <th>User ID</th>
+                    <th>User Name</th>
+                    <th>Role Name</th>
+                    <th>User Career</th>
+                    <th>Actions</th>
+                  </tr>               
+                  <tr v-for="memberRole in memberRoles" :key="memberRole.id">            
+                    <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.user_id }}</td>
+                    <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.user_name }}</td>
+                    <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.name }}</td>
+                    <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.user_career }}</td>
+                    <td v-if= "memberRole['name'] == 'Collaborator Member'">
                         <a href="#" @click="deleteMember(memberRole.row_id)">
                             <i class ="fa fa-trash red"></i>
                         </a>

@@ -29,7 +29,7 @@ class GuzzleController extends Controller
     public function getMyCurriculum($scienceid_from_users)
     {
 
-        $client = new Client(['headers' => ['Accept' => ' application/pdf']]);
+        $client = new Client(['headers' => ['Content-Type' => ' application/pdf']]);
 
         $request = $client->get(
             'https://qa.cienciavitae.pt/api/v1.1/curriculum/'.$scienceid_from_users.'/pdf?attach-xml=false&lang=User%20defined',
@@ -39,7 +39,9 @@ class GuzzleController extends Controller
         
         );
         
-        return $request;
+        $data = $request->getBody()->getContents();
+        
+        return $data;
     }
 
     public function getRemoteCienciaVitaePersonInfo()

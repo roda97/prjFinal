@@ -48,7 +48,7 @@ Route::put('users/edit/{id}', 'UsersController@editUser');//->middleware('can:ad
 Route::get('users/{id}', 'UsersController@getUser');
 Route::get('availableUsers', 'UsersController@availableUsers');
 Route::get('users/roles', 'UsersController@userRoles');
-Route::put('users/alterIsActive/{id}', 'UsersController@alterIsActive');//->middleware('can:admin');
+Route::put('users/c/{id}', 'UsersController@alterIsActive');//->middleware('can:admin');
 Route::get('findUser', 'UsersController@search');
 Route::get('getSciences', 'UsersController@getSciences');
 Route::put('users/promote/{id}', 'UsersController@promote');//->middleware('can:admin');
@@ -93,7 +93,10 @@ Route::get('teams', 'TeamsController@getAll');
 Route::post('teams/create', 'TeamsController@createTeam');//->middleware('can:admin');
 Route::put('teams/edit/{id}', 'TeamsController@editTeam');//->middleware('can:admin');
 Route::delete('teams/delete/{id}', 'TeamsController@deleteTeam');//->middleware('can:admin');
+Route::put('teams/alterToActive/{id}', 'TeamsController@alterToActive');
 Route::get('findTeam', 'TeamsController@search');
+
+Route::post('teamActiveHistory/insertTeamRecord', 'TeamActiveHistoryController@inserTeamRecord');
 
 Route::get('labs', 'LaboratoriesController@getAll');
 Route::post('labs/create', 'LaboratoriesController@createLab');//->middleware('can:admin');

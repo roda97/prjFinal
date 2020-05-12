@@ -48,7 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <router-link to="/scientific" class="brand-link">
-      <img src="./img/ipl.jpg" alt="CIIC Logo" class="brand-image img-circle elevation-3"
+      <img width="400" height="100" src="./img/favicons.png" alt="CIIC Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">CIIC</span>
     </router-link>

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\CienciaVitaeControllers;
 
-use App\CienciaVitaeClasses\CV_Outputs;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\CienciaVitaeResources\CV_OutputsResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
+use App\CienciaVitaeClasses\CV_Outputs;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Http\Resources\CienciaVitaeResources\CV_OutputsResource;
 
 class CV_OutputsController extends Controller
 {
@@ -309,10 +312,19 @@ class CV_OutputsController extends Controller
     {
         $outputs = $this->getAllOutputsAndAuthors();
      
-        $collection = collect($outputs)->sortBy('Publication date')->keyBy('Title')->values()->toArray();
+        $collection = collect($outputs)->sortBy('Publication date')->keyBy('Title')->values();
+        //se eu mudar o número "5" para outro, depois também tenho que alterar o número no vue para o mesmo que colocar aqui, se não, não assume as páginas necessárias
+        $collection = $this->paginate($collection,5); // é o que me permite ter paginação do outro lado, vai para a função paginate de baixo
+        //teve que ser feito separado pois o comando da linha 315 não aceitava paginate no array e tirando o array
 
         return $collection;
 
+    }
+
+    public function paginate($items, $perPage, $page = null, $options = []) { 
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1); 
+        $items = $items instanceof Collection ? $items : Collection::make($items); 
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options); 
     }
 
 }

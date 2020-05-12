@@ -61,8 +61,8 @@
 	        <select name="partnerSelected" v-model="form.partnerSelected" class="form-control" 
             :class="{'is-invalid': form.errors.has('partnerSelected')}"> 
            <option :value="''" disabled selected> - Please select a Partner - </option> 
-           <option v-for="partner in partners" :value="partner.partner_id" 
-           :key="partner.partner_id">{{ partner.name }}</option>
+           <!--<option v-for="partner in partners" :value="partner.id" :key="partner.id">{{ partner.name }}</option>-->
+           <option v-for="(partner, i) in partners" :value="partner.id" :key="i">{{ partner.name }}</option>
            </select>
            <has-error :form="form" field="partnerSelected"></has-error>
         </div>
@@ -91,11 +91,11 @@
 
 <script type="text/javascript">
   // Component code (not registered)
-
-	export default{
+  export default {
 		data: function () {
 		return {
         editmode: false,
+        partners: [],
         partners:[],
         projects:[],
         form : new Form({
@@ -136,7 +136,7 @@
       },
       */
 
-      loadPartners(){
+      loadPartnersPerProject(){
           axios.get('api/partners/getPartnersPerProject')
   					.then(response=>{
   					this.partners = response.data.data; 
@@ -170,7 +170,10 @@
         }, */
         create(){
           this.$Progress.start(); 
-          
+          console.log("partnerSelected:")
+            console.log(this.form.partnerSelected);
+            //console.log(form);
+            console.log(this.form);
             this.form.post('api/partners/add', this.form.partnerSelected, this.form.projectSelected)
             .then(response => {
               $('#addNew').modal('hide')
@@ -237,9 +240,11 @@
             })
           })         
           this.loadPartners();
+          this.loadPartnersPerProject();
           this.loadProjects();
           Fire.$on('refresh',()=>{
             this.loadPartners();
+            this.loadPartnersPerProject();
           })
         },  
 	}

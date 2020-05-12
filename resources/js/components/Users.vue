@@ -216,6 +216,7 @@ export default {
                     link.click();
                 })
                 .catch(error => {
+                    console.log(error)
                     Swal.fire({
                         type: "error",
                         title: "Oops...",

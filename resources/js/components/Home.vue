@@ -25,7 +25,7 @@
             </b-card-header>
         </b-card>
     </div>
-/ho
+
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="card">
@@ -86,6 +86,13 @@
             </div>
             <!-- /.card -->
         </div>
+        
+        <!-- Paginação -->
+        <div>
+            <b-pagination  align="left" size="md-c"  v-model="page" :total-rows="total" :per-page="5" @input="removeDuplicatesFromAllOutputsAndAuthors(page)"></b-pagination>
+            <br>            
+        </div>
+        <!-- Fim Paginação -->
     </div>
 
     <!-- ************************* MODAL PARA CADA LINHA INDIVIDUAL ************************* -->
@@ -165,10 +172,12 @@ export default {
     },
     data() {
         return {
+            page:1,
+            total:1,
             lowest_year_of_checking_statistics: '',
             isbulkUpdateFailed: false,
             science_ids: [],
-            cv_outputs: [],
+            cvoutput_s: [],
             text_to_copy: '',
             allOutputsWithoutDuplicateds: [],
             text: `
@@ -215,10 +224,13 @@ export default {
 
         },
 
-        removeDuplicatesFromAllOutputsAndAuthors() {
-            axios.get('api/statistics/removeDuplicatesFromAllOutputsAndAuthors')
+        removeDuplicatesFromAllOutputsAndAuthors(page) {
+            axios.get('api/statistics/removeDuplicatesFromAllOutputsAndAuthors?page='+page)
                 .then(response => {
                     this.allOutputsWithoutDuplicateds = response.data;
+                    //para a paginação:
+                    this.page = response.data.current_page;
+                    this.total = response.data.total;
                 });
         },
 
@@ -248,9 +260,11 @@ export default {
             axios.get('api/cv_outputs/getRemoteCienciaVitaeOutputs_By_Id/' + id)
                 .then(response => {
                     this.cv_outputs = response.data.output;
+                    console.log("output:")
+                    console.log(response.data)
+                     console.log(response.data.output)
                     this.saveCienciaVitaeToLocalDataBase(id);
                     this.removeDuplicatesFromAllOutputsAndAuthors();
-
                     if (this.isbulkUpdateFailed) {
                         Swal.fire({
                             type: 'error',
@@ -447,7 +461,7 @@ export default {
 
     },
     created() {
-        this.removeDuplicatesFromAllOutputsAndAuthors();
+        this.removeDuplicatesFromAllOutputsAndAuthors(1);
         this.getSciences();
         this.checkIfthereAreStatistics();
     },

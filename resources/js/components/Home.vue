@@ -26,6 +26,7 @@
         </b-card>
     </div>
 
+ 
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="card">
@@ -227,7 +228,7 @@ export default {
         removeDuplicatesFromAllOutputsAndAuthors(page) {
             axios.get('api/statistics/removeDuplicatesFromAllOutputsAndAuthors?page='+page)
                 .then(response => {
-                    this.allOutputsWithoutDuplicateds = response.data;
+                    this.allOutputsWithoutDuplicateds = response.data.data;
                     //para a paginação:
                     this.page = response.data.current_page;
                     this.total = response.data.total;

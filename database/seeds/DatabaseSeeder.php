@@ -29,6 +29,9 @@ class DatabaseSeeder extends Seeder
         DB::table('awards')->delete();
         DB::table('mission')->delete();
 
+        //adicionado por mim (Roda):
+        DB::table('about')->delete();
+
         DB::statement('ALTER TABLE users AUTO_INCREMENT = 0');
         DB::statement('ALTER TABLE projects AUTO_INCREMENT = 0');
         DB::statement('ALTER TABLE laboratories AUTO_INCREMENT = 0');
@@ -48,6 +51,9 @@ class DatabaseSeeder extends Seeder
         DB::statement('ALTER TABLE awards AUTO_INCREMENT = 0');
         DB::statement('ALTER TABLE mission AUTO_INCREMENT = 0');
 
+        //adicionado por mim (Roda):
+        DB::statement('ALTER TABLE about AUTO_INCREMENT = 0');
+
         $this->call(RoleSeeder::class);
         //$this->call(CountriesSeeder::class);
         //$this->call(AddressSeeder::class);
@@ -65,6 +71,8 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsSeeder::class);
         $this->call(AwardsSeeder::class);
         $this->call(MissionSeeder::class);
+        //adicionado por mim (Roda)
+        $this->call(AboutSeeder::class);
 
     }
 }

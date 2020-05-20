@@ -32,7 +32,7 @@ class ScientificCommitteeController extends Controller
         return ScientificCommitteeResource::collection($members);
     }
 
-    public function getMembersFront(){
+    /*public function getMembersFront(){
 
         $members= ScientificCommittee::join(
         'members_scientific_committees',
@@ -56,7 +56,7 @@ class ScientificCommitteeController extends Controller
         return ScientificCommitteeResource::collection($members);
      //   return view('users_view', compact('members'));
 
-    }
+    }*/
 
     public function getAll(){
         return ScientificCommitteeResource::collection(ScientificCommittee::all());

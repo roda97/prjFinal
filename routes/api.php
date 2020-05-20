@@ -185,4 +185,8 @@ Route::get('statistics', 'CienciaVitaeControllers\CV_OutputsController@generateS
 Route::get('statistics/countOutputsByType', 'CienciaVitaeControllers\CV_OutputsController@countOutputsByType');
 
 Route::get('statistics/getAllOutputsAndAuthors', 'CienciaVitaeControllers\CV_OutputsController@getAllOutputsAndAuthors');
-Route::get('statistics/removeDuplicatesFromAllOutputsAndAuthors', 'CienciaVitaeControllers\CV_OutputsController@removeDuplicatesFromAllOutputsAndAuthors');
+Route::post('statistics/removeDuplicatesFromAllOutputsAndAuthors', 'CienciaVitaeControllers\CV_OutputsController@removeDuplicatesFromAllOutputsAndAuthors');
+//a rota de cima, era:  "Route::get('statistics/removeDuplicatesFromAllOutputsAndAuthors'" e passou a post para o search manter as páginas do search e não mudar para as totais quando se mudava de página no search
+
+//adicionada
+Route::post('filter/removeDuplicatesFromAllOutputsAndAuthors', 'CienciaVitaeControllers\CV_OutputsController@removeDuplicatesFromAllOutputsAndAuthors');

@@ -249,6 +249,14 @@ class CreateAllTables extends Migration
             $table->dateTime('updated_at');
         });
 
+        //adicionado por mim (Roda):
+        Schema::create('about', function (Blueprint $table) {
+            $table->increments('id');
+            $table->longText('text');
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
+        });
+
         /*Schema::create('patents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
@@ -301,6 +309,8 @@ class CreateAllTables extends Migration
         Schema::dropIfExists('news');
         Schema::dropIfExists('user_roles');
         Schema::dropIfExists('awards');
+        //adicionado por mim, o about, (Roda): 
+        Schema::dropIfExists('about');
         Schema::dropIfExists('patents');
         Schema::dropIfExists('mission');
         Schema::enableForeignKeyConstraints();

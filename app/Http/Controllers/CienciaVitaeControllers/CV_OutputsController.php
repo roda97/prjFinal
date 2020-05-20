@@ -4,6 +4,7 @@ namespace App\Http\Controllers\CienciaVitaeControllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use App\CienciaVitaeClasses\CV_Outputs;
@@ -22,8 +23,9 @@ class CV_OutputsController extends Controller
 
         $output = CV_Outputs::updateOrCreate(
             [
-                //'user_science_id' => auth('api')->user()->science_id,
-                'user_science_id' => null,
+                'user_science_id' => auth('api')->user()->science_id,
+                //'user_science_id' => null,
+                'user_science_id' => $request->user_science_id,
 
                 'id_row_entry' => $request->id_row_entry,
                 'last_modified_date' => $request->last_modified_date,
@@ -308,16 +310,67 @@ class CV_OutputsController extends Controller
         return $outputs;
     }
 
-    public function removeDuplicatesFromAllOutputsAndAuthors()
+    public function removeDuplicatesFromAllOutputsAndAuthors(Request $request)
     {
         $outputs = $this->getAllOutputsAndAuthors();
-     
+        
         $collection = collect($outputs)->sortBy('Publication date')->keyBy('Title')->values();
-        //se eu mudar o número "5" para outro, depois também tenho que alterar o número no vue para o mesmo que colocar aqui, se não, não assume as páginas necessárias
-        $collection = $this->paginate($collection,5); // é o que me permite ter paginação do outro lado, vai para a função paginate de baixo
-        //teve que ser feito separado pois o comando da linha 315 não aceitava paginate no array e tirando o array
+        //return response()->json($collection[0]['Publication date'],402);
+        //for($i=0; $i < sizeof($collection); $i++){
+            if(count($request->except('page'))){
+                //$collections = DB::table('cv_outputs')->get();
+                //return response()->json($collections,402);
 
-        return $collection;
+                if($request->filled('title')){
+                    //$collection = collect($collection)->where('Title', $request->title);
+                    $search = $request->title;
+                    $collection = $collection->filter(function($item) use ($search) {
+                        return stripos($item['Title'],$search) !== false;
+                    });
+                }
+
+                if($request->filled('publication_date')){
+
+                    $collection = $collection->where('Publication date', $request->publication_date);
+                    //return response()->json($collection[$i]['Publication date'],402);
+                    //return response()->json($collections->where($collections[$i]->conference_paper_conference_date_year,'=', $request->publication_date),402);
+                    //return response()->json($collection,402);
+                }
+
+                if ($request->filled('type')){
+                    //$collection->where('type','=', $request->type);
+                    $collection = collect($collection)->where('Type', $request->type);
+                    //return response()->json($collection,402);
+                }
+
+                if ($request->filled('authors')){
+                    //return response()->json(gettype($collection),402);
+                    $search = $request->authors;
+                    $collection = $collection->filter(function($item) use ($search) {
+                        return stripos($item['Authors'],$search) !== false;
+                    });
+                    //$collection = $collection->where('Authors', $request->authors);
+                    //$collection->where('Authors','like', '%' . $request->authors . '%');
+                    //$collection = $collection->where('Authors','LIKE', "%$request->authors%");
+                    //$collection = $collection->where('Authors','LIKE', "% {$request->authors} %");
+                    //return response()->json($collection,402);
+                }
+
+                if ($request->filled('date')){
+                    $collection = $collection->where('date','=', $request->date);
+                }
+                $collection = $this->paginate($collection,5);
+                return $collection;
+            }else{
+                $collection = $this->paginate($collection,5);
+                return $collection;
+            }
+        //}
+            //se eu mudar o número "5" para outro, depois também tenho que alterar o número no vue para o mesmo que colocar aqui, se não, não assume as páginas necessárias
+            //$collection = $this->paginate($collection,5); // é o que me permite ter paginação do outro lado, vai para a função paginate de baixo
+            //teve que ser feito separado pois o comando da linha 315 não aceitava paginate no array e tirando o array
+
+            //return $collection;
 
     }
 

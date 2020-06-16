@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\CienciaVitaeControllers;
 
+use App\MemberRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,7 @@ class CV_OutputsController extends Controller
 
         $output = CV_Outputs::updateOrCreate(
             [
-                'user_science_id' => auth('api')->user()->science_id,
+                //'user_science_id' => auth('api')->user()->science_id,
                 //'user_science_id' => null,
                 'user_science_id' => $request->user_science_id,
 
@@ -254,7 +255,8 @@ class CV_OutputsController extends Controller
         $outputs = [];
 
         for ($i = 0; $i < $number_of_books; $i++) {
-            array_push($outputs, array('Title' => $books[$i]->book_title,
+            array_push($outputs, array('User Science Id' =>$books[$i]->user_science_id,
+                'Title' => $books[$i]->book_title,
                 'Publication date' => $books[$i]->book_publication_year,
                 'Authors' => $books[$i]->book_authors_citation,
                 'Type' => $books[$i]->output_type_value));
@@ -269,7 +271,8 @@ class CV_OutputsController extends Controller
         $number_of_articles = count($articles);
 
         for ($i = 0; $i < $number_of_articles; $i++) {
-            array_push($outputs, array('Title' => $articles[$i]->journal_article_title,
+            array_push($outputs, array('User Science Id' =>$articles[$i]->user_science_id,
+                'Title' => $articles[$i]->journal_article_title,
                 'Publication date' => $articles[$i]->journal_article_publication_date_year,
                 'Authors' => $articles[$i]->journal_article_authors_citation,
                 'Type' => $articles[$i]->output_type_value));
@@ -284,7 +287,8 @@ class CV_OutputsController extends Controller
         $number_of_conferences = count($conferences);
 
         for ($i = 0; $i < $number_of_conferences; $i++) {
-            array_push($outputs, array('Title' => $conferences[$i]->conference_paper_paper_title,
+            array_push($outputs, array('User Science Id' =>$conferences[$i]->user_science_id,
+                'Title' => $conferences[$i]->conference_paper_paper_title,
                 'Publication date' => $conferences[$i]->conference_paper_conference_date_year,
                 'Authors' => $conferences[$i]->conference_paper_authors,
                 'Type' => $conferences[$i]->output_type_value));
@@ -299,7 +303,8 @@ class CV_OutputsController extends Controller
         $number_of_others = count($others);
 
         for ($i = 0; $i < $number_of_others; $i++) {
-            array_push($outputs, array('Title' => $others[$i]->other_output_title,
+            array_push($outputs, array('User Science Id' =>$others[$i]->user_science_id,
+                'Title' => $others[$i]->other_output_title,
                 'Publication date' => $others[$i]->other_output_publication_date_year,
                 'Authors' => $others[$i]->other_output_authors_citation,
                 'Type' => $others[$i]->output_type_value));
@@ -312,11 +317,16 @@ class CV_OutputsController extends Controller
 
     public function removeDuplicatesFromAllOutputsAndAuthors(Request $request)
     {
+
+        $id = auth('api')->user()->id;
+        $comissao_cientifica = MemberRoles::select('role_id')->where('user_id',$id)->get(); //vai buscar o membro com o id igual ao id que está logado
+        $user = auth('api')->user()->science_id;
+        $admin = auth('api')->user()->isAdmin;
+        //return response()->json($comissao_cientifica[0]['role_id'],402);
         $outputs = $this->getAllOutputsAndAuthors();
         
         $collection = collect($outputs)->sortBy('Publication date')->keyBy('Title')->values();
         //return response()->json($collection[0]['Publication date'],402);
-        //for($i=0; $i < sizeof($collection); $i++){
             if(count($request->except('page'))){
                 //$collections = DB::table('cv_outputs')->get();
                 //return response()->json($collections,402);
@@ -356,13 +366,37 @@ class CV_OutputsController extends Controller
                     //return response()->json($collection,402);
                 }
 
-                if ($request->filled('date')){
-                    $collection = $collection->where('date','=', $request->date);
+                if ($request->filled('outputs')){
+                    if($request->outputs == '0'){
+                        $collection = $this->paginate($collection,5);
+                    }
+                    else{
+                        $collection = $collection->where('User Science Id',$user);
+                        $collection = $this->paginate($collection,5);
+                    }
                 }
-                $collection = $this->paginate($collection,5);
+                else{
+                    if($admin == 1 || $comissao_cientifica[0]['role_id'] == 6){
+                        $collection = $this->paginate($collection,5);
+                    }else{
+                        $collection = $collection->where('User Science Id',$user);
+                        $collection = $this->paginate($collection,5);
+                    }
+                }
+                
+                //return response()->json($collection,402);
+
+                
+                
                 return $collection;
             }else{
-                $collection = $this->paginate($collection,5);
+                //return response()->json($collection,402);
+                if($admin == 1 || $comissao_cientifica[0]['role_id'] == 6){
+                    $collection = $this->paginate($collection,5);
+                }else{
+                    $collection = $collection->where('User Science Id',$user);
+                    $collection = $this->paginate($collection,5);
+                }
                 return $collection;
             }
         //}

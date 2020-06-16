@@ -54,6 +54,8 @@ Route::get('getSciences', 'UsersController@getSciences');
 Route::put('users/promote/{id}', 'UsersController@promote');//->middleware('can:admin');
 Route::put('users/demote/{id}', 'UsersController@demote');//->middleware('can:admin');
 
+Route::get('searchPermission', 'UsersController@searchPermission');
+
 
 Route::get('profile', 'UsersController@profile');
 Route::put('profile', 'UsersController@updateProfile');

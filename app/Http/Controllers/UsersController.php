@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UsersResource;
 use App\User;
 use Carbon\Carbon;
+use App\MemberRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\UsersResource;
 
 class UsersController extends Controller
 {
@@ -14,6 +15,20 @@ class UsersController extends Controller
     {
     $this->middleware('auth:api');
     }*/
+
+    public function searchPermission(){
+        $id = auth('api')->user()->id;
+        $comissao_cientifica = MemberRoles::select('role_id')->where('user_id',$id)->get(); //vai buscar o membro com o id igual ao id que está logado
+        //$admin = auth('api')->user()->isAdmin;
+        $aux = 1;
+
+        if($comissao_cientifica[0]['role_id'] == 6){
+            $aux = 0;
+        }else{
+            $aux = 1;
+        }
+        return $aux;
+    }
 
     public function getSciences()
     {
@@ -124,6 +139,7 @@ return $subset;
         $user->name = $request->name;
         $user->password = Hash::make($request['password']);
         $user->email = $request->email;
+        //$user->email_verified_at = Carbon::now(); //adicionado para permitir que um user criado consiga fazer login
         $user->institution_name = $request->institution_name;
         $user->academic_degree = $request->academic_degree;
         //$user->role = $request->role;
@@ -134,6 +150,8 @@ return $subset;
         $user->updated_at = Carbon::now();
 
         $user->save();
+
+        $user->sendEmailVerificationNotification();
 
         return new UsersResource($user);
     }

@@ -1,4 +1,5 @@
 <template>
+
 <div class="container">
     <div v-if="lowest_year_of_checking_statistics != 9999">
         <b-card no-body class="mb-1">
@@ -48,10 +49,13 @@
                                 <td>
                                     <input type="text" name="type" class="form-control" placeholder="Type" v-model="search.type">               
                                 </td> 
-                                <!-- Deixar este depois para o filtro de ver todos os outputs ou só os seus (exclusivo de membros da comissão cientifica)
-                                <td>
-                                    <input type="text" name="date" class="form-control" placeholder="Date" v-model="search.date">               
-                                </td> -->
+                                <td v-if="this.aux == 0">
+                                    <select name="outputs" class="form-control" v-model="search.outputs">
+                                        <option value="" selected disabled> -- Outputs -- </option>
+                                        <option value="0" >All</option>
+                                        <option value="1" >Mine</option>
+                                    </select>             
+                                </td> 
                                 <td>
                                     <button type="submit" class="btn btn-primary" v-on:click="filterOuputsAndAuthors()">Search</button>
                                 </td>  
@@ -219,8 +223,10 @@ export default {
                 title: "",
                 publication_date: "",
                 authors: "",
-                type: ""
+                type: "",
+                outputs:""
             },
+            aux:'',
             page:1,
             total:1,
             lowest_year_of_checking_statistics: '',
@@ -242,6 +248,14 @@ export default {
         }
     },
     methods: {
+
+        searchPermission(){
+            axios.get('api/searchPermission')
+                .then(response => {
+                    this.aux = response.data;
+                    //this.$store.commit("setSearchPermission", response.data);
+                });
+        },
 
         onCopy: function (e) {
             Swal.fire({
@@ -357,7 +371,7 @@ export default {
                 });
         },
 
-        saveCienciaVitaeToLocalDataBase() {
+        saveCienciaVitaeToLocalDataBase(id) {
 
             for (let cv_output of this.cv_outputs) {
 
@@ -367,8 +381,8 @@ export default {
                         url: 'api/cv_save_outputs/saveCienciaVitaeToLocalDataBase',
                         data: {
 
-                            //'user_science_id': null,
-                            'user_science_id': cv_output['cience-id'],
+                            'user_science_id': id,
+
                             'id_row_entry': cv_output['id'],
                             'last_modified_date': cv_output['last-modified-date'],
                             'output_category_value': cv_output['output-category']['value'],
@@ -543,7 +557,9 @@ export default {
         this.checkIfthereAreStatistics();
     },
     mounted(){
+        this.getSciences();
         this.removeDuplicatesFromAllOutputsAndAuthors(1);
+        this.searchPermission();
     }
 }
 </script>

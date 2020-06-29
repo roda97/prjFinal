@@ -54,7 +54,8 @@ class CreateCienciaVitaeTables extends Migration
             $table->string('id_row_entry')->nullable();
             $table->string('privacy_level')->nullable();
             $table->string('source_name')->nullable();
-            $table->string('last_modified_date')->nullable();
+            //$table->string('last_modified_date')->nullable();
+            $table->dateTime('last_modified_date')->nullable();
 
             $table->timestamps();
 

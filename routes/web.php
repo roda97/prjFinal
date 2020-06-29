@@ -37,12 +37,15 @@ Route::get('/teamslist','TeamsController@getTeamsFront');
 
 //Route::get('/', 'IndexController@index');
 
-Auth::routes();
+//Auth::routes();
+Auth::routes(['register' => false, 'verify' => true]);
+Route::group(['middleware' => ['auth', 'verified', 'isActive']], function(){
+    Route::get('/home', 'HomeController@index');
 
-Route::get('/home', 'HomeController@index');
-
-Route::get('{path}', 'HomeController@index')->where('path', '([A-z\/_.\d-]+)?');
+    Route::get('{path}', 'HomeController@index')->where('path', '([A-z\/_.\d-]+)?');
 
 
-Auth::routes();
+   // Auth::routes();
 
+}
+);

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\CienciaVitaeControllers;
 
+use App\MemberRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use App\CienciaVitaeClasses\CV_Outputs;
@@ -23,7 +25,8 @@ class CV_OutputsController extends Controller
         $output = CV_Outputs::updateOrCreate(
             [
                 //'user_science_id' => auth('api')->user()->science_id,
-                'user_science_id' => null,
+                //'user_science_id' => null,
+                'user_science_id' => $request->user_science_id,
 
                 'id_row_entry' => $request->id_row_entry,
                 'last_modified_date' => $request->last_modified_date,
@@ -252,7 +255,8 @@ class CV_OutputsController extends Controller
         $outputs = [];
 
         for ($i = 0; $i < $number_of_books; $i++) {
-            array_push($outputs, array('Title' => $books[$i]->book_title,
+            array_push($outputs, array('User Science Id' =>$books[$i]->user_science_id,
+                'Title' => $books[$i]->book_title,
                 'Publication date' => $books[$i]->book_publication_year,
                 'Authors' => $books[$i]->book_authors_citation,
                 'Type' => $books[$i]->output_type_value));
@@ -267,7 +271,8 @@ class CV_OutputsController extends Controller
         $number_of_articles = count($articles);
 
         for ($i = 0; $i < $number_of_articles; $i++) {
-            array_push($outputs, array('Title' => $articles[$i]->journal_article_title,
+            array_push($outputs, array('User Science Id' =>$articles[$i]->user_science_id,
+                'Title' => $articles[$i]->journal_article_title,
                 'Publication date' => $articles[$i]->journal_article_publication_date_year,
                 'Authors' => $articles[$i]->journal_article_authors_citation,
                 'Type' => $articles[$i]->output_type_value));
@@ -282,7 +287,8 @@ class CV_OutputsController extends Controller
         $number_of_conferences = count($conferences);
 
         for ($i = 0; $i < $number_of_conferences; $i++) {
-            array_push($outputs, array('Title' => $conferences[$i]->conference_paper_paper_title,
+            array_push($outputs, array('User Science Id' =>$conferences[$i]->user_science_id,
+                'Title' => $conferences[$i]->conference_paper_paper_title,
                 'Publication date' => $conferences[$i]->conference_paper_conference_date_year,
                 'Authors' => $conferences[$i]->conference_paper_authors,
                 'Type' => $conferences[$i]->output_type_value));
@@ -297,7 +303,8 @@ class CV_OutputsController extends Controller
         $number_of_others = count($others);
 
         for ($i = 0; $i < $number_of_others; $i++) {
-            array_push($outputs, array('Title' => $others[$i]->other_output_title,
+            array_push($outputs, array('User Science Id' =>$others[$i]->user_science_id,
+                'Title' => $others[$i]->other_output_title,
                 'Publication date' => $others[$i]->other_output_publication_date_year,
                 'Authors' => $others[$i]->other_output_authors_citation,
                 'Type' => $others[$i]->output_type_value));
@@ -308,16 +315,96 @@ class CV_OutputsController extends Controller
         return $outputs;
     }
 
-    public function removeDuplicatesFromAllOutputsAndAuthors()
+    public function removeDuplicatesFromAllOutputsAndAuthors(Request $request)
     {
-        $outputs = $this->getAllOutputsAndAuthors();
-     
-        $collection = collect($outputs)->sortBy('Publication date')->keyBy('Title')->values();
-        //se eu mudar o número "5" para outro, depois também tenho que alterar o número no vue para o mesmo que colocar aqui, se não, não assume as páginas necessárias
-        $collection = $this->paginate($collection,5); // é o que me permite ter paginação do outro lado, vai para a função paginate de baixo
-        //teve que ser feito separado pois o comando da linha 315 não aceitava paginate no array e tirando o array
 
-        return $collection;
+        $id = auth('api')->user()->id;
+        $comissao_cientifica = MemberRoles::select('role_id')->where('user_id',$id)->get(); //vai buscar o membro com o id igual ao id que está logado
+        $user = auth('api')->user()->science_id;
+        $admin = auth('api')->user()->isAdmin;
+        //return response()->json($comissao_cientifica[0]['role_id'],402);
+        $outputs = $this->getAllOutputsAndAuthors();
+        
+        $collection = collect($outputs)->sortBy('Publication date')->keyBy('Title')->values();
+        //return response()->json($collection[0]['Publication date'],402);
+            if(count($request->except('page'))){
+                //$collections = DB::table('cv_outputs')->get();
+                //return response()->json($collections,402);
+
+                if($request->filled('title')){
+                    //$collection = collect($collection)->where('Title', $request->title);
+                    $search = $request->title;
+                    $collection = $collection->filter(function($item) use ($search) {
+                        return stripos($item['Title'],$search) !== false;
+                    });
+                }
+
+                if($request->filled('publication_date')){
+
+                    $collection = $collection->where('Publication date', $request->publication_date);
+                    //return response()->json($collection[$i]['Publication date'],402);
+                    //return response()->json($collections->where($collections[$i]->conference_paper_conference_date_year,'=', $request->publication_date),402);
+                    //return response()->json($collection,402);
+                }
+
+                if ($request->filled('type')){
+                    //$collection->where('type','=', $request->type);
+                    $collection = collect($collection)->where('Type', $request->type);
+                    //return response()->json($collection,402);
+                }
+
+                if ($request->filled('authors')){
+                    //return response()->json(gettype($collection),402);
+                    $search = $request->authors;
+                    $collection = $collection->filter(function($item) use ($search) {
+                        return stripos($item['Authors'],$search) !== false;
+                    });
+                    //$collection = $collection->where('Authors', $request->authors);
+                    //$collection->where('Authors','like', '%' . $request->authors . '%');
+                    //$collection = $collection->where('Authors','LIKE', "%$request->authors%");
+                    //$collection = $collection->where('Authors','LIKE', "% {$request->authors} %");
+                    //return response()->json($collection,402);
+                }
+
+                if ($request->filled('outputs')){
+                    if($request->outputs == '0'){
+                        $collection = $this->paginate($collection,5);
+                    }
+                    else{
+                        $collection = $collection->where('User Science Id',$user);
+                        $collection = $this->paginate($collection,5);
+                    }
+                }
+                else{
+                    if($admin == 1 || $comissao_cientifica[0]['role_id'] == 6){
+                        $collection = $this->paginate($collection,5);
+                    }else{
+                        $collection = $collection->where('User Science Id',$user);
+                        $collection = $this->paginate($collection,5);
+                    }
+                }
+                
+                //return response()->json($collection,402);
+
+                
+                
+                return $collection;
+            }else{
+                //return response()->json($collection,402);
+                if($admin == 1 || $comissao_cientifica[0]['role_id'] == 6){
+                    $collection = $this->paginate($collection,5);
+                }else{
+                    $collection = $collection->where('User Science Id',$user);
+                    $collection = $this->paginate($collection,5);
+                }
+                return $collection;
+            }
+        //}
+            //se eu mudar o número "5" para outro, depois também tenho que alterar o número no vue para o mesmo que colocar aqui, se não, não assume as páginas necessárias
+            //$collection = $this->paginate($collection,5); // é o que me permite ter paginação do outro lado, vai para a função paginate de baixo
+            //teve que ser feito separado pois o comando da linha 315 não aceitava paginate no array e tirando o array
+
+            //return $collection;
 
     }
 

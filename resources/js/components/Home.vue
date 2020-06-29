@@ -1,4 +1,5 @@
 <template>
+
 <div class="container">
     <div v-if="lowest_year_of_checking_statistics != 9999">
         <b-card no-body class="mb-1">
@@ -26,7 +27,52 @@
         </b-card>
     </div>
 
- 
+    <!-- *********************** SEARCH ***********************  -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card">
+
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" name="title" class="form-control" placeholder="Title" v-model="search.title">               
+                                </td> 
+                                <td>
+                                    <input type="text" name="publication_date" class="form-control" placeholder="Publication date" v-model="search.publication_date">               
+                                </td> 
+                                <td>
+                                    <input type="text" name="authors" class="form-control" placeholder="Authors" v-model="search.authors">               
+                                </td>   
+                                <td>
+                                    <input type="text" name="type" class="form-control" placeholder="Type" v-model="search.type">               
+                                </td> 
+                                <td v-if="this.aux == 0">
+                                    <select name="outputs" class="form-control" v-model="search.outputs">
+                                        <option value="" selected disabled> -- Outputs -- </option>
+                                        <option value="0" >All</option>
+                                        <option value="1" >Mine</option>
+                                    </select>             
+                                </td> 
+                                <td>
+                                    <button type="submit" class="btn btn-primary" v-on:click="filterOuputsAndAuthors()">Search</button>
+                                </td>  
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        
+    </div>
+
+    <!-- *********************** FIM SEARCH ***********************  -->
+
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="card">
@@ -173,6 +219,14 @@ export default {
     },
     data() {
         return {
+            search:{
+                title: "",
+                publication_date: "",
+                authors: "",
+                type: "",
+                outputs:""
+            },
+            aux:'',
             page:1,
             total:1,
             lowest_year_of_checking_statistics: '',
@@ -194,6 +248,14 @@ export default {
         }
     },
     methods: {
+
+        searchPermission(){
+            axios.get('api/searchPermission')
+                .then(response => {
+                    this.aux = response.data;
+                    //this.$store.commit("setSearchPermission", response.data);
+                });
+        },
 
         onCopy: function (e) {
             Swal.fire({
@@ -226,7 +288,18 @@ export default {
         },
 
         removeDuplicatesFromAllOutputsAndAuthors(page) {
-            axios.get('api/statistics/removeDuplicatesFromAllOutputsAndAuthors?page='+page)
+            axios.post('api/statistics/removeDuplicatesFromAllOutputsAndAuthors?page='+page, this.search)
+            //antes era axios.get e passou a axios.post porque quando se fazia search e se queria ver as restantes página, aquilo atualizava para as totais como se não houvesse filtros ativos
+                .then(response => {
+                    this.allOutputsWithoutDuplicateds = response.data.data;
+                    //para a paginação:
+                    this.page = response.data.current_page;
+                    this.total = response.data.total;
+                });
+        },
+
+        filterOuputsAndAuthors(){
+            axios.post('api/filter/removeDuplicatesFromAllOutputsAndAuthors', this.search)
                 .then(response => {
                     this.allOutputsWithoutDuplicateds = response.data.data;
                     //para a paginação:
@@ -265,7 +338,7 @@ export default {
                     console.log(response.data)
                      console.log(response.data.output)
                     this.saveCienciaVitaeToLocalDataBase(id);
-                    this.removeDuplicatesFromAllOutputsAndAuthors();
+                    this.removeDuplicatesFromAllOutputsAndAuthors(1);
                     if (this.isbulkUpdateFailed) {
                         Swal.fire({
                             type: 'error',
@@ -298,7 +371,7 @@ export default {
                 });
         },
 
-        saveCienciaVitaeToLocalDataBase() {
+        saveCienciaVitaeToLocalDataBase(id) {
 
             for (let cv_output of this.cv_outputs) {
 
@@ -308,7 +381,8 @@ export default {
                         url: 'api/cv_save_outputs/saveCienciaVitaeToLocalDataBase',
                         data: {
 
-                            'user_science_id': null,
+                            'user_science_id': id,
+
                             'id_row_entry': cv_output['id'],
                             'last_modified_date': cv_output['last-modified-date'],
                             'output_category_value': cv_output['output-category']['value'],
@@ -462,10 +536,31 @@ export default {
 
     },
     created() {
+
+        /*Fire.$on('searching', () => {
+            let query = this.$parent.search;
+            axios.get('api/findUser?q=' + query)
+                .then((response) => {
+                    this.users = response.data;
+                })
+                .catch(() => {
+
+                })
+        })
+        this.loadUsers();
+        //this.getResults();*/
+        Fire.$on('refresh', () => {
+            this.removeDuplicatesFromAllOutputsAndAuthors(1);
+        });
         this.removeDuplicatesFromAllOutputsAndAuthors(1);
         this.getSciences();
         this.checkIfthereAreStatistics();
     },
+    mounted(){
+        this.getSciences();
+        this.removeDuplicatesFromAllOutputsAndAuthors(1);
+        this.searchPermission();
+    }
 }
 </script>
 

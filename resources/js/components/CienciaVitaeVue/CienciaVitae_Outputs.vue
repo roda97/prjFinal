@@ -117,7 +117,7 @@
                             <tr v-for="cv_output in cv_outputs" :key="cv_output.id">
 
                                 <td>
-                                    <span v-if="cv_output['output-type']['value'] == 'Artigo em conferência'">
+                                    <span v-if="cv_output['output-type']['value'] == 'Conference paper'">
                                     <button
                                       type="button"
                                       class="btn btn-success"
@@ -133,7 +133,7 @@
                                       data-target="#copyRowModal">Copy</button>
                                       </span>
 
-                                    <span v-if="cv_output['output-type']['value'] == 'Outra produção'">
+                                    <span v-if="cv_output['output-type']['value'] == 'Other output'">
                                     <button
                                       type="button"
                                       class="btn btn-info"
@@ -148,7 +148,7 @@
                                       data-target="#copyRowModal">Copy</button>
                                       </span>
 
-                                    <span v-if="cv_output['output-type']['value'] == 'Artigo em revista'">
+                                    <span v-if="cv_output['output-type']['value'] == 'Journal article'">
                                     <button
                                       type="button"
                                       class="btn btn-danger"
@@ -163,7 +163,7 @@
                                       data-target="#copyRowModal">Copy</button>
                                       </span>
 
-                                    <span v-if="cv_output['output-type']['value'] == 'Livro'">
+                                    <span v-if="cv_output['output-type']['value'] == 'Book'">
                                     <button
                                       type="button"
                                       class="btn btn-dark"
@@ -406,7 +406,7 @@ export default {
 
             for (let cv_output of this.cv_outputs) {
 
-                if (cv_output['output-type']['value'] == "Artigo em conferência") {
+                if (cv_output['output-type']['value'] == "Conference paper") {
 
                     aux = aux +
                         this.formatRow_conferece(
@@ -421,7 +421,7 @@ export default {
             aux = aux + "\n\n------------------------------ Artigo em revista ---------------------------\n\n";
 
             for (let cv_output of this.cv_outputs) {
-                if (cv_output['output-type']['value'] == "Artigo em revista") {
+                if (cv_output['output-type']['value'] == "Journal article") {
                     aux = aux +
                         this.formatRow_magazine(cv_output['journal-article']['authors']['citation'],
                             cv_output['journal-article']['publication-date']['year'],
@@ -433,7 +433,7 @@ export default {
             aux = aux + "\n\n---------------------------- Livro -----------------------------\n\n";
 
             for (let cv_output of this.cv_outputs) {
-                if (cv_output['output-type']['value'] == "Livro") {
+                if (cv_output['output-type']['value'] == "Book") {
                     aux = aux +
                         this.formatRow_book(cv_output['book']['authors']['citation'],
                             cv_output['book']['publication-year'],
@@ -448,7 +448,7 @@ export default {
 
             for (let cv_output of this.cv_outputs) {
 
-                if (cv_output['output-type']['value'] == "Outra produção") {
+                if (cv_output['output-type']['value'] == "Other output") {
                     aux = aux +
                         this.formatRow_others(cv_output['other-output']['authors']['citation'],
                             cv_output['other-output']['publication-date']['year'],
@@ -473,6 +473,8 @@ export default {
         getLocalDataToCSV() {
             axios.get('api/cv/getLocalCienciaVitae_Outputs')
                 .then(response => {
+                    console.log("Dados:")
+                    console.log(response.data.data)
                     this.data_to_csv = response.data.data;
                 });
         },
@@ -510,7 +512,7 @@ export default {
                             if (this.checkedTypeFilters.includes('Article')) {
                                 if (
                                     (
-                                        (cv_output['output-type']['value'] === "Artigo em revista") &&
+                                        (cv_output['output-type']['value'] === "Journal article") &&
                                         (
                                             (cv_output['journal-article']['publication-date']['year'] >= begin) &&
                                             (cv_output['journal-article']['publication-date']['year'] <= end)
@@ -523,7 +525,7 @@ export default {
                             if (this.checkedTypeFilters.includes('Book')) {
                                 if (
                                     (
-                                        (cv_output['output-type']['value'] === "Livro") &&
+                                        (cv_output['output-type']['value'] === "Book") &&
                                         (
                                             (cv_output['book']['publication-year'] >= begin) &&
                                             (cv_output['book']['publication-year'] <= end)
@@ -536,7 +538,7 @@ export default {
                             if (this.checkedTypeFilters.includes('Conference')) {
                                 if (
                                     (
-                                        (cv_output['output-type']['value'] === "Artigo em conferência") &&
+                                        (cv_output['output-type']['value'] === "Conference paper") &&
                                         (
                                             (cv_output['conference-paper']['conference-date']['year'] >= begin) &&
                                             (cv_output['conference-paper']['conference-date']['year'] <= end)
@@ -549,7 +551,7 @@ export default {
                             if (this.checkedTypeFilters.includes('Other')) {
                                 if (
                                     (
-                                        (cv_output['output-type']['value'] === "Outra produção") &&
+                                        (cv_output['output-type']['value'] === "Other output") &&
                                         (
                                             (cv_output['other-output']['publication-date']['year'] >= begin) &&
                                             (cv_output['other-output']['publication-date']['year'] <= end)
@@ -561,6 +563,11 @@ export default {
                             }
                         }
                         this.cv_outputs = cv_outputs_aux_filtrada.splice(0);
+                        //this.cv_outputs = cv_outputs_aux_full.splice(0);
+                        console.log('teste');
+                        console.log(this.cv_outputs);
+                        console.log(cv_outputs_aux_filtrada)
+                        console.log(cv_outputs_aux_full)
                         //console.log("Resultado da lista filtrada: \n" + JSON.stringify(this.cv_outputs));
                         //console.log("Resultado da lista local p/ CSV: \n" + JSON.stringify(this.data_to_csv));
 
@@ -579,7 +586,6 @@ export default {
         },
 
         exportFilteredCienciaVitaeOutPuts() {
-
             let lista2 = {
                 data: []
             };
@@ -727,9 +733,14 @@ export default {
                 });
 
             }
-
+            //eles tinham: (mas apesar de funcionar, dava erro na consola de string to array)
             this.filtered_data_to_csv = JSON.stringify(lista2);
+            //apesar de a linha de cima dar erro na consola, só assim é que dá para exportar a tabela de filtered para o excel!!
 
+            //então alterei para este para resolver o problema de cima
+            //this.filtered_data_to_csv = Object.keys(lista2.data);//.split(" ");
+            //console.log("filter:");
+            //console.log(this.filtered_data_to_csv);
             //console.log("-------- Lista: \n" + JSON.stringify(lista2));
             //console.log("\n-------- Tipo do filtered_data_to_csv: \n" + this.filtered_data_to_csv.constructor.name);
             //console.log("\n-------- Tipo do data_to_csv: \n" + this.data_to_csv.constructor.name);

@@ -60,24 +60,34 @@
       <form @submit.prevent="editmode ? edit() : create()" >
       <div class="modal-body">
         <div class="form-group">
+          <label>Title</label>
 	        <input type="text" name="title" v-model="form.title" placeholder="Title"
            class="form-control" :class="{'is-invalid': form.errors.has('title')}"> 
           <has-error :form="form" field="title"></has-error>
 	    </div>
         <div class="form-group">
+          <label>Keywords</label>
 	        <textarea type="text" name="keywords" v-model="form.keywords" placeholder="Keywords"
           class="form-control" :class="{'is-invalid': form.errors.has('keywords')}"/> 
           <has-error :form="form" field="keywords"></has-error>
 	    </div>
         <div class="form-group">
+          <label>Scientific Domains</label>
 	        <textarea type="text" name="scientific_domains" v-model="form.scientific_domains" placeholder="Scientific Domains"
           class="form-control" :class="{'is-invalid': form.errors.has('scientific_domains')}"/> 
           <has-error :form="form" field="scientific_domains"></has-error>
 	    </div>
-        <div class="form-group">
+      <div class="form-group">
+        <label>Application Domains</label>
 	        <textarea type="text" name="application_domains" v-model="form.application_domains" placeholder="Application Domains"
           class="form-control" :class="{'is-invalid': form.errors.has('application_domains')}"/> 
           <has-error :form="form" field="application_domains"></has-error>
+	    </div>
+      <div v-show="editmode" v-if="form.isActive==0" class="form-group">
+        <label>Modify Data</label>
+	        <input type="date" name="modifyDate" v-model="form.modifyDate" placeholder="Modify Data"
+          class="form-control" :class="{'is-invalid': form.errors.has('modifyDate')}"/> 
+          <has-error :form="form" field="modifyDate"></has-error>
 	    </div>
       </div>
       <div class="modal-footer">
@@ -106,7 +116,9 @@
             title: '',
             keywords:'',
             scientific_domains:'',
-            application_domains:''
+            application_domains:'',
+            isActive:'',
+            modifyDate:null
             }),
             showMessage: false,
             successMessage: '',
@@ -117,19 +129,27 @@
             axios.put("api/teams/alterToActive/" + team.id)
                 .then(response => {
                     team.isActive = !team.isActive;
-                    this.showSuccess = true;
-                    this.successMessage = 'State of Team Changed!';
                 })
+
+                .then(function (response) {
+                    Swal.fire({
+                        type: 'success',
+                        title: 'State of Team Changed!',
+                        showConfirmButton: true,
+                    })
+                    console.log(response);
+                })
+
                 .catch(erros => {
                     console.log(erros);
                 });
 
-            axios({
+          /*  axios({
                     method: 'post',
-                    url: 'api/teamActiveHistory/insertTeamRecord',
+                    url: 'api/teamsActiveHistory/insertTeamsRecord',
                     data: {
                         'team_id': team.id,
-                        'changed_to': !team.isActive,
+                        'changed_to': !team.isActive
                     },
                 })
 
@@ -149,7 +169,7 @@
                         text: 'Couldnt create history entry!',
                     })
                     console.log(error);
-                });
+                }); */
         },
 
       newModal(){

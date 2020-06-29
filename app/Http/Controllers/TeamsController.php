@@ -28,7 +28,6 @@ class TeamsController extends Controller
             'keywords' => 'required',
             'scientific_domains' => 'required',
             'application_domains' => 'required',
-
         ]);
 
         $team = new Teams(); 
@@ -39,6 +38,7 @@ class TeamsController extends Controller
         $team->application_domains = $request->application_domains;
         $team->created_at = Carbon::now();
         $team->updated_at = Carbon::now();
+        $team->isActive = 1;
 
         $team->save();
 
@@ -53,7 +53,7 @@ class TeamsController extends Controller
             'title' => 'required|string|unique:teams,title,'.$team->id,
             'keywords' => 'required',
             'scientific_domains' => 'required',
-            'application_domains' => 'required',
+            'application_domains' => 'required'
         ]);
 
         $team->update($request->all());
@@ -87,7 +87,7 @@ class TeamsController extends Controller
 
     public function alterToActive($id)
     {
-        $team = Team::findOrFail($id);
+        $team = Teams::findOrFail($id);
         $team->isActive = !$team->isActive;
         $team->save();
         return new TeamsResource($team);

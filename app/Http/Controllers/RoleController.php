@@ -31,6 +31,8 @@ class RoleController extends Controller
         'roles.name AS name',
         'roles.function AS function',
         'users.name AS user_name',
+        'users.email AS user_email',
+        'users.photo AS user_photo',
         'users.career AS user_career',
         'user_roles.role_id')
         ->orderBy('user_roles.user_id')

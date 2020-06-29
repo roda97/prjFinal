@@ -9,56 +9,59 @@ use App\ScientificCommittee;
 
 class ScientificCommitteeController extends Controller
 {
-    public function getMembers(){
-
-        $members= ScientificCommittee::join(
-        'members_scientific_committees',
-        'scientific_committees.id', 
-        '=', 
-        'members_scientific_committees.scientific_committees_id')
-        ->join(
-        'users', 
-        'members_scientific_committees.user_id',
-        '=',
-        'users.id')
-        ->select(
-        'members_scientific_committees.id AS row_id',
-        'members_scientific_committees.user_id',
-        'scientific_committees.start_date',
-        'users.name AS user_name',
-        'members_scientific_committees.scientific_committees_id')
-        ->get();
-
-        return ScientificCommitteeResource::collection($members);
-    }
-
-    public function getMembersFront(){
-
-        $members= ScientificCommittee::join(
-        'members_scientific_committees',
-        'scientific_committees.id', 
-        '=', 
-        'members_scientific_committees.scientific_committees_id')
-        ->leftJoin(
-        'users', 
-        'members_scientific_committees.user_id',
-        '=',
-        'users.id')
-        ->select(
-        'members_scientific_committees.id AS row_id',
-        'members_scientific_committees.user_id',
-        'scientific_committees.start_date',
-        'users.name AS user_name',
-        'users.academic_degree AS degree',
-        'members_scientific_committees.scientific_committees_id AS science_id')
-        ->get();
-
-        return ScientificCommitteeResource::collection($members);
-     //   return view('users_view', compact('members'));
-
-    }
-
     public function getAll(){
         return ScientificCommitteeResource::collection(ScientificCommittee::all());
     }
+
+    public function deletereunion($id)
+    {
+
+        $scientificCommittee = ScientificCommittee::findOrFail($id);
+
+        $scientificCommittee->delete();
+
+        return new ScientificCommitteeResource($scientificCommittee);
+    }
+
+    public function createReunion(Request $request)
+    {
+
+        $request->validate([
+            'room' => 'required',
+            'description' => 'required',
+            'datereunion' => 'required'
+        ]);
+
+        $scientificCommittee = new ScientificCommittee;
+        
+        $scientificCommittee->room = $request->room;
+        $scientificCommittee->description = $request->description;
+        $scientificCommittee->datereunion = $request->datereunion;
+        
+        if ($request->file('ata')){
+            $name = "ata"."_".$scientificCommittee->id.'.'.$request->ata->getClientOriginalExtension();
+            Storage::putFileAs('Atas', $request->ata, $name);
+            Storage::disk("local")->putFileAs("Atas", $request->file('ata'),$name);
+        }
+      
+        $scientificCommittee->save();
+
+        return new ScientificCommitteeResource($scientificCommittee);
+    }
+
+    public function editReunion(Request $request, $id)
+    {
+
+        $scientificCommittee = ScientificCommittee::findOrFail($id);
+
+        $request->validate([
+            'room' => 'required',
+            'description' => 'required',
+            'datereunion' => 'required',
+            
+        ]);
+
+        $scientificCommittee->update($request->all());
+    }
+
 }

@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class ScientificCommittee extends Model 
 {
     protected $fillable = [
-        'start_date',
-        'end_date'
+        'room','description','datereunion', 'ata'
     ];
+    
+    public $timestamps = false;
 
 }

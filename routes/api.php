@@ -70,10 +70,13 @@ Route::get('findNew', 'NewsController@search');
 
 Route::get('members', 'ScientificCommitteeController@getMembers');
 Route::put('members/edit/{id}', 'MembersScientificCommitteeController@editMember');
-Route::post('members/create', 'MembersScientificCommitteeController@createMember');//->middleware('can:admin');
+//Route::post('members/create', 'MembersScientificCommitteeController@createMember');//->middleware('can:admin');
 Route::delete('members/delete/{id}', 'MembersScientificCommitteeController@deleteMember');//->middleware('can:admin');
 Route::get('scientificCommittee', 'ScientificCommitteeController@getAll');
+Route::delete('scientificCommittee/delete/{id}', 'ScientificCommitteeController@deletereunion');
 Route::get('findMember', 'MembersScientificCommitteeController@search');
+Route::post('scientificCommittee/createreunion', 'ScientificCommitteeController@createReunion');
+Route::put('scientificCommittee/edit/{id}', 'ScientificCommitteeController@editReunion');
 
 Route::get('partners', 'PartnersController@getAll');
 Route::post('partners/create', 'PartnersController@createPartner');//->middleware('can:admin');
@@ -186,3 +189,4 @@ Route::get('statistics/countOutputsByType', 'CienciaVitaeControllers\CV_OutputsC
 
 Route::get('statistics/getAllOutputsAndAuthors', 'CienciaVitaeControllers\CV_OutputsController@getAllOutputsAndAuthors');
 Route::get('statistics/removeDuplicatesFromAllOutputsAndAuthors', 'CienciaVitaeControllers\CV_OutputsController@removeDuplicatesFromAllOutputsAndAuthors');
+

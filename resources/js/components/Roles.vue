@@ -25,7 +25,7 @@
                     <td v-if= "memberRole['name'] == 'Full Member'">{{ memberRole.name }}</td>
                     <td v-if= "memberRole['name'] == 'Full Member'">{{ memberRole.function }}</td>
                     <td v-if= "memberRole['name'] == 'Full Member'">
-                        <a href="#" @click="deleteMember(memberRole.row_id)">
+                        <a href="#" @click="deleteMember(memberRole.id)">
                             <i class ="fa fa-trash red"></i>
                         </a>
                     </td>
@@ -59,7 +59,7 @@
                     <td v-if= "memberRole['name'] == 'External Member'">{{ memberRole.name }}</td>
                     <td v-if= "memberRole['name'] == 'External Member'">{{ memberRole.function }}</td>
                     <td v-if= "memberRole['name'] == 'External Member'">
-                        <a href="#" @click="deleteMember(memberRole.row_id)">
+                        <a href="#" @click="deleteMember(memberRole.id)">
                             <i class ="fa fa-trash red"></i>
                         </a>
                     </td>
@@ -93,7 +93,7 @@
                     <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.name }}</td>
                     <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.user_career }}</td>
                     <td v-if= "memberRole['name'] == 'Collaborator Member'">
-                        <a href="#" @click="deleteMember(memberRole.row_id)">
+                        <a href="#" @click="deleteMember(memberRole.id)">
                             <i class ="fa fa-trash red"></i>
                         </a>
                     </td>

@@ -33,7 +33,7 @@ class MemberRolesController extends Controller
 
     }
 
-    public function deleteMemberRole($id){
+    protected function deleteMemberRole($id){
 
     	$memberRole = MemberRoles::findOrFail($id);
  

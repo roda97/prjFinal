@@ -64,7 +64,6 @@
                             <font color="white">EXPORT FILTERED</font>
 
                         </download-csv>
-                        <button class="btn btn-danger" @click="deleteAll()">DELETE CIIC DATABASE</button>
                         <button class="btn btn-success" @click="saveCienciaVitaeToLocalDataBase()">UPDATE TO CIIC DATABASE</button>
                     </div>
                 </div>
@@ -467,25 +466,6 @@ export default {
                 showConfirmButton: true,
             })
             this.text_to_copy = e.text;
-        },
-
-        deleteAll(){
-            axios.delete('api/delete/AllOutputs')
-            .then(response => {             
-              Swal.fire(
-                'Deleted!',
-                'All deleted.',
-                'success'
-              )
-              Fire.$emit('refresh');             
-              })
-              .catch(error => {
-              Swal.fire({
-              type: 'error',
-              title: 'Oops...',
-              text: 'Something went wrong!',
-              })
-            });
         },
 
         getLocalDataToCSV() {

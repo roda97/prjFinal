@@ -17,6 +17,18 @@ class CV_Outputs extends Model
         'output_type_value',
         'output_type_code',
 
+        //RELATORIO:
+
+        'report_title',
+        'report_volume',
+        'report_number_of_pages',
+        'report_institutions_institution_institution_name',
+        'report_date_submitted_year', 
+        'report_authoring_role_value',
+        'report_url',
+        'report_authors',
+        //FIM RELATORIO
+
         'journal_article_title',
         'journal_article_publication_date_year',
         'journal_article_publication_location',
@@ -28,17 +40,13 @@ class CV_Outputs extends Model
         'book_publication_location_country',
         'book_publisher',
         'book_url',
-
         'book_authors_citation',
 
         'conference_paper_paper_title',
         'conference_paper_conference_date_year',
-        'conference_paper_publication_location_value',
+        'conference_paper_conference_location_value',
         'conference_paper_proceedings_publisher',
         'conference_paper_authors',
-        'conference_paper_conference_date_year',
-        'conference_paper_publication_location_value',
-        'conference_paper_proceedings_publisher',
         'other_output_title',
         'other_output_url',
         'other_output_authors_citation',

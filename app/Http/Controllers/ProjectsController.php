@@ -29,6 +29,7 @@ class ProjectsController extends Controller
 
         $project = new Project(); 
 
+        $project->user_id = auth('api')->user()->id;
         $project->title = $request->title;
         $project->abstract = $request->abstract;
         $project->total_budget = $request->total_budget;

@@ -733,14 +733,31 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name'              => 'Marcelo2',
+            'name'              => 'Marcelo',
             'password'          => bcrypt('123456789'),
-            'email'             => 'marcelo2@gmail.com',
+            'email'             => 'marcelo@gmail.com',
             'email_verified_at' => date('Y-m-d H:i:s'),
             'institution_name'  => null,
             'academic_degree'   => 'Master of Science',
             'department'        => null,
             'science_id'        => 'AB1C-1F7A-8061',
+            'photo'             => 'man.png',
+            'remember_token'    => str_random(10),
+            'created_at'        => date('Y-m-d H:i:s'),
+            'updated_at'        => date('Y-m-d H:i:s'),
+            'isActive'          => true,
+            'isAdmin'          => false
+        ]);
+
+        DB::table('users')->insert([
+            'name'              => 'Tânia Roda',
+            'password'          => bcrypt('123456'),
+            'email'             => '2150702@my.ipleiria.pt',
+            'email_verified_at' => date('Y-m-d H:i:s'),
+            'institution_name'  => 'IPL',
+            'academic_degree'   => 'Master of Science',
+            'department'        => 'Engenharia Informática',
+            'science_id'        => 'D816-F928-EFD7',
             'photo'             => 'man.png',
             'remember_token'    => str_random(10),
             'created_at'        => date('Y-m-d H:i:s'),

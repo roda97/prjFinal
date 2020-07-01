@@ -68,6 +68,10 @@ class UserRolesSeeder extends Seeder
             array('user_id' => 40, 'role_id' => 4, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')),
             array('user_id' => 41, 'role_id' => 4, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')),
             array('user_id' => 42, 'role_id' => 4, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')),
+
+            ##Tânia Roda
+            //id 43 é a conta do marcelo
+            array('user_id' => 44, 'role_id' => 4, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')),
         );
         DB::table('user_roles')->insert($user_roles);
     }

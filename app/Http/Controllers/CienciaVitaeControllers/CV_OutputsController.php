@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Schema;
 use App\CienciaVitaeClasses\CV_Outputs;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Resources\CienciaVitaeResources\CV_OutputsResource;
@@ -19,8 +20,15 @@ class CV_OutputsController extends Controller
         return CV_OutputsResource::collection(CV_Outputs::all());
     }
 
+    public function deleteDadosDatabase($id){
+        $output = CV_Outputs::where('user_science_id' , $id)->delete();
+
+        return 1;
+    }
+
     public function saveCienciaVitaeToLocalDataBase(Request $request)
     {
+        //$output = CV_Outputs::where('user_science_id' , $request->user_science_id)->delete();
 
         $output = CV_Outputs::updateOrCreate(
             [
@@ -34,6 +42,18 @@ class CV_OutputsController extends Controller
                 'output_category_code' => $request->output_category_code,
                 'output_type_value' => $request->output_type_value,
                 'output_type_code' => $request->output_type_code,
+
+                //RELATORIO:
+
+                'report_title' => $request->report_title,
+                'report_volume' => $request->report_volume,
+                'report_number_of_pages' => $request->report_number_of_pages,
+                'report_institutions_institution_institution_name' => $request->report_institutions_institution_institution_name,
+                'report_date_submitted_year' => $request->report_date_submitted_year, 
+                'report_authoring_role_value' => $request->report_authoring_role_value,
+                'report_url' => $request->report_url,
+                'report_authors' => $request->report_authors, 
+                //FIM RELATORIO
 
                 'journal_article_title' => $request->journal_article_title,
                 'journal_article_publication_date_year' => $request->journal_article_publication_date_year,
@@ -51,7 +71,7 @@ class CV_OutputsController extends Controller
 
                 'conference_paper_paper_title' => $request->conference_paper_paper_title,
                 'conference_paper_conference_date_year' => $request->conference_paper_conference_date_year,
-                'conference_paper_publication_location_value' => $request->conference_paper_publication_location_value,
+                'conference_paper_conference_location_value' => $request->conference_paper_conference_location_value,
                 'conference_paper_proceedings_publisher' => $request->conference_paper_proceedings_publisher,
                 'conference_paper_authors' => $request->conference_paper_authors,
 
@@ -309,6 +329,22 @@ class CV_OutputsController extends Controller
                 'Authors' => $others[$i]->other_output_authors_citation,
                 'Type' => $others[$i]->output_type_value));
         }
+
+        //----------- relatorio
+
+        $relatorios = CV_Outputs::
+            where('output_type_code', '=', "P115") // relatorios
+            ->get();
+        
+        $number_of_relatorios = count($relatorios);
+
+        for ($i = 0; $i < $number_of_relatorios; $i++) {
+            array_push($outputs, array('User Science Id' =>$relatorios[$i]->user_science_id,
+                'Title' => $relatorios[$i]->report_title,
+                'Publication date' => $relatorios[$i]->report_date_submitted_year,
+                'Authors' => $relatorios[$i]->report_authors,
+                'Type' => $relatorios[$i]->output_type_value));
+        }    
 
         //$json = json_encode($outputs);
 

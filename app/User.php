@@ -41,4 +41,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function roles()
+    {
+        return $this->hasMany('App\MemberRoles', 'user_id');
+    }
+
+    public function awards()
+    {
+        return $this->hasMany('App\Award', 'user_id');
+    }
+
 }

@@ -51,11 +51,14 @@ Route::get('users/roles', 'UsersController@userRoles');
 Route::put('users/c/{id}', 'UsersController@alterIsActive');//->middleware('can:admin');
 Route::get('findUser', 'UsersController@search');
 Route::get('getSciences', 'UsersController@getSciences');
+
+Route::get('getScienceUserAuthenticated', 'UsersController@getScienceUserAuthenticated');
+
 Route::put('users/promote/{id}', 'UsersController@promote');//->middleware('can:admin');
 Route::put('users/demote/{id}', 'UsersController@demote');//->middleware('can:admin');
 
 Route::get('searchPermission', 'UsersController@searchPermission');
-
+Route::get('searchPermissionAwardsAndProjects', 'UsersController@searchPermissionAwardsAndProjects');
 
 Route::get('profile', 'UsersController@profile');
 Route::put('profile', 'UsersController@updateProfile');
@@ -170,6 +173,8 @@ Route::post('cv_save_authors/saveCienciaVitaeToLocalDataBase', 'CienciaVitaeCont
 Route::post('cv_save_citations/saveCienciaVitaeToLocalDataBase', 'CienciaVitaeControllers\CV_CitationController@saveCienciaVitaeToLocalDataBase');
 Route::post('cv_save_groups/saveCienciaVitaeToLocalDataBase', 'CienciaVitaeControllers\CV_GroupsController@saveCienciaVitaeToLocalDataBase');
 Route::post('cv_save_employments/saveCienciaVitaeToLocalDataBase', 'CienciaVitaeControllers\CV_EmploymentController@saveCienciaVitaeToLocalDataBase');
+
+Route::delete('cv_outputs/deleteDadosDatabase/{id}', 'CienciaVitaeControllers\CV_OutputsController@deleteDadosDatabase');
 
 // ********** DATA FOR STATISTICS ********** //
 

@@ -66,7 +66,7 @@
 
                         </download-csv>
 
-                        <button class="btn btn-success" @click="saveCienciaVitaeToLocalDataBase()">UPDATE TO CIIC DATABASE</button>
+                        <button class="btn btn-success" @click="updateToCIICDatabase()">UPDATE TO CIIC DATABASE</button>
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -113,11 +113,19 @@
                                 <th>Other Output(Identifier Relationship Type Code)</th>
                                 <th>Other Output(Identifier Relationship Type Value)</th>
                                 <th>Publication Date(Year)</th>
+                                <th>Report(Title)</th>
+                                <th>Report(Volume)</th>
+                                <th>Report(Number Of Pages)</th>
+                                <th>Report(Institution Name)</th>
+                                <th>Report(Publication Year)</th>
+                                <th>Report(Authoring Role)</th>
+                                <th>Report(URL)</th>
+                                <th>Report(Authors)</th>
                             </tr>
                             <tr v-for="cv_output in cv_outputs" :key="cv_output.id">
 
                                 <td>
-                                    <span v-if="cv_output['output-type']['value'] == 'Conference paper'">
+                                    <span v-if="cv_output['output-type']['value'] == 'Conference paper' || cv_output['output-type']['value'] == 'Artigo em conferência'">
                                     <button
                                       type="button"
                                       class="btn btn-success"
@@ -126,14 +134,14 @@
                                         cv_output['conference-paper']['authors']['citation'],
                                         cv_output['conference-paper']['conference-date']['year'],
                                         cv_output['conference-paper']['paper-title'],
-                                        cv_output['conference-paper']['publication-location']['country']['value'],
+                                        cv_output['conference-paper']['conference-location'] ? cv_output['conference-paper']['conference-location']['country']['value'] : null,
                                         cv_output['conference-paper']['proceedings-publisher']
                                       )"
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
                                       </span>
 
-                                    <span v-if="cv_output['output-type']['value'] == 'Other output'">
+                                    <span v-if="cv_output['output-type']['value'] == 'Other output' || cv_output['output-type']['value'] == 'Outra produção'">
                                     <button
                                       type="button"
                                       class="btn btn-info"
@@ -148,7 +156,7 @@
                                       data-target="#copyRowModal">Copy</button>
                                       </span>
 
-                                    <span v-if="cv_output['output-type']['value'] == 'Journal article'">
+                                    <span v-if="cv_output['output-type']['value'] == 'Journal article' || cv_output['output-type']['value'] == 'Artigo em revista'">
                                     <button
                                       type="button"
                                       class="btn btn-danger"
@@ -163,7 +171,7 @@
                                       data-target="#copyRowModal">Copy</button>
                                       </span>
 
-                                    <span v-if="cv_output['output-type']['value'] == 'Book'">
+                                    <span v-if="cv_output['output-type']['value'] == 'Book' || cv_output['output-type']['value'] == 'Livro'" >
                                     <button
                                       type="button"
                                       class="btn btn-dark"
@@ -172,9 +180,26 @@
                                         cv_output['book']['authors']['citation'],
                                         cv_output['book']['publication-year'],
                                         cv_output['book']['title'],
-                                        cv_output['book']['publication-location']['country']['value'],
+                                        cv_output['book']['publication-location'] ? cv_output['book']['publication-location']['country']['value'] : null,
                                         cv_output['book']['publisher'],
                                         cv_output['book']['url']
+                                      )"
+                                      data-toggle="modal"
+                                      data-target="#copyRowModal">Copy</button>
+                                      </span>
+
+                                    <span v-if="cv_output['output-type']['value'] == 'Report' || cv_output['output-type']['value'] == 'Relatório'">
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary"
+                                      @click="text_to_copy = 
+                                      formatRow_report(
+                                        cv_output['report']['authors']['citation'],
+                                        cv_output['report']['date-submitted']['year'],
+                                        cv_output['report']['report-title'],
+                                        cv_output['report']['institutions'] ? cv_output['report']['institutions']['institution'][0]['institution-name'] : null,
+                                        cv_output['report']['authoring-role'] ? cv_output['report']['authoring-role']['value'] : null,
+                                        cv_output['report']['url']
                                       )"
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
@@ -205,8 +230,9 @@
                                 <td><span v-if="cv_output['journal-article']">{{ cv_output['journal-article']['publication-date']['year'] }}</span>
                                     <span style="color:red" v-else><b>No Journal Article</b></span>
                                 </td>
-                                <td><span v-if="cv_output['journal-article']">{{ cv_output['journal-article']['publication-location']['value'] }}</span>
-                                    <span style="color:red" v-else><b>No Journal Article</b></span>
+                                <td><span v-if="cv_output['journal-article'] && cv_output['journal-article']['publication-location'] == null">-</span>
+                                    <span v-if="cv_output['journal-article'] && cv_output['journal-article']['publication-location']">{{ cv_output['journal-article']['publication-location']['value'] }}</span>
+                                    <span style="color:red" v-if="cv_output['journal-article'] == null"><b>No Journal Article</b></span>
                                 </td>
                                 <td><span v-if="cv_output['journal-article']">{{ cv_output['journal-article']['url'] }}</span>
                                     <span style="color:red" v-else><b>No Journal Article</b></span>
@@ -220,8 +246,9 @@
                                 <td><span v-if="cv_output['book']">{{ cv_output['book']['publication-year'] }}</span>
                                     <span style="color:red" v-else><b>No Book</b></span>
                                 </td>
-                                <td><span v-if="cv_output['book']">{{ cv_output['book']['publication-location']['country']['value'] }}</span>
-                                    <span style="color:red" v-else><b>No Book</b></span>
+                                <td><span v-if="cv_output['book'] && cv_output['book']['publication-location'] == null">-</span>
+                                    <span v-if="cv_output['book'] && cv_output['book']['publication-location']">{{ cv_output['book']['publication-location']['country']['value'] }}</span>
+                                    <span style="color:red" v-if="cv_output['book'] == null"><b>No Book</b></span>
                                 </td>
                                 <td><span v-if="cv_output['book']">{{ cv_output['book']['publisher'] }}</span>
                                     <span style="color:red" v-else><b>No Book</b></span>
@@ -232,15 +259,15 @@
                                 <td><span v-if="cv_output['book']">{{ cv_output['book']['authors']['citation'] }}</span>
                                     <span style="color:red" v-else><b>No Book</b></span>
                                 </td>
-
                                 <td><span v-if="cv_output['conference-paper']">{{ cv_output['conference-paper']['paper-title'] }}</span>
                                     <span style="color:red" v-else><b>No Conference Paper</b></span>
                                 </td>
                                 <td><span v-if="cv_output['conference-paper']">{{ cv_output['conference-paper']['conference-date']['year'] }}</span>
                                     <span style="color:red" v-else><b>No Conference Paper</b></span>
                                 </td>
-                                <td><span v-if="cv_output['conference-paper']">{{ cv_output['conference-paper']['publication-location']['value'] }}</span>
-                                    <span style="color:red" v-else><b>No Conference Paper</b></span>
+                                <td><span v-if="cv_output['conference-paper'] && cv_output['conference-paper']['conference-location'] == null">-</span>
+                                    <span v-if="cv_output['conference-paper'] && cv_output['conference-paper']['conference-location']">{{ cv_output['conference-paper']['conference-location']['country']['value'] }}</span>
+                                    <span style="color:red" v-if="cv_output['conference-paper'] == null"><b>No Conference Paper </b></span>
                                 </td>
                                 <td><span v-if="cv_output['conference-paper']">{{ cv_output['conference-paper']['proceedings-publisher'] }}</span>
                                     <span style="color:red" v-else><b>No Conference Paper</b></span>
@@ -274,6 +301,33 @@
                                 </td>
                                 <td><span v-if="cv_output['other-output']">{{ cv_output['other-output']['publication-date']['year']}}</span>
                                     <span style="color:red" v-else><b>No Output Publication Date</b></span>
+                                </td>
+                                <td><span v-if="cv_output['report']">{{ cv_output['report']['report-title'] }}</span>
+                                    <span style="color:red" v-else><b>No Report</b></span>
+                                </td>
+                                <td><span v-if="cv_output['report']">{{ cv_output['report']['volume'] }}</span>
+                                    <span style="color:red" v-else><b>No Report</b></span>
+                                </td>
+                                <td><span v-if="cv_output['report']">{{ cv_output['report']['number-of-pages'] }}</span>
+                                    <span style="color:red" v-else><b>No Report</b></span>
+                                </td>
+                                <td><span v-if="cv_output['report'] && cv_output['report']['institutions'] == null">-</span>
+                                    <span v-if="cv_output['report'] && cv_output['report']['institutions']">{{ cv_output['report']['institutions']['institution'][0]['institution-name'] }}</span>
+                                    <span style="color:red" v-if="cv_output['report'] == null"><b>No Report</b></span>
+                                </td>
+                                <td><span v-if="cv_output['report']">{{ cv_output['report']['date-submitted']['year'] }}</span>
+                                    <span style="color:red" v-else><b>No Report</b></span>
+                                </td>
+                                <td><span v-if="cv_output['report'] && cv_output['report']['authoring-role'] == null">-</span>
+                                    <span v-if="cv_output['report'] && cv_output['report']['authoring-role']">{{ cv_output['report']['authoring-role']['value'] }}</span>
+                                    <span style="color:red" v-if="cv_output['report'] == null"><b>No Report</b></span>
+                                </td>
+
+                                <td><span v-if="cv_output['report']">{{ cv_output['report']['url'] }}</span>
+                                    <span style="color:red" v-else><b>No Report</b></span>
+                                </td>
+                                <td><span v-if="cv_output['report']">{{ cv_output['report']['authors']['citation'] }}</span>
+                                    <span style="color:red" v-else><b>No Report</b></span>
                                 </td>
 
                                 <td>
@@ -361,6 +415,7 @@ export default {
 
     data: function () {
         return {
+            userAuthenticated: '',
             isbulkUpdateFailed: false,
             checkedTypeFilters: [],
             cv_outputs: [],
@@ -384,21 +439,52 @@ export default {
 
     methods: {
 
-        formatRow_conferece(authors, year, paper_title, country, proceedings_publisher) {
-            return authors + ". " + year + ".\n" + '"' + paper_title + '". ' + country + ": " + proceedings_publisher;
+        formatRow_report(report_authors, report_date_year, report_title, report_instituition_name, report_authoring_role, report_url){
+            return (report_authors ? report_authors + ". " : '') +  
+            (report_date_year ? report_date_year + ". " : '') + 
+            (report_title ? report_title + ". " : '') + 
+            (report_instituition_name ? report_instituition_name + ". " : '') + 
+            (report_authoring_role ? report_authoring_role + ". " : '') + 
+            (report_url ? report_url + ". " : '');
+        /*'report_title',
+        'report_volume',
+        'report_number_of_pages',
+        report_institutions_institution_institution_name
+        'report_date_submitted_year', //VER SE É PRECISO O MES E O DIA -> (report_date_submitted_month e report_date_submitted_day)
+        'report_authoring_role_code',
+        'report_url',
+        'report_authors',*/
+        },
+
+        formatRow_conferece (authors, year, paper_title, country, proceedings_publisher) {
+            return (authors ? authors + ". " : '') + 
+            year + ".\n" + '"' +  
+            (paper_title ? paper_title + '". ' : '') + 
+            (country ? country + ". " : '') + 
+            (proceedings_publisher ? proceedings_publisher : '');
         },
 
         formatRow_others(other_output_authors_citation, other_output_publication_date_year, other_output_title, other_output_url) {
-            return other_output_authors_citation + ". " + other_output_publication_date_year + ". " + other_output_title + ". " + other_output_url;
+            return (other_output_authors_citation ? other_output_authors_citation + ". " : '') + 
+            (other_output_publication_date_year ? other_output_publication_date_year + ". " : '') + 
+            (other_output_title ? other_output_title + ". " : '') + 
+            (other_output_url ? other_output_url : '');
         },
 
         formatRow_magazine(journal_article_authors_citation, journal_article_publication_date_year, journal_article_title, journal_article_url) {
-            return journal_article_authors_citation + ". " +
-                journal_article_publication_date_year + "." + ' "' + journal_article_title + '". ' + journal_article_url + ".";
+            return (journal_article_authors_citation ? journal_article_authors_citation + ". " : '') +
+                journal_article_publication_date_year + "." + ' "' +  
+                (journal_article_title ? journal_article_title + '". ' : '') + 
+                (journal_article_url ? journal_article_url  + "." : '');
         },
 
-        formatRow_book(book_authors_citation, book_publication_year, book_title, book_publication_location_country_value, book_publisher, book_url) {
-            return book_authors_citation + ". " + book_publication_year + ". " + book_title + ". " + book_publication_location_country_value + ": " + book_publisher + ". " + book_url;
+        formatRow_book(book_authors_citation , book_publication_year, book_title, book_publication_location_country_value, book_publisher, book_url) {
+            return (book_authors_citation ? book_authors_citation + ". " : '') +  
+            (book_publication_year ? book_publication_year + ". " : '') + 
+            (book_title ? book_title + ". " : '') + 
+            (book_publication_location_country_value ? book_publication_location_country_value + ". " : '') + 
+            (book_publisher ? book_publisher + ". " : '') + 
+            (book_url ? book_url + ". " : ''); //////////////////////////////////////ACABAR - FAZER ISTO EM TODOOOOOOOOOOOS
         },
 
         formatAllRows() {
@@ -406,14 +492,14 @@ export default {
 
             for (let cv_output of this.cv_outputs) {
 
-                if (cv_output['output-type']['value'] == "Conference paper") {
+                if (cv_output['output-type']['value'] == "Conference paper" || cv_output['output-type']['value'] == "Artigo em conferência") {
 
                     aux = aux +
                         this.formatRow_conferece(
                             cv_output['conference-paper']['authors']['citation'],
                             cv_output['conference-paper']['conference-date']['year'],
                             cv_output['conference-paper']['paper-title'],
-                            cv_output['conference-paper']['publication-location']['country']['value'],
+                            cv_output['conference-paper']['conference-location'] ? cv_output['conference-paper']['conference-location']['country']['value'] : null,
                             cv_output['conference-paper']['proceedings-publisher']
                         ) + "\n\n";
                 }
@@ -421,7 +507,7 @@ export default {
             aux = aux + "\n\n------------------------------ Artigo em revista ---------------------------\n\n";
 
             for (let cv_output of this.cv_outputs) {
-                if (cv_output['output-type']['value'] == "Journal article") {
+                if (cv_output['output-type']['value'] == "Journal article" || cv_output['output-type']['value'] == "Artigo em revista") {
                     aux = aux +
                         this.formatRow_magazine(cv_output['journal-article']['authors']['citation'],
                             cv_output['journal-article']['publication-date']['year'],
@@ -433,12 +519,13 @@ export default {
             aux = aux + "\n\n---------------------------- Livro -----------------------------\n\n";
 
             for (let cv_output of this.cv_outputs) {
-                if (cv_output['output-type']['value'] == "Book") {
+                if (cv_output['output-type']['value'] == "Book" || cv_output['output-type']['value'] == "Livro") {
                     aux = aux +
                         this.formatRow_book(cv_output['book']['authors']['citation'],
                             cv_output['book']['publication-year'],
                             cv_output['book']['title'],
-                            cv_output['book']['publication-location']['country']['value'],
+                            //FAZER ISTO PARA TODOS:
+                            cv_output['book']['publication-location'] ? cv_output['book']['publication-location']['country']['value'] : null,
                             cv_output['book']['publisher'],
                             cv_output['book']['url']
                         ) + "\n\n";
@@ -448,12 +535,27 @@ export default {
 
             for (let cv_output of this.cv_outputs) {
 
-                if (cv_output['output-type']['value'] == "Other output") {
+                if (cv_output['output-type']['value'] == "Other output" || cv_output['output-type']['value'] == "Outra produção") {
                     aux = aux +
                         this.formatRow_others(cv_output['other-output']['authors']['citation'],
                             cv_output['other-output']['publication-date']['year'],
                             cv_output['other-output']['title'],
                             cv_output['other-output']['url']
+                        ) + "\n\n";
+                }
+            }
+            aux = aux + "\n\n-------------------------- Relatório -------------------------------\n\n";
+
+            for (let cv_output of this.cv_outputs) {
+
+                if (cv_output['output-type']['value'] == "Report" || cv_output['output-type']['value'] == "Relatório") {
+                    aux = aux +
+                        this.formatRow_report(cv_output['report']['authors']['citation'],
+                            cv_output['report']['date-submitted']['year'],
+                            cv_output['report']['report-title'],
+                            cv_output['report']['institutions'] ? cv_output['report']['institutions']['institution'][0]['institution-name'] : null,
+                            cv_output['report']['authoring-role'] ? cv_output['report']['authoring-role']['value'] : null,
+                            cv_output['report']['url']
                         ) + "\n\n";
                 }
             }
@@ -512,7 +614,7 @@ export default {
                             if (this.checkedTypeFilters.includes('Article')) {
                                 if (
                                     (
-                                        (cv_output['output-type']['value'] === "Journal article") &&
+                                        (cv_output['output-type']['value'] === "Journal article" || cv_output['output-type']['value'] === "Artigo em revista") &&
                                         (
                                             (cv_output['journal-article']['publication-date']['year'] >= begin) &&
                                             (cv_output['journal-article']['publication-date']['year'] <= end)
@@ -525,7 +627,7 @@ export default {
                             if (this.checkedTypeFilters.includes('Book')) {
                                 if (
                                     (
-                                        (cv_output['output-type']['value'] === "Book") &&
+                                        (cv_output['output-type']['value'] === "Book" || cv_output['output-type']['value'] === "Livro") &&
                                         (
                                             (cv_output['book']['publication-year'] >= begin) &&
                                             (cv_output['book']['publication-year'] <= end)
@@ -538,7 +640,7 @@ export default {
                             if (this.checkedTypeFilters.includes('Conference')) {
                                 if (
                                     (
-                                        (cv_output['output-type']['value'] === "Conference paper") &&
+                                        (cv_output['output-type']['value'] === "Conference paper" || cv_output['output-type']['value'] === "Artigo em conferência") &&
                                         (
                                             (cv_output['conference-paper']['conference-date']['year'] >= begin) &&
                                             (cv_output['conference-paper']['conference-date']['year'] <= end)
@@ -551,7 +653,7 @@ export default {
                             if (this.checkedTypeFilters.includes('Other')) {
                                 if (
                                     (
-                                        (cv_output['output-type']['value'] === "Other output") &&
+                                        (cv_output['output-type']['value'] === "Other output" || cv_output['output-type']['value'] === "Outra produção") &&
                                         (
                                             (cv_output['other-output']['publication-date']['year'] >= begin) &&
                                             (cv_output['other-output']['publication-date']['year'] <= end)
@@ -600,6 +702,46 @@ export default {
                     output_category_code: cv_output['output-category']['code'],
                     output_type_value: cv_output['output-type']['value'],
                     output_type_code: cv_output['output-type']['code'],
+
+                    //RELATÓRIO:
+
+                    report_title: (cv_output['report'] &&
+                            cv_output['report']['report-title']) ?
+                        cv_output['report']['report-title'] : "Not defined.",
+
+                    report_volume: (cv_output['report'] &&
+                            cv_output['report']['volume']) ?
+                        cv_output['report']['volume'] : "Not defined.",
+                        
+                    report_number_of_pages: (cv_output['report'] &&
+                            cv_output['report']['number-of-pages']) ?
+                        cv_output['report']['number-of-pages'] : "Not defined.",
+
+                    report_institutions_institution_institution_name: (cv_output['report'] &&
+                            cv_output['report']['institutions']) &&
+                            cv_output['report']['institutions']['institution'][0] &&
+                            cv_output['report']['institutions']['institution'][0]['institution-name'] ?
+                        cv_output['report']['institutions']['institution'][0]['institution-name'] : "Not defined.",
+
+                    report_date_submitted_year: (cv_output['report'] &&
+                        cv_output['report']['date-submitted'] &&
+                        cv_output['report']['date-submitted']['year']) ?
+                    cv_output['report']['date-submitted']['year'] : "Not defined.",
+
+                    report_authoring_role_value: (cv_output['report'] &&
+                        cv_output['report']['authoring-role'] &&
+                        cv_output['report']['authoring-role']['value']) ?
+                    cv_output['report']['authoring-role']['value'] : "Not defined.",
+
+                    report_url: (cv_output['report'] &&
+                            cv_output['report']['url']) ?
+                        cv_output['report']['url'] : "Not defined.",
+
+                    report_authors: (cv_output['report'] && 
+                            cv_output['report']['authors'] && 
+                            cv_output['report']['authors']['citation']) ?
+                        cv_output['report']['authors']['citation'] : "Not defined.",
+                    //////////////////FIM RELATÓRIO
 
                     journal_article_title: (cv_output['journal-article'] &&
                             cv_output['journal-article']['article-title']) ?
@@ -660,10 +802,11 @@ export default {
                             cv_output['conference-paper']['conference-date']['year']) ?
                         cv_output['conference-paper']['conference-date']['year'] : "Not defined",
 
-                    conference_paper_publication_location_value: (cv_output['conference-paper'] &&
-                            cv_output['conference-paper']['publication-location']['country'] &&
-                            cv_output['conference-paper']['publication-location']['country']['value']) ?
-                        cv_output['conference-paper']['publication-location']['country']['value'] : "Not defined",
+                    conference_paper_conference_location_value: (cv_output['conference-paper'] &&
+                            cv_output['conference-paper']['conference-location'] &&
+                            cv_output['conference-paper']['conference-location']['country'] &&
+                            cv_output['conference-paper']['conference-location']['country']['value']) ?
+                        cv_output['conference-paper']['conference-location']['country']['value'] : "Not defined",
 
                     conference_paper_proceedings_publisher: (cv_output['conference-paper'] &&
                             cv_output['conference-paper']['proceedings-publisher']) ?
@@ -755,23 +898,97 @@ export default {
             this.checkedTypeFilters.push('Article');
             this.checkedTypeFilters.push('Conference');
         },
-        saveCienciaVitaeToLocalDataBase() {
+        updateToCIICDatabase(){
+            axios.get('api/getScienceUserAuthenticated/')
+                .then(response => {
+                    this.userAuthenticated = response.data;
+                    //console.log("teste")
+                    //console.log(response.data)
+                    //console.log(this.userAuthenticated)
+                    
+                axios.delete('api/cv_outputs/deleteDadosDatabase/' + this.userAuthenticated)
+                    .then(response => {
+                        console.log("sucesso!")
+                        
+                        this.saveCienciaVitaeToLocalDataBase(this.userAuthenticated)
+                    })
+                    .catch(function (error) {
+
+                        console.log(error);
+                    })
+                })
+                .catch(function (error) {
+
+                console.log(error);
+                })
+
+        },
+
+        saveCienciaVitaeToLocalDataBase(id) {
+
 
             for (let cv_output of this.cv_outputs) {
 
+
+                    if(cv_output['report']){
+                        console.log("teste2");
+                        console.log(cv_output['report']['institutions']['institution'][0]['institution-name'])
+                    }
+                    
                 axios({
 
                         method: 'post',
                         url: 'api/cv_save_outputs/saveCienciaVitaeToLocalDataBase',
                         data: {
 
-                            'user_science_id': null,
+                            'user_science_id': id,
                             'id_row_entry': cv_output['id'],
                             'last_modified_date': cv_output['last-modified-date'],
                             'output_category_value': cv_output['output-category']['value'],
                             'output_category_code': cv_output['output-category']['code'],
                             'output_type_value': cv_output['output-type']['value'],
                             'output_type_code': cv_output['output-type']['code'],
+
+                            //RELATÓRIO:
+
+                            'report_title': (cv_output['report'] &&
+                                    cv_output['report']['report-title']) ?
+                                cv_output['report']['report-title'] : "Not defined.",
+
+                            'report_volume': (cv_output['report'] &&
+                                    cv_output['report']['volume']) ?
+                                cv_output['report']['volume'] : "Not defined.",
+                                
+                            'report_number_of_pages': (cv_output['report'] &&
+                                    cv_output['report']['number-of-pages']) ?
+                                cv_output['report']['number-of-pages'] : "Not defined.",
+
+                            'report_institutions_institution_institution_name': (cv_output['report'] &&
+                                    cv_output['report']['institutions']) &&
+                                    cv_output['report']['institutions']['institution'] &&
+                                    cv_output['report']['institutions']['institution'][0] &&
+                                    cv_output['report']['institutions']['institution'][0]['institution-name'] ?
+                                cv_output['report']['institutions']['institution'][0]['institution-name'] : "Not defined." ,
+
+                            'report_date_submitted_year': (cv_output['report'] &&
+                                cv_output['report']['date-submitted'] &&
+                                cv_output['report']['date-submitted']['year']) ?
+                            cv_output['report']['date-submitted']['year'] : "Not defined.",
+
+                            'report_authoring_role_value': (cv_output['report'] &&
+                                cv_output['report']['authoring-role'] &&
+                                cv_output['report']['authoring-role']['value']) ?
+                            cv_output['report']['authoring-role']['value'] : "Not defined.",
+
+                            'report_url': (cv_output['report'] &&
+                                    cv_output['report']['url']) ?
+                                cv_output['report']['url'] : "Not defined.",
+
+                            'report_authors': (cv_output['report'] && 
+                                    cv_output['report']['authors'] && 
+                                    cv_output['report']['authors']['citation']) ?
+                                cv_output['report']['authors']['citation'] : "Not defined.",
+                            //////////////////FIM RELATÓRIO
 
                             'journal_article_title': (cv_output['journal-article'] &&
                                     cv_output['journal-article']['article-title']) ?
@@ -832,10 +1049,11 @@ export default {
                                     cv_output['conference-paper']['conference-date']['year']) ?
                                 cv_output['conference-paper']['conference-date']['year'] : "Not defined",
 
-                            'conference_paper_publication_location_value': (cv_output['conference-paper'] &&
-                                    cv_output['conference-paper']['publication-location']['country'] &&
-                                    cv_output['conference-paper']['publication-location']['country']['value']) ?
-                                cv_output['conference-paper']['publication-location']['country']['value'] : "Not defined",
+                            'conference_paper_conference_location_value': (cv_output['conference-paper'] &&
+                                    cv_output['conference-paper']['conference-location'] &&
+                                    cv_output['conference-paper']['conference-location']['country'] &&
+                                    cv_output['conference-paper']['conference-location']['country']['value']) ?
+                                cv_output['conference-paper']['conference-location']['country']['value'] : "Not defined",
 
                             'conference_paper_proceedings_publisher': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['proceedings-publisher']) ?

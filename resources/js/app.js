@@ -8,6 +8,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+//import store from './stores/global-store' 
+
 import { Form, HasError, AlertError } from 'vform'
 import tinymce from 'vue-tinymce-editor'
 import { ToggleButton } from 'vue-js-toggle-button'
@@ -165,8 +167,9 @@ Vue.component(
 );
 
 const app = new Vue({
-    router,
     el: '#app',
+    router,
+    //store,
     data:{
         search:'',
     },

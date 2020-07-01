@@ -773,5 +773,22 @@ class UsersTableSeeder extends Seeder
             'isAdmin'          => false,
             'career'            => 'Professor'
         ]);
+
+        DB::table('users')->insert([
+            'name'              => 'Marcelo2',
+            'password'          => bcrypt('123456789'),
+            'email'             => 'marcelo2@gmail.com',
+            'email_verified_at' => date('Y-m-d H:i:s'),
+            'institution_name'  => null,
+            'academic_degree'   => 'Master of Science',
+            'department'        => null,
+            'science_id'        => 'AB1C-1F7A-8061',
+            'photo'             => 'man.png',
+            'remember_token'    => str_random(10),
+            'created_at'        => date('Y-m-d H:i:s'),
+            'updated_at'        => date('Y-m-d H:i:s'),
+            'isActive'          => true,
+            'isAdmin'          => false
+        ]);
     }
 }

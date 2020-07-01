@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UsersResource;
-use App\Http\Resources\MemberRolesResource;
 use App\User;
 use App\MemberRoles;
 use Carbon\Carbon;
-use App\MemberRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UsersResource;
+use App\Http\Resources\MemberRolesResource;
 
 
 class UsersController extends Controller

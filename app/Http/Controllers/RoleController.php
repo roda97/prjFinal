@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Resources\RoleResource;
 use App\Role;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\RoleResource;
 
 class RoleController extends Controller
 {
@@ -15,68 +16,23 @@ class RoleController extends Controller
 
     public function getRoles(){
 
-        $roles= Role::join(
-        'user_roles',
-        'roles.id', 
-        '=', 
-        'user_roles.role_id')
-        ->join(
-        'users', 
-        'user_roles.user_id',
-        '=',
-        'users.id')
-        ->select(
-        'user_roles.id AS row_id',
-        'user_roles.user_id',
-        'roles.name AS name',
-        'roles.function AS function',
-        'users.name AS user_name',
-        'users.career AS user_career',
-        'user_roles.role_id')
-        ->orderBy('user_roles.user_id')
-        ->get();
-
-        return RoleResource::collection($roles);
+        $roles= DB::select('SELECT t1.* , t3.name AS user_name, t4.name AS name, t3.email AS user_email, t3.photo AS user_photo, t4.function AS function, t3.career AS user_career FROM user_roles t1, users t3, roles t4 WHERE t3.id = t1.user_id AND t4.id = t1.role_id AND t1.created_at = (SELECT MAX(t2.created_at) FROM user_roles t2 WHERE t2.user_id = t1.user_id) order by function DESC');
+    
+        return collect($roles);
     }
 
     public function getRolesFront(){
 
-        $roles= Role::join(
-        'user_roles',
-        'roles.id', 
-        '=', 
-        'user_roles.role_id')
-        ->join(
-        'users', 
-        'user_roles.user_id',
-        '=',
-        'users.id')
-        ->leftJoin(
-            'members_scientific_committees', 
-            'user_roles.user_id',
-            '=',
-            'members_scientific_committees.user_id')
-        ->select(
-        'user_roles.id AS row_id',
-        'user_roles.user_id',
-        'users.career AS user_career',
-        'roles.name AS name',
-        'roles.function AS function',
-        'users.name AS user_name',
-        'users.academic_degree AS degree',
-        'user_roles.role_id',
-        'members_scientific_committees.scientific_committees_id')
-        ->orderBy('user_roles.user_id')
-        ->get();
+        $roles= DB::select('SELECT t1.* , t3.name AS user_name, t4.name AS name, t3.email AS user_email, t3.photo AS user_photo, t4.function AS function, t3.career AS user_career, t3.academic_degree AS degree FROM user_roles t1, users t3, roles t4 WHERE t3.id = t1.user_id AND t4.id = t1.role_id AND t1.created_at = (SELECT MAX(t2.created_at) FROM user_roles t2 WHERE t2.user_id = t1.user_id) order by function DESC');
 
 
-        $roles = collect($roles)->sortBy('user_name')->keyBy('user_name', 'scientific_committees_id')->values();
+        $roles = collect($roles);
 
-        
 
       //  return RoleResource::collection($collection);
        return view('users_view', compact('roles'));
     }
+
 
 
     public function name(String $name){

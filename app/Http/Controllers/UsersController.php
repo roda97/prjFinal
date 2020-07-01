@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UsersResource;
+use App\Http\Resources\MemberRolesResource;
 use App\User;
+use App\MemberRoles;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
 
 class UsersController extends Controller
 {
@@ -112,7 +115,7 @@ return $subset;
             'password' => 'required|min:6',
             'email' => 'required|email|unique:users,email',
             'academic_degree' => 'required',
-            //'role' => 'required',
+            
             'department' => 'required',
             'career' => 'required',
             'institution_name' => 'required|string',
@@ -126,7 +129,7 @@ return $subset;
         $user->email = $request->email;
         $user->institution_name = $request->institution_name;
         $user->academic_degree = $request->academic_degree;
-        //$user->role = $request->role;
+        
         $user->department = $request->department;
         $user->career = $request->career;
         $user->science_id = $request->science_id;
@@ -135,6 +138,13 @@ return $subset;
 
         $user->save();
 
+        $memberRole = new MemberRoles(); 
+
+        $memberRole->user_id = $user->id;
+        $memberRole->role_id = 5;
+
+        $memberRole->save();
+
         return new UsersResource($user);
     }
 
@@ -142,6 +152,10 @@ return $subset;
     {
 
         $user = User::findOrFail($id);
+        
+        $memberRole = MemberRoles::where('user_id', $id);
+ 
+        $memberRole->delete();
 
         $user->delete();
 

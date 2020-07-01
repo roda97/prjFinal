@@ -27,7 +27,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => true
+            'isAdmin'           => true, 
+            'career'            => 'Tecnico'
         ]);
 
         ## ******************** Full Members ******************** ##
@@ -46,7 +47,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -63,7 +65,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -80,7 +83,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -97,7 +101,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -114,7 +119,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
 
@@ -132,7 +138,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -149,7 +156,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -166,7 +174,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -183,7 +192,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -200,7 +210,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -217,7 +228,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
         
         DB::table('users')->insert([
@@ -234,7 +246,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -251,7 +264,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -268,7 +282,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -285,7 +300,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -302,7 +318,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -319,7 +336,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -336,7 +354,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -353,7 +372,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -370,7 +390,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         ## ******************** Collaborator Members ******************** ##
@@ -388,7 +409,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -405,7 +427,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -422,7 +445,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -439,7 +463,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         
@@ -457,7 +482,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -474,7 +500,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -491,7 +518,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -508,7 +536,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -525,7 +554,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -542,7 +572,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -559,7 +590,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -576,7 +608,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -593,7 +626,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -610,7 +644,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -627,7 +662,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
         
         DB::table('users')->insert([
@@ -644,7 +680,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -661,7 +698,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -678,7 +716,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -695,7 +734,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -712,7 +752,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
 
         DB::table('users')->insert([
@@ -729,7 +770,8 @@ class UsersTableSeeder extends Seeder
             'created_at'        => date('Y-m-d H:i:s'),
             'updated_at'        => date('Y-m-d H:i:s'),
             'isActive'          => true,
-            'isAdmin'          => false
+            'isAdmin'          => false,
+            'career'            => 'Professor'
         ]);
     }
 }

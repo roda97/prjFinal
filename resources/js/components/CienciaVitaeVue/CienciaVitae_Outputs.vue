@@ -38,7 +38,6 @@
         <div class="filterButtons" align="right">
             <button class="btn btn-primary" @click="checkAllFilters()">CHECK ALL TYPES</button>
             <button class="btn btn-success" @click="loadOutputsByYearRange(selectedStartYear.begin, selectedEndYear.end)">FILTER</button>
-            <button class="btn btn-danger" @click="loadOutputs(); checkAllFilters()">RESET</button>
         </div>
 
     </div>
@@ -54,7 +53,7 @@
                 </div>
                 -->
                     <div class="card-tools">
-                        <download-csv class="btn btn-dark" :data="this.data_to_csv" name="CIIC_DB_Outputs.csv">
+                        <download-csv class="btn btn-dark" @:data="this.data_to_csv" name="CIIC_DB_Outputs.csv">
 
                             <font color="white">EXPORT CIIC TABLE</font>
 
@@ -65,7 +64,7 @@
                             <font color="white">EXPORT FILTERED</font>
 
                         </download-csv>
-
+                        <button class="btn btn-danger" @click="deleteAll()">DELETE CIIC DATABASE</button>
                         <button class="btn btn-success" @click="saveCienciaVitaeToLocalDataBase()">UPDATE TO CIIC DATABASE</button>
                     </div>
                 </div>
@@ -468,6 +467,25 @@ export default {
                 showConfirmButton: true,
             })
             this.text_to_copy = e.text;
+        },
+
+        deleteAll(){
+            axios.delete('api/delete/AllOutputs')
+            .then(response => {             
+              Swal.fire(
+                'Deleted!',
+                'All deleted.',
+                'success'
+              )
+              Fire.$emit('refresh');             
+              })
+              .catch(error => {
+              Swal.fire({
+              type: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+              })
+            });
         },
 
         getLocalDataToCSV() {

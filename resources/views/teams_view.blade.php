@@ -48,7 +48,7 @@
                 <div class="col-lg-12 text-center">
                     <!--<h2 class="section-heading text-uppercase">Teams</h2>-->
                     <!--<h3 class="section-subheading text-muted">Our scientific teams</h3> -->
-                    @foreach($teams as $team)
+                    @foreach($teams as $team) @if($team->isActive == '1')
                     <div id="team">
                         <h3>{{$team->title}}</h3>
                         <div id="team_body">
@@ -57,6 +57,7 @@
                         <p><b>Application Domains: </b>{{$team->application_domains}}</p>
                         </div>
                     </div>
+                    @endif
                     @endforeach
                 </div>
             </div>

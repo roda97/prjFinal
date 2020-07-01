@@ -211,7 +211,8 @@
       loadMemberRoles(){
           axios.get('api/memberRoles')
   					.then(response=>{
-  					this.memberRoles = response.data.data; 
+            this.memberRoles = response.data;
+    
   				});		
         },
         create(){

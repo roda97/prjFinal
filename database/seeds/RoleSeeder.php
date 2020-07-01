@@ -12,38 +12,34 @@ class RoleSeeder extends Seeder
     public function run()
     {
         DB::table('roles')->insert([
+            'id' => 3,
             'name' => 'External Member',
-            'function' => 'No Function',
+            'function' => '-----------',
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'External Member',
-            'function' => 'Collaborator',
+            'id' => 4,
+            'name' => 'Collaborator Member',
+            'function' => '-----------',
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'Integrated Member',
-            'function' => 'No Function',
-        ]);
-
-        DB::table('roles')->insert([
-            'name' => 'Effective Member',
-            'function' => 'Collaborator',
-        ]);
-
-        DB::table('roles')->insert([
+            'id' => 5,
             'name' => 'Full Member',
-            'function' => 'No Function',
+            'function' => '-----------',
         ]);
 
         DB::table('roles')->insert([
+            'id' => 6,
             'name' => 'Full Member',
-            'function' => 'Scientific Committee',
+            'function' => 'CIIC Coordinating Committee',
         ]);
 
         DB::table('roles')->insert([
+            'id' => 7,
             'name' => 'Full Member',
             'function' => 'CIIC Coordinator',
         ]);
+
     }
 }

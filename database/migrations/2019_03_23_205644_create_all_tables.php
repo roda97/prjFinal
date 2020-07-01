@@ -57,6 +57,8 @@ class CreateAllTables extends Migration
             $table->string('keywords');
             $table->string('scientific_domains');
             $table->string('application_domains');
+            $table->boolean('isActive');
+            $table->date('modifyDate')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
         });
@@ -138,6 +140,7 @@ class CreateAllTables extends Migration
             $table->string('photo')->nullable();
             $table->boolean('isActive')->default(true); // se pertence ao CIIC atualmente
             $table->boolean('isAdmin')->default(false);
+            $table->enum('career', ['Estudante', 'Tecnico', 'Professor']);
             $table->rememberToken();
             $table->timestamps();
         });
@@ -151,7 +154,7 @@ class CreateAllTables extends Migration
             $table->dateTime('updated_at');
         });
 
-        Schema::create('members_scientific_committees', function (Blueprint $table) {
+       Schema::create('members_scientific_committees', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('scientific_committees_id')->unsigned()->nullable();
@@ -162,8 +165,10 @@ class CreateAllTables extends Migration
 
         Schema::create('scientific_committees', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date')->nullable();
+            $table->string('room');
+            $table->string('description');
+            $table->date('datereunion');
+            $table->string('ata');
            // $table->string('year');
         });
 

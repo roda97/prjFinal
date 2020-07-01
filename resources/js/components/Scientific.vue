@@ -4,35 +4,73 @@
        <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Scientific Committee Table</h3>
+                <h3 class="card-title">Reunion Table</h3>
 
                 <div class="card-tools">
-                  <button class ="btn btn-success" @click="newModal">Add new Member</button>
+                  <button class ="btn btn-success" @click="newModal">Add new Reunion</button>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody><tr>
-                    <th>User ID</th>
-                    <th>User Name</th>
+                    <th>File</th>
+                    <th>Room</th>
+                    <th>Description</th>
+                    <th>Date</th>
                     <!--<th>Scientific Committee Start Date</th>-->
                     <th>Actions</th>
                   </tr>               
-                  <tr v-for="member in members" :key="member.id">
-                    <td>{{ member.user_id }}</td>
-                    <td>{{ member.user_name }}</td>
+                  <tr v-for="scientificCommittee in scientificCommittees" :key="scientificCommittee.id">
+                    <td>
+                    <a v-if="scientificCommittee.ata != null" :href="'/storage/Atas/' + scientificCommittee.ata" download >
+                    <i class ="fa fa-file-pdf red fa-3x"></i></a>
+                    <br v-else="">
+                    </td>
+                    <td>{{ scientificCommittee.room }}</td>
+                    <td>{{ scientificCommittee.description }}</td>
+                    <td>{{ scientificCommittee.datereunion }}</td>
                     <!--<td>{{ member.start_date }}</td>-->
                     <td>
                         <!--<a href="#" @click="editModal(member)">
                             <i class ="fa fa-edit blue"></i>
                         </a>
-                        /-->
-                        <a href="#" @click="deleteMember(member.row_id)">
+                         /-->
+                    
+                        <a href="#" @click="deletereunion(scientificCommittee.id)">
                             <i class ="fa fa-trash red"></i>
                         </a>
+                          /
+                         <a href="#" @click="editModal(scientificCommittee)">
+                            <i class ="fa fa-edit blue"></i>
+                        </a> 
+                       
                     </td>
                   </tr>
+                </tbody></table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+           <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Scientific Committee Table</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <tbody><tr>
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                  </tr>        
+                  <tr v-for="memberRole in memberRoles"  :key="memberRole.id" > 
+                   <td v-if="memberRole.user_photo == null && memberRole['name'] == 'Full Member'"><img width="80" v-bind:src="'img/man.png'" ></td>
+                    <td v-if="memberRole.user_photo != null && memberRole['name'] == 'Full Member'"><img width="80" v-bind:src="'img/profile/' + memberRole.user_photo"></td>
+                    <td v-if="memberRole['name'] == 'Full Member'">{{ memberRole.user_name }}</td>
+                    <td v-if="memberRole['name'] == 'Full Member'">{{ memberRole.user_email }}</td>
+                   </tr>
+                 
                 </tbody></table>
               </div>
               <!-- /.card-body -->
@@ -44,8 +82,8 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Add New Member</h5>
-        <h5 class="modal-title" v-show="editmode" id="editLabel">Edit Member</h5>
+        <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Add New Reunion</h5>
+        <h5 class="modal-title" v-show="editmode" id="editLabel">Edit Reunion</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -53,22 +91,25 @@
       <form @submit.prevent="editmode ? edit() : create()" >
       <div class="modal-body">
         <div class="form-group">
-	        <select name="userSelected" v-model="form.userSelected" class="form-control" 
-            :class="{'is-invalid': form.errors.has('userSelected')}"> 
-           <option :value="''" disabled selected> - Please select a User - </option> 
-           <option v-for="user in users" :value="user.id" :key="user.id">{{ user.name }}</option>
-           </select>
-           <has-error :form="form" field="userSelected"></has-error>
-        </div>
-        <!--<div class="form-group">
-	        <select name="committeeSelected" v-model="form.committeeSelected" class="form-control" 
-            :class="{'is-invalid': form.errors.has('committeeSelected')}"> 
-           <option :value="''" disabled selected> - Please select a Scientific Committee - </option> 
-           <option v-for="scientificCommittee in scientificCommittees" :value="scientificCommittee.id" 
-           :key="scientificCommittee.id">{{ scientificCommittee.id }}</option>
-           </select>
-           <has-error :form="form" field="committeeSelected"></has-error>
-        </div>-->
+           <input type="text" name="room" v-model="form.room" placeholder="Room"
+           class="form-control" :class="{'is-invalid': form.errors.has('room')}">
+                <has-error :form="form" field="room"></has-error>
+          </div>
+          <div class="form-group">
+           <input type="text" name="description" v-model="form.description" placeholder="Description"
+           class="form-control" :class="{'is-invalid': form.errors.has('description')}">
+                <has-error :form="form" field="description"></has-error>
+          </div>
+          <div class="form-group">
+           <input type="date" name="datereunion" v-model="form.datereunion" placeholder="Date of Reunion"
+           class="form-control" :class="{'is-invalid': form.errors.has('datereunion')}">
+                <has-error :form="form" field="datereunion"></has-error>
+          </div>
+          <div class="form-group">
+            <input type="file" @change="updateFile" name="ata" placeholder="Meeting Minutes"
+            class="form-control" :class="{'is-invalid': form.errors.has('ata')}">
+                <has-error :form="form" field="ata"></has-error>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -90,14 +131,21 @@
 		data: function () {
 		return {
         editmode: false,
-        members: [],
-        users:[], 
+        attachment: null,
+        memberRoles: [],
+        users:[],
         scientificCommittees:[],
         form : new Form({
             id:'',
-            userSelected:'',
-            committeeSelected:'',
-        }), 
+            room:'',
+            description:'',
+            datereunion:'',
+            ata:'',
+            atab64:'',
+            file_ata:null
+        }),
+        showMessage: false,
+        successMessage: '', 
 		  }
     },
     methods:{
@@ -107,6 +155,26 @@
   					this.scientificCommittees = response.data.data; 
   				});
       },
+      updateFile(e){
+                let file = e.target.files[0];
+                console.log(file.name);
+                this.form.ata = file.name;
+              let reader = new FileReader();
+                if(file['size'] < 2111775){
+                  reader.onloadend = (file)=>{
+                      console.log('RESULT', reader.result);
+                      this.form.atab64 = reader.result;
+                      this.form.file_ata = file;
+                  }
+                  reader.readAsDataURL(file);
+                }else{
+                  Swal.fire({
+                  type: 'error',
+                  title: 'Oops...',
+                  text: 'You are uploading a large file!',
+                  })
+                }
+            },
       loadUsers(){
           axios.get('api/users')
   					.then(response=>{
@@ -119,46 +187,94 @@
         this.form.reset();
         $('#addNew').modal('show');
       },
-      editModal(member){
+      editModal(scientificCommittee){
         this.editmode = true;
         this.form.clear();
         this.form.reset();
         $('#addNew').modal('show');
-        this.form.fill(member);
+        this.form.fill(scientificCommittee);
       },
-      loadMembers(){
-          axios.get('api/members')
+        loadMemberRoles(){
+          axios.get('api/memberRoles')
   					.then(response=>{
-  					this.members = response.data.data; 
-  				});		
+            this.memberRoles = response.data;
+            
+          })
+          .catch((error) =>{
+              console.log("erro roles");
+            });	
         },
-        create(){
-          this.$Progress.start(); 
-          
-            this.form.post('api/members/create', this.form.userSelected, this.form.committeeSelected)
-            .then(response => {
-              $('#addNew').modal('hide')
+         
+         formSubmit(e) {
+                e.preventDefault();
+                let currentObj = this;
+  
+                const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                }
+   
+                let formData = new FormData();
+                formData.append('file', this.file);
+  
+                axios.post('/formSubmit', formData, config)
+                .then(function (response) {
+                    currentObj.success = response.data.success;
+                })
+                .catch(function (error) {
+                    currentObj.output = error;
+                });
+            },
+         
+         create() {
+            this.$Progress.start();
+            this.form.post('api/scientificCommittee/createreunion')
+                .then(response => {
+                    $('#addNew').modal('hide')
 
-              Swal.fire({
-              position: 'top-end',
-              type: 'success',
-              title: 'Scientifc Committee Updated!',
-              showConfirmButton: false,
-              timer: 1500}
-              )
-              this.$Progress.finish();
-              Fire.$emit('refresh');
-              })
-              .catch(error => {
-                toast({
-                  type: 'error',
-                  title: 'Scientifc Committee not updated!',
-                }) 
-              });              
-          this.$Progress.fail();
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'success',
+                        title: 'Reunion created',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    this.$Progress.finish();
+                    Fire.$emit('refresh');
+                })
+                .catch(error => {
+                    toast({
+                        type: 'error',
+                        title: 'Reunion not created',
+                    })
+                });
+            this.$Progress.fail();
         },
-        
-        deleteMember(id){
+        edit() {
+            this.$Progress.start();
+            
+            this.form.put('api/scientificCommittee/edit/' + this.form.id)
+                .then(response => {
+                    $('#addNew').modal('hide')
+                    Swal.fire(
+                        'Edited!',
+                        'Your Reunion has been edited.',
+                        'success'
+                    )
+                    this.$Progress.finish();
+                    Fire.$emit('refresh');
+                })
+                .catch(error => {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                    console.log(error);
+                });
+
+            this.$Progress.fail();
+        }, 
+        deletereunion(id){
           Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -169,11 +285,11 @@
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
           if(result.value){
-            axios.delete('api/members/delete/' + id)
+            axios.delete('api/scientificCommittee/delete/' + id)
               .then(response => {             
               Swal.fire(
                 'Deleted!',
-                'Member has been deleted.',
+                'Reunion has been deleted.',
                 'success'
               )
               Fire.$emit('refresh');             
@@ -197,14 +313,14 @@
               this.members = response.data;
             })
             .catch(() =>{
-
+              
             })
           })
-          this.loadMembers();
           this.loadUsers();
+          this.loadMemberRoles();
           this.loadScientificCommittees();
           Fire.$on('refresh',()=>{
-            this.loadMembers();
+            this.loadScientificCommittees();
           })
         },  
 	}

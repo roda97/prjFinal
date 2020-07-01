@@ -12,8 +12,24 @@ class CommitteeSeeder extends Seeder
     public function run()
     {
         DB::table('scientific_committees')->insert([
-            'start_date' => date('2018-01-01 00:00:00'),
-            'end_date' => date('Y-m-d H:i:s'),
+            'room' => 'AS 1.2',
+            'description' => 'Reuniao sobre o CIIC',
+            'datereunion' => date('2018-01-01 00:00:00'),
+            'ata' => '1593593420_sample.pdf',
+        ]);
+
+        DB::table('scientific_committees')->insert([
+            'room' => 'AS 2.2',
+            'description' => 'Reuniao sobre o  futuro do CIIC',
+            'datereunion' => date('2018-01-01 00:00:00'),
+            'ata' => '1593593420_sample.pdf',
+        ]);
+
+        DB::table('scientific_committees')->insert([
+            'room' => 'AS 1.3',
+            'description' => 'Reuniao sobre metodologias',
+            'datereunion' => date('2018-01-01 00:00:00'),
+            'ata' => '1593593420_sample.pdf',
         ]);
 
         // esta segunda comissao é meramente exemplo para aparecer numa Lista do backoffice

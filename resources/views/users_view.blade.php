@@ -58,7 +58,7 @@
                                     <th>Degree</th>
                                 </tr>
 
-                                @foreach($roles as $role) @if($role->name == 'Full Member' && $role->function == 'CIIC Coordinator' && $role->user_name != 'Admin')
+                                @foreach($roles as $role) @if($role->function == 'CIIC Coordinator' && $role->user_name != 'Admin')
                                 <tr>
                                     <td>{{$role->user_name}}</td>
 
@@ -83,10 +83,6 @@
         </div>
 
 
-
-
-
-
         <div class="container">
         <div class="d-flex justify-content-center">
             <div class="col-md-8">
@@ -102,7 +98,7 @@
                                     <th>Degree</th>
                                 </tr>
 
-                                @foreach($roles as $role) @if($role->name == 'Full Member' && $role->function == 'CIIC Coordinating Committee' && $role->user_name != 'Admin')
+                                @foreach($roles as $role) @if($role->function == 'CIIC Coordinating Committee' && $role->user_name != 'Admin')
                                 <tr>
                                     <td>{{$role->user_name}}</td>
 
@@ -170,7 +166,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="text-center">Collaborator Member</h5>
+                        <h5 class="text-center">Full Member</h5>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover">
@@ -180,7 +176,7 @@
                                     <th>Degree</th>
                                 </tr>
 
-                                @foreach($roles as $role) @if($role->name == 'Collaborator Member' && $role->user_name != 'Admin')
+                                @foreach($roles as $role) @if($role->name == 'Full Member' && $role->user_name != 'Admin')
                                 <tr>
                                     <td>{{$role->user_name}}</td>
 
@@ -209,7 +205,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="text-center">Full Member</h5>
+                            <h5 class="text-center">Collaborator Member</h5>
                         </div>
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover">
@@ -219,7 +215,7 @@
                                         <th>Degree</th>
                                     </tr>
     
-                                    @foreach($roles as $role) @if($role->name == 'Full Member' && $role->user_name != 'Admin')
+                                    @foreach($roles as $role) @if($role->name == 'Collaborator Member' && $role->user_name != 'Admin')
                                     <tr>
                                         <td>{{$role->user_name}}</td>
     

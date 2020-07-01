@@ -320,7 +320,7 @@
     </section>
 
     <!-- Labs -->
-    <section class="bg-light" id="labs">
+    <section class="bg-light" id="portfolio">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -489,6 +489,11 @@
         height: 70%;
         width: 70%;
     }
+
+    .labs-link {
+        height: 70%;
+        width: 70%;
+    }
     
     #mainNav {
         background-color: white;
@@ -570,6 +575,10 @@
     }
     
     .portfolio-hover {
+        background: rgba(61, 66, 71, 0.85) !important;
+    }
+
+    .labs-hover {
         background: rgba(61, 66, 71, 0.85) !important;
     }
     

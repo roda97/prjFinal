@@ -12,7 +12,8 @@ class Teams extends Model
         'scientific_domains',
         'application_domains',
         'isActive',
-        'updated_at'
+        'updated_at',
+        'modifyDate'
     ];
 
 }

@@ -60,5 +60,22 @@ class NewsSeeder extends Seeder
            // 'status' => true,
            'new_img_path' => 'cif.jpg',
         ]);
+
+        DB::table('news')->insert([
+            'author' => 'Marcelo Lima',
+            'title' => 'Remodulação do site do CIIC',
+            'text' => '
+
+            <h2 style="color: #339966;">Mudancas no site do CIIC </h2>
+<p>&nbsp;</p>
+<p>Mudancas</p>
+                       ',
+            'created_at' => date('2020-07-01 00:00:00'),
+            'updated_at' => date('2020-07-01  00:00:00'),
+            'description' => 'Mudancas no site do CIIC',
+           // 'status' => true,
+           'new_img_path' => '9rESitvlFleCp9Z3.png',
+        ]);
+
     }
 }

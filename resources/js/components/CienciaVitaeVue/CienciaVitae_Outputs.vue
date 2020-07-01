@@ -38,7 +38,6 @@
         <div class="filterButtons" align="right">
             <button class="btn btn-primary" @click="checkAllFilters()">CHECK ALL TYPES</button>
             <button class="btn btn-success" @click="loadOutputsByYearRange(selectedStartYear.begin, selectedEndYear.end)">FILTER</button>
-            <button class="btn btn-danger" @click="loadOutputs(); checkAllFilters()">RESET</button>
         </div>
 
     </div>
@@ -54,7 +53,7 @@
                 </div>
                 -->
                     <div class="card-tools">
-                        <download-csv class="btn btn-dark" :data="this.data_to_csv" name="CIIC_DB_Outputs.csv">
+                        <download-csv class="btn btn-dark" @:data="this.data_to_csv" name="CIIC_DB_Outputs.csv">
 
                             <font color="white">EXPORT CIIC TABLE</font>
 

@@ -48,9 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <router-link to="/scientific" class="brand-link">
-      <img width="400" height="100" src="./img/favicons.png" alt="CIIC Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">CIIC</span>
+      <img  src="./img/logo.png" alt="CIIC Logo" >
     </router-link>
 
     <!-- Sidebar -->
@@ -82,7 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <li class="nav-item">
             <router-link to="/home" class="nav-link">
-                <i class="nav-icon fas fa-home red"></i>
+                <i class="nav-icon fas fa-home white"></i>
                 <p>Home</p>
             </router-link>
             </li>
@@ -124,7 +122,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
               <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to ="/labs" class="nav-link">
-                  <i class="fas fa-flask"></i>
+                  <i class="fas fa-laptop"></i>
                   <p>Labs</p>
                 </router-link>
               </li>
@@ -150,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to ="/scientific" class="nav-link">
                   <i class="fas fa-globe"></i>
-                  <p>Scientific Committee</p>
+                  <p>Reunion</p>
                 </router-link>
               </li>
               <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
@@ -344,7 +342,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <li class="nav-item">
               <a class="nav-link" href="./">
-                <i class="fas fa-user-chart"></i>
+                <i class="nav-icon fas fa-university purple"></i>
                   <p>Return to site</p>
               </a>
             </li>

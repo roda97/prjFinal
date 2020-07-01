@@ -153,7 +153,6 @@
 
                       <div class="form-group">
                         <label for="photo" class="col-sm-2 control-label">Photo</label>
-
                         <div class="col-sm-10">
                           <input type="file" @change="updatePhoto" name="photo" classform="form-input ">
                         </div>

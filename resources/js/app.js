@@ -172,10 +172,25 @@ const app = new Vue({
     //store,
     data:{
         search:'',
+        aux:''
     },
     methods:{
         searchit: _.debounce(() => {
             Fire.$emit("searching");
-        },500)
+        },500),
+        
+        searchPermission(){
+            axios.get('api/searchPermission')
+              .then(response => {
+                this.aux = response.data;
+                console.log("awdawd")
+                console.log(this.aux)
+                //this.$store.commit("setSearchPermission", response.data);
+              });
+        },
+    },
+    mounted(){
+        this.searchPermission();
     }
+
 });

@@ -56,19 +56,31 @@
                                 <td>{{ project.id }}</td>
                                 <td>{{ project.title }}</td>
                                 <td>{{ project.abstract }}</td>
-                                <td>{{ project.consortium }}</td>
-                                <td>{{ project.funding }}</td>
-                                <td>{{ project.proponent }}</td>
-                                <td>{{ project.total_budget }}€</td>
-                                <td>{{ project.ciic_budget }}€</td>
+                                <td v-if="project.consortium != null">{{ project.consortium }}</td>
+                                <td v-else>{{ project.consortium }}-</td>
+                                <td v-if="project.funding != null">{{ project.funding }}</td>
+                                <td v-else>{{ project.funding }}-</td>
+                                <td v-if="project.proponent != null">{{ project.proponent }}</td>
+                                <td v-else>{{ project.proponent }}-</td>
+                                <td v-if="project.total_budget != null">{{ project.total_budget }}€</td>
+                                <td v-else>{{ project.total_budget }}-</td>
+                                <td v-if="project.ciic_budget != null">{{ project.ciic_budget }}€</td>
+                                <td v-else>{{ project.ciic_budget }}-</td>
                                 <td>
-                                    <a href="#" @click="editModal(project)">
-                            <i class ="fa fa-edit blue"></i>
-                        </a>
+                                    <a href="#" v-if="aux == 1 || membroComissaoCientifica == 0|| aux == project.user_id" @click="editModal(project)">
+                                        <i class ="fa fa-edit blue"></i>
+                                    </a>
+                                    <a v-if="aux == 1 || membroComissaoCientifica == 0|| aux == project.user_id">
                                     /
-                                    <a href="#" @click="deleteProject(project.id)">
-                            <i class ="fa fa-trash red"></i>
-                        </a>
+                                    </a> 
+                                    
+                                    <a href="#" v-if="aux == 1 || membroComissaoCientifica == 0|| aux == project.user_id" @click="deleteProject(project.id)">
+                                        <i class ="fa fa-trash red"></i>
+                                    </a>
+                                    
+                                    <a v-else>
+                                    -
+                                    </a>  
                                 </td>
                             </tr>
                         </tbody>
@@ -224,6 +236,8 @@
 export default {
     data: function () {
         return {
+            aux: '',
+            membroComissaoCientifica: '',
             text_to_copy: '',
             editmode: false,
             projects: [],
@@ -243,6 +257,22 @@ export default {
         }
     },
     methods: {
+    searchPermission(){
+        axios.get('api/searchPermission')
+            .then(response => {
+                this.membroComissaoCientifica = response.data;
+                //this.$store.commit("setSearchPermission", response.data);
+            });
+      },
+
+      searchPermissionAwardsAndProjects(){
+        axios.get('api/searchPermissionAwardsAndProjects')
+            .then(response => {
+                this.aux = response.data;
+                console.log(this.aux);
+                //this.$store.commit("setSearchPermission", response.data);
+            });
+      },
         /*editProject: function(project){
           this.currentProject = project;
         }, 
@@ -446,6 +476,10 @@ export default {
             this.loadProjects();
         })
     },
+    mounted(){
+        this.searchPermissionAwardsAndProjects();
+        this.searchPermission();
+    } 
 }
 </script>
 

@@ -17,19 +17,27 @@
                     <th>ID</th>
                     <th>Title</th>
                     <th>Description</th>
+                    <th>Actions</th>
                   </tr>               
                   <tr v-for="award in awards" :key="award.id">
                     <td>{{ award.id }}</td>
                     <td>{{ award.title }}</td>
                     <td>{{ award.description }}</td>
                     <td>
-                        <a href="#" @click="editModal(award)">
+                        <a href="#" v-if="aux == 1 || membroComissaoCientifica == 0|| aux == award.user_id" @click="editModal(award)">
                             <i class ="fa fa-edit blue"></i>
                         </a>
-                        /
-                        <a href="#" @click="deleteAward(award.id)">
+                        <a v-if="aux == 1 || membroComissaoCientifica == 0|| aux == award.user_id">
+                          /
+                        </a>  
+                        
+                        <a href="#" v-if="aux == 1 || membroComissaoCientifica == 0|| aux == award.user_id" @click="deleteAward(award.id)">
                             <i class ="fa fa-trash red"></i>
                         </a>
+
+                        <a v-else>
+                        -
+                        </a>  
                     </td>
                   </tr>
                 </tbody></table>
@@ -81,6 +89,8 @@
 	export default{
 		data: function () {
 			return {
+            aux: '',
+            membroComissaoCientifica: '',
             editmode: false,
             awards: [],
             selectedCategory:'',
@@ -92,6 +102,23 @@
 		}
     },
     methods:{
+      searchPermission(){
+        axios.get('api/searchPermission')
+            .then(response => {
+                this.membroComissaoCientifica = response.data;
+                //this.$store.commit("setSearchPermission", response.data);
+            });
+      },
+
+      searchPermissionAwardsAndProjects(){
+        axios.get('api/searchPermissionAwardsAndProjects')
+            .then(response => {
+                this.aux = response.data;
+                console.log(this.aux);
+                //this.$store.commit("setSearchPermission", response.data);
+            });
+      },
+
       newModal(){
         this.editmode = false;
         this.form.clear();
@@ -192,22 +219,28 @@
           })
         }
     },
-        created(){
-            Fire.$on('searching',() => {
-            let query = this.$parent.search;
-            axios.get('api/findAward?q=' + query)
-            .then((response) =>{
-              this.awards = response.data;
-            })
-            .catch(() =>{
 
-            })
-          })
-          this.loadAwards();
-          Fire.$on('refresh',()=>{
-            this.loadAwards();
-          })
-        },  
+    created(){
+        Fire.$on('searching',() => {
+        let query = this.$parent.search;
+        axios.get('api/findAward?q=' + query)
+        .then((response) =>{
+          this.awards = response.data;
+        })
+        .catch(() =>{
+
+        })
+      })
+      this.loadAwards();
+      Fire.$on('refresh',()=>{
+        this.loadAwards();
+      })
+    }, 
+
+    mounted(){
+        this.searchPermissionAwardsAndProjects();
+        this.searchPermission();
+    } 
 	}
 </script>
 <style scoped>

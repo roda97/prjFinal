@@ -40,6 +40,7 @@ class CreateAllTables extends Migration
 
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('title');
             $table->string('abstract', 5000);
             $table->string('consortium', 5000)->nullable();
@@ -248,6 +249,7 @@ class CreateAllTables extends Migration
 
         Schema::create('awards', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('title');
             $table->string('description', 5000);
             $table->dateTime('created_at');

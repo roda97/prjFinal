@@ -32,6 +32,24 @@ class UsersController extends Controller
         return $aux;
     }
 
+    public function searchPermissionAwardsAndProjects(){
+        $id = auth('api')->user()->id;
+
+        //$awards = Award::select('user_id')->where('user_id',$id)->get();
+
+        //return response()->json($awards,402);
+        /*$comissao_cientifica = MemberRoles::select('role_id')->where('user_id',$id)->get(); //vai buscar o membro com o id igual ao id que está logado
+        //$admin = auth('api')->user()->isAdmin;
+        $aux = 1;
+
+        if($comissao_cientifica[0]['role_id'] == 6){
+            $aux = 0;
+        }else{
+            $aux = 1;
+        }*/
+        return $id;
+    }
+
     public function getSciences()
     {
 
@@ -53,6 +71,12 @@ class UsersController extends Controller
         //    $collection = collect($lista)->sortBy('Name')->keyBy('Science_id')->values()->toArray();
 
         return $lista;
+    }
+
+    public function getScienceUserAuthenticated()
+    {
+
+        return auth('api')->user()->science_id;
     }
 
 /*

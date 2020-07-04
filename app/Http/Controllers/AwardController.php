@@ -23,6 +23,7 @@ class AwardController extends Controller
 
         $award = new Award(); 
 
+        $award->user_id = auth('api')->user()->id;
         $award->title = $request->title;
         $award->description = $request->description;
         $award->created_at = Carbon::now();

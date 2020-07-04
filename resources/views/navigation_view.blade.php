@@ -127,35 +127,35 @@
     </script>
     <script> 
 
-    $('li a').click(function(){
-        $('li a').removeClass("active");
-        $('li a').removeAttr('style');
-        $(this).addClass('active');
-        $(this).parent().parent().children().eq(0).css('color', '#fed136');
-    });    
-    var name = window.location.href;
-    if(name.includes('#awards')){
-        $('#item-awards').addClass('active');
-    }
-    if(name.includes('#portfolio')){
-        $('#item-portfolio').addClass('active');
-        $('#navbarDropdownResearch').css('color', '#fed136');  
-    }
-    if(name.includes('#contacts')){
-        $('#item-contacts').addClass('active');
-    }
-    if(name.includes('#about')){
-        $('#item-what').addClass('active');
-        $('#navbarDropdownAbout').css('color', '#fed136');
-    }
-    if(name.includes('#labs')){
-        $('#item-labs').addClass('active');
-        $('#navbarDropdownAbout').css('color', '#fed136');
-    }
-    if(name.includes('#mission')){
-        $('#item-mission').addClass('active');
-        $('#navbarDropdownAbout').css('color', '#fed136');
-    }
+        $('li a').click(function(){
+            $('li a').removeClass("active");
+            $('li a').removeAttr('style');
+            $(this).addClass('active');
+            $(this).parent().parent().children().eq(0).css('color', '#fed136');
+        });    
+        var name = window.location.href;
+        if(name.includes('#awards')){
+            $('#item-awards').addClass('active');
+        }
+        if(name.includes('#portfolio')){
+            $('#item-portfolio').addClass('active');
+            $('#navbarDropdownResearch').css('color', '#fed136');  
+        }
+        if(name.includes('#contacts')){
+            $('#item-contacts').addClass('active');
+        }
+        if(name.includes('#about')){
+            $('#item-what').addClass('active');
+            $('#navbarDropdownAbout').css('color', '#fed136');
+        }
+        if(name.includes('#labs')){
+            $('#item-labs').addClass('active');
+            $('#navbarDropdownAbout').css('color', '#fed136');
+        }
+        if(name.includes('#mission')){
+            $('#item-mission').addClass('active');
+            $('#navbarDropdownAbout').css('color', '#fed136');
+        }
     </script>
 
 

@@ -91,7 +91,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p>Profile</p>
             </router-link>
             </li>
-            
+ 
+          <!--<li class="nav-item has-treeview" v-if="{{Auth::user()->isAdmin}} == 1 || {{Auth::user()->roles[0]->role_id}} == 6">-->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog green"></i>
@@ -101,37 +102,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview">
-            <li class="nav-item">
+            <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to="/AboutEdit" class="nav-link">
                   <i class="fas fa-align-left"></i>
                   <p>About Us Text Edit</p>
                 </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to="/missionEdit" class="nav-link">
                   <i class="fas fa-align-left"></i>
                   <p>Mission Text Edit</p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to="/news" class="nav-link">
                   <i class="fas fa-highlighter"></i>
                   <p>News</p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to ="/labs" class="nav-link">
                   <i class="fas fa-laptop"></i>
                   <p>Labs</p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to ="/users" class="nav-link">
                   <i class="fas fa-users"></i>
                   <p>Users</p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to ="/roles" class="nav-link">
                   <i class="fas fa-tag"></i>
                   <p>Roles</p>
@@ -144,24 +145,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Investigadores</p>
                 </a>
               </li>-->
-              <li class="nav-item">
+              <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to ="/scientific" class="nav-link">
                   <i class="fas fa-globe"></i>
                   <p>Reunion</p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to ="/partners" class="nav-link">
                   <i class="fas fa-handshake"></i>
                   <p>Partners</p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to ="/teams" class="nav-link">
                   <i class="fas fa-fist-raised"></i>
                   <p>Teams</p>
                 </router-link>
               </li>
+              <!--<li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1 || {{Auth::user()->roles[0]->role_id}} == 6">-->
               <li class="nav-item">
                 <router-link to ="/awards" class="nav-link">
                   <i class="fas fa-medal"></i>
@@ -190,14 +192,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </router-link>
               </li>
 
-              <li class="nav-item">
+              <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to="/associateResearchers" class="nav-link">
                   <i class="fas fa-binoculars"></i>
                   <p>Associate Researchers</p>
                 </router-link>
               </li>
 
-              <li class="nav-item">
+              <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
                 <router-link to="/associatePartners" class="nav-link">
                   <i class="fas fa-handshake"></i>
                   <p>Associate Partners</p>
@@ -389,5 +391,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- ./wrapper -->
 
 <script src="js/app.js"></script>
+
+
 </body>
 </html>

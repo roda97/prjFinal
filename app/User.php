@@ -46,4 +46,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\MemberRoles', 'user_id');
     }
 
+    public function awards()
+    {
+        return $this->hasMany('App\Award', 'user_id');
+    }
+
 }

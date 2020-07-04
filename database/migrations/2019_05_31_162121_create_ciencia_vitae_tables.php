@@ -182,18 +182,28 @@ class CreateCienciaVitaeTables extends Migration
             $table->string('journal_article_url')->nullable();
             $table->string('journal_article_authors_citation')->nullable();
 
-
             $table->string('book_title')->nullable();
             $table->string('book_publication_year')->nullable();
             $table->string('book_publication_location_country')->nullable();
             $table->string('book_publisher')->nullable();
             $table->string('book_url')->nullable();
             $table->string('book_authors_citation')->nullable();
+
+            $table->string('report_title')->nullable();
+            $table->string('report_volume')->nullable();
+            $table->string('report_number_of_pages')->nullable();
+            $table->string('report_institutions_institution_institution_name')->nullable();
+            $table->string('report_date_submitted_year')->nullable(); 
+            $table->string('report_authoring_role_value')->nullable();
+            $table->string('report_url')->nullable();
+            $table->string('report_authors')->nullable();
+
             $table->string('conference_paper_paper_title')->nullable();
             $table->string('conference_paper_conference_date_year')->nullable();
-            $table->string('conference_paper_publication_location_value')->nullable();
+            $table->string('conference_paper_conference_location_value')->nullable();
             $table->string('conference_paper_proceedings_publisher')->nullable();
             $table->string('conference_paper_authors')->nullable();
+
             $table->string('other_output_title')->nullable();
             $table->string('other_output_url')->nullable();
             $table->string('other_output_authors_citation')->nullable();

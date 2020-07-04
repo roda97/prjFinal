@@ -189,6 +189,51 @@ class CreateCienciaVitaeTables extends Migration
             $table->string('book_url')->nullable();
             $table->string('book_authors_citation')->nullable();
 
+            //PATENTE
+
+            $table->text('patent_title')->nullable();
+            $table->text('patent_date_issued_year')->nullable();
+            $table->text('patent_date_of_term_end_year')->nullable();
+            $table->text('patent_country')->nullable();
+            $table->text('patent_authors_citation')->nullable();
+
+            //FIM PATENTE
+
+            //CAPITULO LIVRO
+
+            $table->string('book_chapter_chapter_title')->nullable();
+            $table->string('book_chapter_title')->nullable();
+            $table->string('book_chapter_volume')->nullable();
+            $table->string('book_chapter_publication_year')->nullable();
+            $table->string('book_chapter_publication_location_country')->nullable();
+            $table->string('book_chapter_book_publisher')->nullable();
+            $table->string('book_chapter_url')->nullable();
+            $table->string('book_chapter_authors_citation')->nullable();
+            //FIM CAPITULO LIVRO
+
+            //DISSERTATION (Tese)
+
+            $table->string('dissertation_title')->nullable();
+            $table->string('dissertation_number_of_volumes')->nullable();
+            //$table->string('dissertation_institutions', // confirmar este
+            $table->string('dissertation_degree_type_value')->nullable();
+            $table->string('dissertation_classification')->nullable(); 
+            $table->string('dissertation_completion_date_year')->nullable();
+            $table->string('dissertation_url')->nullable();
+            $table->string('dissertation_authors_citation')->nullable();
+
+            //FIM DESSERTATION (Tese)
+
+            //LICENCIAMENTO
+
+            $table->string('license_title')->nullable();
+            $table->string('license_date_issued_year')->nullable();
+            $table->string('license_end_date')->nullable();
+            $table->string('license_country')->nullable();
+            $table->string('license_authors_citation')->nullable();
+
+            //FIM LICENCIAMENTO
+
             $table->string('report_title')->nullable();
             $table->string('report_volume')->nullable();
             $table->string('report_number_of_pages')->nullable();

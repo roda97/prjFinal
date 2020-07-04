@@ -283,7 +283,9 @@ export default {
                 .then(response => {
                     console.log("Dados:")
                     console.log(response.data.data)
-                    this.data_to_csv = response.data.data;
+                    console.log("data")
+                    console.log(this.data.to_csv)
+                    //this.data_to_csv = response.data.data;
                 });
         },
 
@@ -535,10 +537,15 @@ export default {
             //antes era axios.get e passou a axios.post porque quando se fazia search e se queria ver as restantes página, aquilo atualizava para as totais como se não houvesse filtros ativos
                 .then(response => {
                     this.allOutputsWithoutDuplicateds = response.data.data;
+                    console.log("teste")
+                    console.log(response.data.data)
                     //this.cv_outputs = response.data.data;
                     //para a paginação:
                     this.page = response.data.current_page;
                     this.total = response.data.total;
+                    this.data_to_csv = response.data.data;
+                    console.log("teste5")
+                    console.log(this.data_to_csv)
                 });
         },
 

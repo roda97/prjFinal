@@ -43,6 +43,51 @@ class CV_OutputsController extends Controller
                 'output_type_value' => $request->output_type_value,
                 'output_type_code' => $request->output_type_code,
 
+                //PATENTE
+
+                'patent_title' => $request->patent_title,
+                'patent_date_issued_year' => $request->patent_date_issued_year,
+                'patent_date_of_term_end_year' => $request->patent_date_of_term_end_year,
+                'patent_country' => $request->patent_country,
+                'patent_authors_citation' => $request->patent_authors_citation,
+
+                //FIM PATENTE
+
+                //CAPITULO LIVRO
+
+                'book_chapter_chapter_title' => $request->book_chapter_chapter_title,
+                'book_chapter_title' => $request->book_chapter_title,
+                'book_chapter_volume' => $request->book_chapter_volume,
+                'book_chapter_publication_year' => $request->book_chapter_publication_year,
+                'book_chapter_publication_location_country' => $request->book_chapter_publication_location_country,
+                'book_chapter_book_publisher' => $request->book_chapter_book_publisher,
+                'book_chapter_url' => $request->book_chapter_url,
+                'book_chapter_authors_citation' => $request->book_chapter_authors_citation,
+                //FIM CAPITULO LIVRO
+
+                //DISSERTATION (Tese)
+
+                'dissertation_title' => $request->dissertation_title,
+                'dissertation_number_of_volumes' => $request->dissertation_number_of_volumes,
+                //'dissertation_institutions', // confirmar este
+                'dissertation_degree_type_value' => $request->dissertation_degree_type_value,
+                'dissertation_classification' => $request->dissertation_classification, 
+                'dissertation_completion_date_year' => $request->dissertation_completion_date_year,
+                'dissertation_url' => $request->dissertation_url,
+                'dissertation_authors_citation' => $request->dissertation_authors_citation,
+
+                //FIM DESSERTATION (Tese)
+
+                //LICENCIAMENTO
+
+                'license_title' => $request->license_title,
+                'license_date_issued_year' => $request->license_date_issued_year,
+                'license_end_date' => $request->license_end_date,
+                'license_country' => $request->license_country,
+                'license_authors_citation' => $request->license_authors_citation,
+
+                //FIM LICENCIAMENTO
+
                 //RELATORIO:
 
                 'report_title' => $request->report_title,
@@ -346,6 +391,69 @@ class CV_OutputsController extends Controller
                 'Type' => $relatorios[$i]->output_type_value));
         }    
 
+        //----------- tese / dissertação
+
+        $teses = CV_Outputs::
+        where('output_type_code', '=', "P108") // teses
+        ->get();
+    
+        $number_of_teses = count($teses);
+
+        for ($i = 0; $i < $number_of_teses; $i++) {
+            array_push($outputs, array('User Science Id' =>$teses[$i]->user_science_id,
+                'Title' => $teses[$i]->dissertation_title,
+                'Publication date' => $teses[$i]->dissertation_completion_date_year,
+                'Authors' => $teses[$i]->dissertation_authors_citation,
+                'Type' => $teses[$i]->output_type_value));
+        }  
+
+        //----------- license / licenciamento
+
+        $licenciamentos = CV_Outputs::
+        where('output_type_code', '=', "P402") // licenciamentos
+        ->get();
+    
+        $number_of_licenciamentos = count($licenciamentos);
+
+        for ($i = 0; $i < $number_of_licenciamentos; $i++) {
+            array_push($outputs, array('User Science Id' =>$licenciamentos[$i]->user_science_id,
+                'Title' => $licenciamentos[$i]->license_title,
+                'Publication date' => $licenciamentos[$i]->license_date_issued_year,
+                'Authors' => $licenciamentos[$i]->license_authors_citation,
+                'Type' => $licenciamentos[$i]->output_type_value));
+        }  
+
+        //----------- Patente
+
+        $patentes = CV_Outputs::
+        where('output_type_code', '=', "P401") // patentes
+        ->get();
+    
+        $number_of_patentes = count($patentes);
+
+        for ($i = 0; $i < $number_of_patentes; $i++) {
+            array_push($outputs, array('User Science Id' =>$teses[$i]->user_science_id,
+                'Title' => $patentes[$i]->patent_title,
+                'Publication date' => $patentes[$i]->patent_date_issued_year,
+                'Authors' => $patentes[$i]->patent_authors_citation,
+                'Type' => $patentes[$i]->output_type_value));
+        }  
+
+        //----------- Capitulo de livro
+
+        $capitulos = CV_Outputs::
+        where('output_type_code', '=', "P105") // capitulos
+        ->get();
+    
+        $number_of_capitulos = count($capitulos);
+
+        for ($i = 0; $i < $number_of_capitulos; $i++) {
+            array_push($outputs, array('User Science Id' =>$capitulos[$i]->user_science_id,
+                'Title' => $capitulos[$i]->book_chapter_chapter_title,
+                'Publication date' => $capitulos[$i]->book_chapter_publication_year,
+                'Authors' => $capitulos[$i]->book_chapter_authors_citation,
+                'Type' => $capitulos[$i]->output_type_value));
+        }  
         //$json = json_encode($outputs);
 
         return $outputs;
@@ -385,7 +493,11 @@ class CV_OutputsController extends Controller
 
                 if ($request->filled('type')){
                     //$collection->where('type','=', $request->type);
-                    $collection = collect($collection)->where('Type', $request->type);
+                    //$collection = collect($collection)->where('Type', $request->type);
+                    $search = $request->type;
+                    $collection = $collection->filter(function($item) use ($search) {
+                        return stripos($item['Type'],$search) !== false;
+                    });
                     //return response()->json($collection,402);
                 }
 

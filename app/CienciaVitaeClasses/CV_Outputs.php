@@ -17,6 +17,51 @@ class CV_Outputs extends Model
         'output_type_value',
         'output_type_code',
 
+        //PATENTE
+
+        'patent_title',
+        'patent_date_issued_year',
+        'patent_date_of_term_end_year',
+        'patent_country',
+        'patent_authors_citation',
+
+        //FIM PATENTE
+
+        //CAPITULO LIVRO
+
+        'book_chapter_chapter_title',
+        'book_chapter_title',
+        'book_chapter_volume',
+        'book_chapter_publication_year',
+        'book_chapter_publication_location_country',
+        'book_chapter_book_publisher',
+        'book_chapter_url',
+        'book_chapter_authors_citation',
+        //FIM CAPITULO LIVRO
+
+        //DISSERTATION (Tese)
+
+        'dissertation_title',
+        'dissertation_number_of_volumes',
+        //'dissertation_institutions', // confirmar este
+        'dissertation_degree_type_value',
+        'dissertation_classification', 
+        'dissertation_completion_date_year',
+        'dissertation_url',
+        'dissertation_authors_citation',
+
+        //FIM DESSERTATION (Tese)
+
+        //LICENCIAMENTO
+
+        'license_title',
+        'license_date_issued_year',
+        'license_end_date',
+        'license_country',
+        'license_authors_citation',
+
+        //FIM LICENCIAMENTO
+
         //RELATORIO:
 
         'report_title',

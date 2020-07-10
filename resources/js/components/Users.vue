@@ -50,16 +50,21 @@
                                 </td>
                                 
                                 <td>
-                                    <a href="#" v-if="user.isAdmin == 0" @click="promote(user)">
+                        <a href="#" v-if="user.isAdmin == 0 && user.isActive == 1" @click="promote(user)">
                             <i class ="fa fa-arrow-alt-circle-up"></i>
                         </a>
-                                    <a href="#" v-if="user.isAdmin == 1" @click="demote(user)">
+                        <a href="#" v-if="user.isAdmin == 1 && user.isActive == 1" @click="demote(user)">
                             <i class ="fa fa-arrow-alt-circle-down"></i>
-                        </a> /
-                                    <a href="#" @click="editModal(user)">
+                        </a> 
+                        <a v-if="user.isActive == 1">
+                        /
+                        </a>
+                        
+                        <a href="#" @click="editModal(user)">
                             <i class ="fa fa-edit blue"></i>
-                        </a> /
-                                    <a href="#" @click="deleteUser(user.id)">
+                        </a> 
+                        /
+                        <a href="#" @click="deleteUser(user.id)">
                             <i class ="fa fa-trash red"></i>
                         </a>
                                 </td>

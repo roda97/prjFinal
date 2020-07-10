@@ -104,9 +104,14 @@
            class="form-control" :class="{'is-invalid': form.errors.has('area_m2')}"> 
           <has-error :form="form" field="area_m2"></has-error>
 	    </div>
+      
         <div class="form-group">
-	        <select name="workgroup" v-model="form.workgroup"
-           class="form-control" :class="{'is-invalid': form.errors.has('workgroup')}"> 
+
+          <!--<v-combobox class="form-control"  v-model="form.workgroup" :items="workgroups" :rules="[v => !!v || 'Campo obrigatório']" label="Escolha uma imagem" required></v-combobox >                                        
+          <v-combobox  v-model="form.workgroup" :items="workgroups" :rules="[v => !!v || 'Campo obrigatório']" label="Escolha uma imagem" ></v-combobox>-->
+
+	        <select editable="true" name="workgroup" v-model="form.workgroup"                                    
+           class="form-control" :class="{'is-invalid': form.errors.has('workgroup')}" > 
               <option :value="''" disabled selected> - Select a workgroup - </option> 
               <option value="Cybersecurity and Digital Forensics">Cybersecurity and Digital Forensics</option>
               <option value="Internet of Things (IoT)">Internet of Things (IoT)</option>
@@ -136,12 +141,19 @@
     
 </template>
 
+
 <script type="text/javascript">
   // Component code (not registered)
+  //import { mdbSelect } from "mdbvue";
+  //import axios from "axios";
+
+
 
 	export default{
+
 		data: function () {
 			return {
+            workgroups:["Cybersecurity and Digital Forensics", "Internet of Things (IoT)", "Virtual and Augmented Reality (VAR)", "All"],
             editmode: false,
             labs: [],
             form : new Form({
@@ -290,7 +302,8 @@
             this.loadLabs();
           })
         },  
-	}
+  }
+
 </script>
 <style scoped>
 	tr.activerow {

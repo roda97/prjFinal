@@ -10,6 +10,10 @@ window.Vue = require('vue');
 
 //import store from './stores/global-store' 
 
+import Vuetify from 'vuetify';
+
+Vue.use(Vuetify)
+
 import { Form, HasError, AlertError } from 'vform'
 import tinymce from 'vue-tinymce-editor'
 import { ToggleButton } from 'vue-js-toggle-button'
@@ -170,6 +174,7 @@ const app = new Vue({
     el: '#app',
     router,
     //store,
+    vuetify: new Vuetify(),
     data:{
         search:'',
         aux:''

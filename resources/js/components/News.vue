@@ -92,7 +92,7 @@
                                          </div>
 
                     </form>
-                    <tinymce id="d1" :other_options="tinyOptions" v-model="editorContent"></tinymce>
+                    <tinymce id="d1" :other_options="tinyOptions" v-model="editorContent"></tinymce>    
                 </div>
 
                 <div class="modal-footer">

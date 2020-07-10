@@ -122,42 +122,42 @@
           'usage_type_code': 
           (cv_phone['usage-type']
           && cv_phone['usage-type']['code']) ?
-          cv_phone['usage-type']['code'] : "Not defined" ,
+          cv_phone['usage-type']['code'] : "Not defined." ,
 
           'usage_type_value': 
           (cv_phone['usage-type']
           && cv_phone['usage-type']['value']) ?
-          cv_phone['usage-type']['value'] : "Not defined" ,
+          cv_phone['usage-type']['value'] : "Not defined." ,
 
           'phone_type_code': 
           (cv_phone['phone-type']
           && cv_phone['phone-type']['code']) ?
-          cv_phone['phone-type']['code'] : "Not defined" ,
+          cv_phone['phone-type']['code'] : "Not defined." ,
 
           'phone_type_value': 
           (cv_phone['phone-type']
           && cv_phone['phone-type']['value']) ?
-          cv_phone['phone-type']['value'] : "Not defined" ,
+          cv_phone['phone-type']['value'] : "Not defined." ,
 
           'country_code': 
           (cv_phone['country-code']) ?
-          cv_phone['country-code'] : "Not defined" ,
+          cv_phone['country-code'] : "Not defined." ,
 
           'local_number': 
           (cv_phone['local-number']) ?
-          cv_phone['local-number'] : "Not defined" ,
+          cv_phone['local-number'] : "Not defined." ,
 
           'id_row_entry': 
           (cv_phone['id']) ?
-          cv_phone['id'] : "Not defined" ,
+          cv_phone['id'] : "Not defined." ,
 
           'preferred_phone_number': 
           (cv_phone['preferred-phone-number']) ?
-          cv_phone['preferred-phone-number'] : "Not defined" ,
+          cv_phone['preferred-phone-number'] : "Not defined." ,
 
           'last_modified_date': 
           (cv_phone['last-modified-date']) ?
-          cv_phone['last-modified-date'] : "Not defined" ,
+          cv_phone['last-modified-date'] : "Not defined." ,
           },
 
         }).then(function (response) {

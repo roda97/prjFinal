@@ -78,6 +78,11 @@
             <div class="card">
                 <div class="card-header" align="center">
                     <h4 class="text-center">Outputs and Authors</h4>
+                    <download-csv class="btn btn-dark" :data="this.data_to_csv" name="CIIC_DB_Outputs.csv">
+
+                        <font color="white">EXPORT CIIC ALL OUTPUTS</font>
+
+                    </download-csv>
                     <button class="btn btn-success" @click="bulkUpdateToDatabase()">BULK UPDATE: EVERY USERS OUTPUTS</button>
                 </div>
 
@@ -107,7 +112,7 @@
                             <!--<div v-for="cv_output in cv_outputs" :key="cv_output.id">-->
 
                                 <td>
-                                <td v-for="cv_output in cv_outputs" :key="cv_output.id">   
+                                <!--<td v-for="cv_output in cv_outputs" :key="cv_output.id">-->
                                     <!--<button
                                       type="button"
                                       class="btn btn-success"
@@ -127,11 +132,11 @@
                                       class="btn btn-success"
                                       @click="text_to_copy = 
                                       formatRow_conferece(
-                                        cv_output['conference-paper']['authors']['citation'],
-                                        cv_output['conference-paper']['conference-date']['year'],
-                                        cv_output['conference-paper']['paper-title'],
-                                        cv_output['conference-paper']['conference-location'] ? cv_output['conference-paper']['conference-location']['country']['value'] : null,
-                                        cv_output['conference-paper']['proceedings-publisher']
+                                        output.Authors,
+                                        output['Publication date'],
+                                        output.Title,
+                                        (output['Conference Location'] != 'Not defined.' ? output['Conference Location'] : null),
+                                        (output['Proceedings Publisher'] != 'Not defined.' ? output['Proceedings Publisher'] : null),
                                       )"
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
@@ -143,10 +148,10 @@
                                       class="btn btn-info"
                                       @click="text_to_copy = 
                                       formatRow_others(
-                                        cv_output['other-output']['authors']['citation'],
-                                        cv_output['other-output']['publication-date']['year'],
-                                        cv_output['other-output']['title'],
-                                        cv_output['other-output']['url']
+                                        output.Authors,
+                                        output['Publication date'],
+                                        output.Title,
+                                        (output.Url != 'Not defined.' ? output.Url : null)
                                       )"
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
@@ -158,10 +163,10 @@
                                       class="btn btn-danger"
                                       @click="text_to_copy = 
                                       formatRow_magazine(
-                                        cv_output['journal-article']['authors']['citation'],
-                                        cv_output['journal-article']['publication-date']['year'],
-                                        cv_output['journal-article']['article-title'],
-                                        cv_output['journal-article']['url']
+                                        output.Authors,
+                                        output['Publication date'],
+                                        output.Title,
+                                        (output.Url != 'Not defined.' ? output.Url : null)
                                       )"
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
@@ -173,12 +178,12 @@
                                       class="btn btn-dark"
                                       @click="text_to_copy = 
                                       formatRow_book(
-                                        cv_output['book']['authors']['citation'],
-                                        cv_output['book']['publication-year'],
-                                        cv_output['book']['title'],
-                                        cv_output['book']['publication-location'] ? cv_output['book']['publication-location']['country']['value'] : null,
-                                        cv_output['book']['publisher'],
-                                        cv_output['book']['url']
+                                        output.Authors,
+                                        output['Publication date'],
+                                        output.Title,
+                                        (output['Publication Location']  != 'Not defined.' ? output['Publication Location'] : null),
+                                        (output.Publisher != 'Not defined.' ? output.Publisher : null),
+                                        (output.Url != 'Not defined.' ? output.Url : null)
                                       )"
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
@@ -190,12 +195,12 @@
                                       class="btn btn-primary"
                                       @click="text_to_copy = 
                                       formatRow_report(
-                                        cv_output['report']['authors']['citation'],
-                                        cv_output['report']['date-submitted']['year'],
-                                        cv_output['report']['report-title'],
-                                        cv_output['report']['institutions'] ? cv_output['report']['institutions']['institution'][0]['institution-name'] : null,
-                                        cv_output['report']['authoring-role'] ? cv_output['report']['authoring-role']['value'] : null,
-                                        cv_output['report']['url']
+                                        output.Authors,
+                                        output['Publication date'],
+                                        output.Title,
+                                        (output.Institution != 'Not defined.' ? output.Institution : null),
+                                        (output.Authoring != 'Not defined.' ? output.Authoring : null),
+                                        (output.Url != 'Not defined.' ? output.Url : null)
                                       )"
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
@@ -207,68 +212,68 @@
                                       class="btn btn-warning"
                                       @click="text_to_copy = 
                                       formatRow_dissertation(
-                                        cv_output['dissertation']['authors']['citation'],
-                                        cv_output['dissertation']['completion-date']['year'],
-                                        cv_output['dissertation']['title'],
-                                        cv_output['dissertation']['degree-type'] ? cv_output['dissertation']['degree-type']['value'] : null,
-                                        cv_output['dissertation']['classification'],
-                                        cv_output['dissertation']['url']
+                                        output.Authors,
+                                        (output['Publication date'] != 'Not defined.' ? output['Publication date'] : null),
+                                        (output.Title != 'Not defined.' ? output.Title : null),
+                                        (output.Degree != 'Not defined.' ? output.Degree : null),
+                                        (output.Classification != 'Not defined.' ? output.Classification : null),
+                                        (output.Url != 'Not defined.' ? output.Url : null)
                                       )"
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
                                     </span>
 
-                                    <span v-if="cv_output['output-type']['value'] == 'License' || cv_output['output-type']['value'] == 'Licenciamento'">
+                                    <span v-if="output.Type == 'License' || output.Type == 'Licenciamento'">
                                     <button
                                       type="button"
                                       class="btn btn-secondary"
                                       @click="text_to_copy = 
                                       formatRow_license(
-                                        cv_output['license']['authors']['citation'],
-                                        cv_output['license']['date-issued']['year'],
-                                        cv_output['license']['end-date']['year'],
-                                        cv_output['license']['license-title'],
-                                        cv_output['license']['country']['value'],
+                                        output.Authors,
+                                        (output['Date issued'] != 'Not defined.' ? output['Date issued'] : null),
+                                        (output['End Date'] != 'Not defined.' ? output['End Date'] : null),
+                                        (output.Title != 'Not defined.' ? output.Title : null),
+                                        (output['License Country'] != 'Not defined.' ? output['License Country'] : null),
                                       )"
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
                                     </span>
 
-                                    <span v-if="cv_output['output-type']['value'] == 'Book Chapter' || cv_output['output-type']['value'] == 'Capítulo de livro'" >
+                                    <span v-if="output.Type == 'Book Chapter' || output.Type == 'Capítulo de livro'" >
                                     <button
                                       type="button"
                                       class="btn btn-outline-danger"
                                       @click="text_to_copy = 
                                       formatRow_bookChapter(
-                                        cv_output['book-chapter']['authors']['citation'],
-                                        cv_output['book-chapter']['publication-year'],
-                                        cv_output['book-chapter']['chapter-title'],
-                                        cv_output['book-chapter']['book-title'],
-                                        cv_output['book-chapter']['publication-location'] ? cv_output['book-chapter']['publication-location']['country']['value'] : null,
-                                        cv_output['book-chapter']['book-publisher'],
-                                        cv_output['book-chapter']['url']
+                                        output.Authors,
+                                        (output['Publication date'] != 'Not defined.' ? output['Publication date'] : null),
+                                        (output.Title != 'Not defined.' ? output.Title : null),
+                                        (output['Book Title'] != 'Not defined.' ? output['Book Title'] : null),
+                                        (output['Publication Location'] != 'Not defined.' ? output['Publication Location'] : null),
+                                        (output.Publisher != 'Not defined.' ? output.Publisher : null),
+                                        (output.Url != 'Not defined.' ? output.Url : null)
                                       )"
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
                                       </span>
 
-                                    <span v-if="cv_output['output-type']['value'] == 'Patent' || cv_output['output-type']['value'] == 'Patente'">
+                                    <span v-if="output.Type == 'Patent' || output.Type == 'Patente'">
                                     <button
                                       type="button"
                                       class="btn btn-outline-success"
                                       @click="text_to_copy = 
                                       formatRow_patent(
-                                        cv_output['patent']['authors']['citation'],
-                                        cv_output['patent']['date-issued']['year'],
-                                        cv_output['patent']['date-of-term-end']['year'],
-                                        cv_output['patent']['patent-title'],
-                                        cv_output['patent']['country']['value'],
+                                        output.Authors,
+                                        (output['Publication date'] != 'Not defined.' ? output['Publication date'] : null),
+                                        (output['Date of term end'] != 'Not defined.' ? output['Date of term end'] : null),
+                                        (output.Title != 'Not defined.' ? output.Title : null),
+                                        (output.Country != 'Not defined.' ? output.Country : null),
                                       )"
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
                                     </span>
                                     </td>
-                                </td>
+                                <!--</td>-->
 
                                 <td>{{ output.Title }}</td>
                                 <td>{{ output['Publication date'] }}</td>
@@ -376,6 +381,7 @@ export default {
                 type: "",
                 outputs:""
             },
+            data_to_csv: [],
             aux:'',
             page:1,
             total:1,
@@ -385,6 +391,7 @@ export default {
             cv_outputs: [],
             text_to_copy: '',
             allOutputsWithoutDuplicateds: [],
+            allOutputsWithoutDuplicateds2: [],
             text: `
           Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
           richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
@@ -398,6 +405,12 @@ export default {
         }
     },
     methods: {
+        loadOutputs() {
+            axios.get('api/cv_outputs/exportAllHome')
+                .then(response => {
+                    this.data_to_csv = response.data;
+                });
+        },
 
         searchPermission(){
             axios.get('api/searchPermission')
@@ -514,140 +527,153 @@ export default {
         formatAllRows() {
             let aux = "------------------------------ Artigo em Conferência ---------------------------\n\n";
 
-            for (let cv_output of this.cv_outputs) {
+            for (let output of this.allOutputsWithoutDuplicateds2) {
 
-                if (cv_output['output-type']['value'] == "Conference paper" || cv_output['output-type']['value'] == "Artigo em conferência") {
+                 if (output.Type == "Conference paper" || output.Type == "Artigo em conferência") {
 
                     aux = aux +
                         this.formatRow_conferece(
-                            cv_output['conference-paper']['authors']['citation'],
-                            cv_output['conference-paper']['conference-date']['year'],
-                            cv_output['conference-paper']['paper-title'],
-                            cv_output['conference-paper']['conference-location'] ? cv_output['conference-paper']['conference-location']['country']['value'] : null,
-                            cv_output['conference-paper']['proceedings-publisher']
+                            output.Authors,
+                            output['Publication date'],
+                            output.Title,
+                            (output['Conference Location'] != 'Not defined.' ? output['Conference Location'] : null),
+                            (output['Proceedings Publisher'] != 'Not defined.' ? output['Proceedings Publisher'] : null),
                         ) + "\n\n";
                 }
             }
             aux = aux + "\n\n------------------------------ Artigo em revista ---------------------------\n\n";
 
-            for (let cv_output of this.cv_outputs) {
-                if (cv_output['output-type']['value'] == "Journal article" || cv_output['output-type']['value'] == "Artigo em revista") {
+            for (let output of this.allOutputsWithoutDuplicateds2) {
+                if (output.Type == "Journal article" || output.Type == "Artigo em revista") {
                     aux = aux +
-                        this.formatRow_magazine(cv_output['journal-article']['authors']['citation'],
-                            cv_output['journal-article']['publication-date']['year'],
-                            cv_output['journal-article']['article-title'],
-                            cv_output['journal-article']['url']
+                        this.formatRow_magazine(
+                            output.Authors,
+                            output['Publication date'],
+                            output.Title,
+                            (output.Url != 'Not defined.' ? output.Url : null)
                         ) + "\n\n";
                 }
             }
             aux = aux + "\n\n---------------------------- Livro -----------------------------\n\n";
 
-            for (let cv_output of this.cv_outputs) {
-                if (cv_output['output-type']['value'] == "Book" || cv_output['output-type']['value'] == "Livro") {
+            for (let output of this.allOutputsWithoutDuplicateds2) {
+                if (output.Type == "Book" || output.Type == "Livro") {
                     aux = aux +
-                        this.formatRow_book(cv_output['book']['authors']['citation'],
-                            cv_output['book']['publication-year'],
-                            cv_output['book']['title'],
-                            //FAZER ISTO PARA TODOS:
-                            cv_output['book']['publication-location'] ? cv_output['book']['publication-location']['country']['value'] : null,
-                            cv_output['book']['publisher'],
-                            cv_output['book']['url']
+                        this.formatRow_book(
+                            output.Authors,
+                            output['Publication date'],
+                            output.Title,
+                            (output['Publication Location']  != 'Not defined.' ? output['Publication Location'] : null),
+                            (output.Publisher != 'Not defined.' ? output.Publisher : null),
+                            (output.Url != 'Not defined.' ? output.Url : null)
                         ) + "\n\n";
                 }
             }
             aux = aux + "\n\n-------------------------- Outra Produção -------------------------------\n\n";
 
-            for (let cv_output of this.cv_outputs) {
+            for (let output of this.allOutputsWithoutDuplicateds2) {
 
-                if (cv_output['output-type']['value'] == "Other output" || cv_output['output-type']['value'] == "Outra produção") {
+                if (output.Type == "Other output" || output.Type == "Outra produção") {
                     aux = aux +
-                        this.formatRow_others(cv_output['other-output']['authors']['citation'],
-                            cv_output['other-output']['publication-date']['year'],
-                            cv_output['other-output']['title'],
-                            cv_output['other-output']['url']
+                        this.formatRow_others(
+                            output.Authors,
+                            output['Publication date'],
+                            output.Title,
+                            (output.Url != 'Not defined.' ? output.Url : null)
                         ) + "\n\n";
                 }
             }
             aux = aux + "\n\n-------------------------- Relatório -------------------------------\n\n";
 
-            for (let cv_output of this.cv_outputs) {
+            for (let output of this.allOutputsWithoutDuplicateds2) {
 
-                if (cv_output['output-type']['value'] == "Report" || cv_output['output-type']['value'] == "Relatório") {
+                if (output.Type == "Report" || output.Type == "Relatório") {
                     aux = aux +
-                        this.formatRow_report(cv_output['report']['authors']['citation'],
-                            cv_output['report']['date-submitted']['year'],
-                            cv_output['report']['report-title'],
-                            cv_output['report']['institutions'] ? cv_output['report']['institutions']['institution'][0]['institution-name'] : null,
-                            cv_output['report']['authoring-role'] ? cv_output['report']['authoring-role']['value'] : null,
-                            cv_output['report']['url']
+                        this.formatRow_report(
+                            output.Authors,
+                            output['Publication date'],
+                            output.Title,
+                            (output.Institution != 'Not defined.' ? output.Institution : null),
+                            (output.Authoring != 'Not defined.' ? output.Authoring : null),
+                            (output.Url != 'Not defined.' ? output.Url : null)
                         ) + "\n\n";
                 }
             }
             aux = aux + "\n\n-------------------------- Tese -------------------------------\n\n";
 
-            for (let cv_output of this.cv_outputs) {
+            for (let output of this.allOutputsWithoutDuplicateds2) {
 
-                if (cv_output['output-type']['value'] == "Dissertation" || cv_output['output-type']['value'] == "Tese / Dissertação") {
+                if (output.Type == "Dissertation" || output.Type == "Tese / Dissertação") {
                     aux = aux +
                         this.formatRow_dissertation(
-                            cv_output['dissertation']['authors']['citation'],
-                            cv_output['dissertation']['completion-date']['year'],
-                            cv_output['dissertation']['title'],
-                            cv_output['dissertation']['degree-type'] ? cv_output['dissertation']['degree-type']['value'] : null,
-                            cv_output['dissertation']['classification'],
-                            cv_output['dissertation']['url']
+                            output.Authors,
+                            (output['Publication date'] != 'Not defined.' ? output['Publication date'] : null),
+                            (output.Title != 'Not defined.' ? output.Title : null),
+                            (output.Degree != 'Not defined.' ? output.Degree : null),
+                            (output.Classification != 'Not defined.' ? output.Classification : null),
+                            (output.Url != 'Not defined.' ? output.Url : null)
                         ) + "\n\n";
                 }
             }
             aux = aux + "\n\n-------------------------- Licenciamento -------------------------------\n\n";
 
-            for (let cv_output of this.cv_outputs) {
+            for (let output of this.allOutputsWithoutDuplicateds2) {
 
-                if (cv_output['output-type']['value'] == "License" || cv_output['output-type']['value'] == "Licenciamento") {
+                if (output.Type == "License" || output.Type == "Licenciamento") {
                     aux = aux +
                         this.formatRow_license(
-                            cv_output['license']['authors']['citation'],
-                            cv_output['license']['date-issued']['year'],
-                            cv_output['license']['end-date']['year'],
-                            cv_output['license']['country']['value'],
+                            output.Authors,
+                            (output['Date issued'] != 'Not defined.' ? output['Date issued'] : null),
+                            (output['End Date'] != 'Not defined.' ? output['End Date'] : null),
+                            (output.Title != 'Not defined.' ? output.Title : null),
+                            (output['License Country'] != 'Not defined.' ? output['License Country'] : null),
                         ) + "\n\n";
                 }
             }
             aux = aux + "\n\n-------------------------- Patente -------------------------------\n\n";
 
-            for (let cv_output of this.cv_outputs) {
+            for (let output of this.allOutputsWithoutDuplicateds2) {
 
-                if (cv_output['output-type']['value'] == "Patent" || cv_output['output-type']['value'] == "Patente") {
+                if (output.Type == "Patent" || output.Type == "Patente") {
                     aux = aux +
                         this.formatRow_patent(
-                            cv_output['patent']['authors']['citation'],
-                            cv_output['patent']['date-issued']['year'],
-                            cv_output['patent']['date-of-term-end']['year'],
-                            cv_output['patent']['patent-title'],
-                            cv_output['patent']['country']['value'],
+                            output.Authors,
+                            (output['Publication date'] != 'Not defined.' ? output['Publication date'] : null),
+                            (output['Date of term end'] != 'Not defined.' ? output['Date of term end'] : null),
+                            (output.Title != 'Not defined.' ? output.Title :null),
+                            (output.Country != 'Not defined.' ? output.Country :null),
                         ) + "\n\n";
                 }
             }
             aux = aux + "\n\n-------------------------- Capítulo de livro -------------------------------\n\n";
 
-            for (let cv_output of this.cv_outputs) {
+            for (let output of this.allOutputsWithoutDuplicateds2) {
 
-                if (cv_output['output-type']['value'] == "Book Chapter" || cv_output['output-type']['value'] == "Capítulo de livro") {
+                if (output.Type == "Book Chapter" || output.Type == "Capítulo de livro") {
                     aux = aux +
                         this.formatRow_bookChapter(
-                            cv_output['book-chapter']['authors']['citation'],
-                            cv_output['book-chapter']['publication-year'],
-                            cv_output['book-chapter']['chapter-title'],
-                            cv_output['book-chapter']['book-title'],
-                            cv_output['book-chapter']['publication-location'] ? cv_output['book-chapter']['publication-location']['country']['value'] : null,
-                            cv_output['book-chapter']['book-publisher'],
-                            cv_output['book-chapter']['url']
+                            output.Authors,
+                            (output['Publication date'] != 'Not defined.' ? output['Publication date'] : null),
+                            (output.Title != 'Not defined.' ? output.Title : null),
+                            (output['Book Title'] != 'Not defined.' ? output['Book Title'] : null),
+                            (output['Publication Location'] != 'Not defined.' ? output['Publication Location'] : null),
+                            (output.Publisher != 'Not defined.' ? output.Publisher : null),
+                            (output.Url != 'Not defined.' ? output.Url : null)
                         ) + "\n\n";
                 }
             }
 
             return aux;
 
+        },
+
+        AllOutputsAndAuthors(){
+          axios.get('api/statistics/removeDuplicatesFromAllOutputsAndAuthors2')
+            //antes era axios.get e passou a axios.post porque quando se fazia search e se queria ver as restantes página, aquilo atualizava para as totais como se não houvesse filtros ativos
+                .then(response => {
+                    this.allOutputsWithoutDuplicateds2 = response.data;
+
+                });  
         },
 
         removeDuplicatesFromAllOutputsAndAuthors(page) {
@@ -675,8 +701,8 @@ export default {
             axios.get('api/getSciences')
                 .then(response => {
                     this.science_ids = response.data;
-                    console.log("O array recebido: " + this.science_ids);
-                    console.log("O array Length: " + this.science_ids.length);
+                    //console.log("O array recebido: " + this.science_ids);
+                    //console.log("O array Length: " + this.science_ids.length);
                 });
         },
 
@@ -705,11 +731,9 @@ export default {
             axios.get('api/cv_outputs/getRemoteCienciaVitaeOutputs_By_Id/' + id)
                 .then(response => {
                     this.cv_outputs = response.data.output;
-                    console.log("output:")
-                    console.log(response.data)
-                    console.log(response.data.output)
                     this.saveCienciaVitaeToLocalDataBase(id);
                     this.removeDuplicatesFromAllOutputsAndAuthors(1);
+                    this.AllOutputsAndAuthors();
                     if (this.isbulkUpdateFailed) {
                         Swal.fire({
                             type: 'error',
@@ -737,6 +761,8 @@ export default {
         checkIfthereAreStatistics() {
             axios.get('api/statistics/')
                 .then(response => {
+                    //console.log("statistics:")
+                    //console.log(response.data)
                     this.lowest_year_of_checking_statistics = response.data.statistics.lowest_year;
                     // if == 9999 there are no statistics
                 });
@@ -810,7 +836,7 @@ export default {
 
                             'book_chapter_publication_year': (cv_output['book-chapter'] &&
                                     cv_output['book-chapter']['publication-year']) ?
-                                cv_output['book-chapter']['publication-year'] : "Not defined",
+                                cv_output['book-chapter']['publication-year'] : "Not defined.",
 
                             'book_chapter_publication_location_country': (cv_output['book-chapter'] &&
                                     cv_output['book-chapter']['publication-location'] &&
@@ -824,7 +850,7 @@ export default {
 
                             'book_chapter_url': (cv_output['book-chapter'] &&
                                     cv_output['book-chapter']['url']) ?
-                                cv_output['book-chapter']['url'] : "Not defined",
+                                cv_output['book-chapter']['url'] : "Not defined.",
 
                             //FIM CAPITULO LIVRO
 
@@ -832,31 +858,31 @@ export default {
 
                             'dissertation_title': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['title']) ? 
-                                cv_output['dissertation']['title'] : "Not defined",
+                                cv_output['dissertation']['title'] : "Not defined.",
 
                             'dissertation_number_of_volumes': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['number-of-volumes']) ? 
-                                cv_output['dissertation']['number-of-volumes'] : "Not defined",
+                                cv_output['dissertation']['number-of-volumes'] : "Not defined.",
 
                             //'dissertation_institutions', // confirmar este
 
                             'dissertation_degree_type_value': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['degree-type'] && 
                                 cv_output['dissertation']['degree-type']['value']) ? 
-                            cv_output['dissertation']['degree-type']['value'] : "Not defined",
+                            cv_output['dissertation']['degree-type']['value'] : "Not defined.",
 
                             'dissertation_classification': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['classification']) ? 
-                            cv_output['dissertation']['classification'] : "Not defined",
+                            cv_output['dissertation']['classification'] : "Not defined.",
 
                             'dissertation_completion_date_year': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['completion-date'] && 
                                 cv_output['dissertation']['completion-date']['year']) ? 
-                            cv_output['dissertation']['completion-date']['year'] : "Not defined",
+                            cv_output['dissertation']['completion-date']['year'] : "Not defined.",
 
                             'dissertation_url': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['url']) ? 
-                                cv_output['dissertation']['url'] : "Not defined",
+                                cv_output['dissertation']['url'] : "Not defined.",
 
                             'dissertation_authors_citation': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['authors'] && 
@@ -869,22 +895,22 @@ export default {
 
                             'license_title': (cv_output['license'] && 
                                 cv_output['license']['license-title']) ? 
-                            cv_output['license']['license-title'] : "Not defined",
+                            cv_output['license']['license-title'] : "Not defined.",
 
                             'license_date_issued_year': (cv_output['license'] && 
                                 cv_output['license']['date-issued'] &&
                                 cv_output['license']['date-issued']['year']) ? 
-                            cv_output['license']['date-issued']['year'] : "Not defined",
+                            cv_output['license']['date-issued']['year'] : "Not defined.",
                             
                             'license_end_date': (cv_output['license'] && 
                                 cv_output['license']['end-date'] &&
                                 cv_output['license']['end-date']['year']) ? 
-                            cv_output['license']['end-date']['year'] : "Not defined",
+                            cv_output['license']['end-date']['year'] : "Not defined.",
 
                             'license_country':(cv_output['license'] && 
                                 cv_output['license']['country'] &&
                                 cv_output['license']['country']['value']) ? 
-                            cv_output['license']['country']['value'] : "Not defined",
+                            cv_output['license']['country']['value'] : "Not defined.",
 
                             'license_authors_citation': (cv_output['license'] && 
                                 cv_output['license']['authors'] && 
@@ -969,7 +995,7 @@ export default {
 
                             'book_publication_year': (cv_output['book'] &&
                                     cv_output['book']['publication-year']) ?
-                                cv_output['book']['publication-year'] : "Not defined",
+                                cv_output['book']['publication-year'] : "Not defined.",
 
                             'book_publication_location_country': (cv_output['book'] &&
                                     cv_output['book']['publication-location'] &&
@@ -983,74 +1009,74 @@ export default {
 
                             'book_url': (cv_output['book'] &&
                                     cv_output['book']['url']) ?
-                                cv_output['book']['url'] : "Not defined",
+                                cv_output['book']['url'] : "Not defined.",
 
                             'conference_paper_paper_title': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['paper-title']) ?
-                                cv_output['conference-paper']['paper-title'] : "Not defined",
+                                cv_output['conference-paper']['paper-title'] : "Not defined.",
 
                             'conference_paper_conference_date_year': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['conference-date'] &&
                                     cv_output['conference-paper']['conference-date']['year']) ?
-                                cv_output['conference-paper']['conference-date']['year'] : "Not defined",
+                                cv_output['conference-paper']['conference-date']['year'] : "Not defined.",
 
                             'conference_paper_conference_location_value': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['conference-location'] &&
                                     cv_output['conference-paper']['conference-location']['country'] &&
                                     cv_output['conference-paper']['conference-location']['country']['value']) ?
-                                cv_output['conference-paper']['conference-location']['country']['value'] : "Not defined",
+                                cv_output['conference-paper']['conference-location']['country']['value'] : "Not defined.",
 
                             'conference_paper_proceedings_publisher': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['proceedings-publisher']) ?
-                                cv_output['conference-paper']['proceedings-publisher'] : "Not defined",
+                                cv_output['conference-paper']['proceedings-publisher'] : "Not defined.",
 
                             'conference_paper_url': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['url']) ?
-                                cv_output['conference-paper']['url'] : "Not defined",
+                                cv_output['conference-paper']['url'] : "Not defined.",
 
                             'conference_paper_authors': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['authors'] && cv_output['conference-paper']['authors']['citation']) ?
-                                cv_output['conference-paper']['authors']['citation'] : "Not defined",
+                                cv_output['conference-paper']['authors']['citation'] : "Not defined.",
 
                             'other_output_title': (cv_output['other-output'] &&
                                     cv_output['other-output']['title']) ?
-                                cv_output['other-output']['title'] : "Not defined",
+                                cv_output['other-output']['title'] : "Not defined.",
 
                             'other_output_url': (cv_output['other-output'] &&
                                     cv_output['other-output']['title']) ?
-                                cv_output['other-output']['title'] : "Not defined",
+                                cv_output['other-output']['title'] : "Not defined.",
 
                             'other_output_authors_citation': (cv_output['other-output'] &&
                                     cv_output['other-output']['authors'] &&
                                     cv_output['other-output']['authors']['citation']) ?
-                                cv_output['other-output']['authors']['citation'] : "Not defined",
+                                cv_output['other-output']['authors']['citation'] : "Not defined.",
 
                             'other_output_identifiers_identifier_identifier': (cv_output['other-output'] &&
                                     cv_output['other-output']['identifiers'] &&
                                     cv_output['other-output']['identifiers']['identifier'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['identifier']) ?
-                                cv_output['other-output']['identifiers']['identifier'][0]['identifier'] : "Not defined",
+                                cv_output['other-output']['identifiers']['identifier'][0]['identifier'] : "Not defined.",
 
                             'other_output_identifiers_identifier_identifier_type_code': (cv_output['other-output'] &&
                                     cv_output['other-output']['identifiers'] &&
                                     cv_output['other-output']['identifiers']['identifier'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['identifier-type'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['code']) ?
-                                cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['code'] : "Not defined",
+                                cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['code'] : "Not defined.",
 
                             'other_output_identifiers_identifier_identifier_type_value': (cv_output['other-output'] &&
                                     cv_output['other-output']['identifiers'] &&
                                     cv_output['other-output']['identifiers']['identifier'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['identifier-type'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['value']) ?
-                                cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['value'] : "Not defined",
+                                cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['value'] : "Not defined.",
 
                             'other_output_identifiers_identifier_relationship_type_code': (cv_output['other-output'] &&
                                     cv_output['other-output']['identifiers'] &&
                                     cv_output['other-output']['identifiers']['identifier'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['relationship-type'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['code']) ?
-                                cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['code'] : "Not defined",
+                                cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['code'] : "Not defined.",
 
                             'other_output_identifiers_identifier_relationship_type_value': (cv_output['other-output'] &&
                                     cv_output['other-output']['identifiers'] &&
@@ -1058,12 +1084,12 @@ export default {
                                     cv_output['other-output']['identifiers']['identifier'][0] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['relationship-type'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['value']) ?
-                                cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['value'] : "Not defined",
+                                cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['value'] : "Not defined.",
 
                             'other_output_publication_date_year': (cv_output['other-output'] &&
                                     cv_output['other-output']['publication-date'] &&
                                     cv_output['other-output']['publication-date']['year']) ?
-                                cv_output['other-output']['publication-date']['year'] : "Not defined",
+                                cv_output['other-output']['publication-date']['year'] : "Not defined.",
                         },
 
                     }).then(function (response) {
@@ -1097,14 +1123,18 @@ export default {
         //this.getResults();*/
         Fire.$on('refresh', () => {
             this.removeDuplicatesFromAllOutputsAndAuthors(1);
+            this.AllOutputsAndAuthors();
         });
         this.removeDuplicatesFromAllOutputsAndAuthors(1);
+        this.AllOutputsAndAuthors();
         this.getSciences();
         this.checkIfthereAreStatistics();
     },
     mounted(){
+        this.loadOutputs();
         this.getSciences();
         this.removeDuplicatesFromAllOutputsAndAuthors(1);
+        this.AllOutputsAndAuthors();
         this.searchPermission();
     }
 }

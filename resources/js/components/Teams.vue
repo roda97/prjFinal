@@ -19,6 +19,8 @@
                     <th>Keywords</th>
                     <th>Scientific Domains</th>
                     <th>Application Domains</th>
+                    <th>Status</th>
+                    <th>Actions</th>
                   </tr>               
                   <tr v-for="team in teams" :key="team.id">
                     <td>{{ team.id }}</td>

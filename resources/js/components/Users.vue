@@ -43,10 +43,12 @@
                                 <td>{{ user.science_id }}</td>
                                 <td v-if="user.photo == null"><img width="80" v-bind:src="'img/man.png'" ></td>
                                 <td v-if="user.photo != null"><img width="80" v-bind:src="'img/profile/' + user.photo"></td>
+
                                 <td>
                                     <toggle-button @change="alterIsActive(user)" :value=!!+user.isActive :color="{checked: '#00FF00', 
-                                unchecked: '#FF0000'}" :labels="{checked: 'ON', unchecked: 'OFF'}" />
+                                    unchecked: '#FF0000'}" :labels="{checked: 'ON', unchecked: 'OFF'}" />
                                 </td>
+                                
                                 <td>
                                     <a href="#" v-if="user.isAdmin == 0" @click="promote(user)">
                             <i class ="fa fa-arrow-alt-circle-up"></i>

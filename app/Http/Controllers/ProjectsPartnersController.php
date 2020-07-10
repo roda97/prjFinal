@@ -37,9 +37,9 @@ class ProjectsPartnersController extends Controller
              'partners_projects.partner_id', '=', 'partners.id')
             ->select('partners_projects.id AS partners_projects_id', 
             'partners.id AS partner_id', 
-            'partners.name', 
+            'partners.name AS partner_name', 
             'partners_projects.project_id', 
-            'projects.title')
+            'projects.title AS project_title')
             ->get();
 
         return ProjectsPartnersResource::collection($partners);

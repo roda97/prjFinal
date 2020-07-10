@@ -113,32 +113,32 @@
           'identifier_type_code': 
           (cv_author['identifier-type']
           && cv_author['identifier-type']['code']) ?
-          cv_author['identifier-type']['code']: "Not defined",
+          cv_author['identifier-type']['code']: "Not defined.",
 
           'identifier_type_value': 
           (cv_author['identifier-type']
           && cv_author['identifier-type']['value']) ?
-          cv_author['identifier-type']['value']: "Not defined",
+          cv_author['identifier-type']['value']: "Not defined.",
 
           'identifier': 
           (cv_author['identifier']) ?
-          cv_author['identifier']: "Not defined",
+          cv_author['identifier']: "Not defined.",
 
           'id_row_entry': 
           (cv_author['id']) ?
-          cv_author['id']: "Not defined",
+          cv_author['id']: "Not defined.",
 
           'privacy_level': 
           (cv_author['privacy-level']) ?
-          cv_author['privacy-level']: "Not defined",
+          cv_author['privacy-level']: "Not defined.",
 
           'source_name': 
           (cv_author['source-name']) ?
-          cv_author['source-name']: "Not defined",
+          cv_author['source-name']: "Not defined.",
 
           'last_modified_date': 
           (cv_author['last-modified-date']) ?
-          cv_author['last-modified-date']: "Not defined",
+          cv_author['last-modified-date']: "Not defined.",
 
           },
 

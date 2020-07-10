@@ -169,7 +169,7 @@ class CreateAllTables extends Migration
             $table->string('room');
             $table->string('description');
             $table->date('datereunion');
-            $table->string('ata');
+            $table->string('ata')->nullable();
            // $table->string('year');
         });
 

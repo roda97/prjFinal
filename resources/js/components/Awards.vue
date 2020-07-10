@@ -24,14 +24,14 @@
                     <td>{{ award.title }}</td>
                     <td>{{ award.description }}</td>
                     <td>
-                        <a href="#" v-if="aux == 1 || membroComissaoCientifica == 0|| aux == award.user_id" @click="editModal(award)">
+                        <a href="#" v-if="id == 1 || membroComissaoCientifica == 0 || id == award.user_id" @click="editModal(award)">
                             <i class ="fa fa-edit blue"></i>
                         </a>
-                        <a v-if="aux == 1 || membroComissaoCientifica == 0|| aux == award.user_id">
+                        <a v-if="id == 1 || membroComissaoCientifica == 0 || id == award.user_id">
                           /
                         </a>  
                         
-                        <a href="#" v-if="aux == 1 || membroComissaoCientifica == 0|| aux == award.user_id" @click="deleteAward(award.id)">
+                        <a href="#" v-if="id == 1 || membroComissaoCientifica == 0 || id == award.user_id" @click="deleteAward(award.id)">
                             <i class ="fa fa-trash red"></i>
                         </a>
 
@@ -89,7 +89,7 @@
 	export default{
 		data: function () {
 			return {
-            aux: '',
+            id: '',
             membroComissaoCientifica: '',
             editmode: false,
             awards: [],
@@ -113,8 +113,8 @@
       searchPermissionAwardsAndProjects(){
         axios.get('api/searchPermissionAwardsAndProjects')
             .then(response => {
-                this.aux = response.data;
-                console.log(this.aux);
+                this.id = response.data;
+                console.log(this.id);
                 //this.$store.commit("setSearchPermission", response.data);
             });
       },

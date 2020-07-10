@@ -70,7 +70,7 @@
                 </div>
                 -->
                     <div class="card-tools">
-                        <download-csv class="btn btn-dark" @:data="this.data_to_csv" name="CIIC_DB_Outputs.csv">
+                        <download-csv class="btn btn-dark" :data="this.data_to_csv" name="CIIC_DB_Outputs.csv">
 
                             <font color="white">EXPORT CIIC TABLE</font>
 
@@ -608,6 +608,7 @@ export default {
 
     data: function () {
         return {
+            sciendId: '',
             userAuthenticated: '',
             isbulkUpdateFailed: false,
             checkedTypeFilters: [],
@@ -630,7 +631,15 @@ export default {
         }
     },
 
-    methods: {
+    methods: {    
+        
+        getScienceId(){
+            axios.get('api/cv_outputs/getScienceId')
+                .then(response => {
+                    this.sciendId = response.data;
+                });
+
+        },
 
         formatRow_patent(patent_authors, patent_date_issued_year, patent_end_date, patent_title, patent_country){
             return (patent_authors ? patent_authors + ". " : '') +  
@@ -860,7 +869,10 @@ export default {
                     console.log("Dados:")
                     console.log(response.data.data)
                     this.data_to_csv = response.data.data;
-                });
+                }).catch(function (error) {
+
+                        console.log(error);
+                    });
         },
 
         getFilteredDataToCSV() {
@@ -1044,7 +1056,7 @@ export default {
             for (let cv_output of this.cv_outputs) {
 
                 lista2.data.push({
-                    user_science_id: null,
+                    user_science_id: this.sciendId,
                     id_row_entry: cv_output['id'],
                     last_modified_date: cv_output['last-modified-date'],
                     output_category_value: cv_output['output-category']['value'],
@@ -1101,7 +1113,7 @@ export default {
 
                     book_chapter_publication_year: (cv_output['book-chapter'] &&
                             cv_output['book-chapter']['publication-year']) ?
-                        cv_output['book-chapter']['publication-year'] : "Not defined",
+                        cv_output['book-chapter']['publication-year'] : "Not defined.",
 
                     book_chapter_publication_location_country: (cv_output['book-chapter'] &&
                             cv_output['book-chapter']['publication-location'] &&
@@ -1115,7 +1127,7 @@ export default {
 
                     book_chapter_url: (cv_output['book-chapter'] &&
                             cv_output['book-chapter']['url']) ?
-                        cv_output['book-chapter']['url'] : "Not defined",
+                        cv_output['book-chapter']['url'] : "Not defined.",
 
                     //FIM CAPITULO LIVRO
                     
@@ -1123,31 +1135,31 @@ export default {
 
                     dissertation_title: (cv_output['dissertation'] && 
                         cv_output['dissertation']['title']) ? 
-                        cv_output['dissertation']['title'] : "Not defined",
+                        cv_output['dissertation']['title'] : "Not defined.",
 
                     dissertation_number_of_volumes: (cv_output['dissertation'] && 
                         cv_output['dissertation']['number-of-volumes']) ? 
-                        cv_output['dissertation']['number-of-volumes'] : "Not defined",
+                        cv_output['dissertation']['number-of-volumes'] : "Not defined.",
 
                     //'dissertation_institutions', // confirmar este
 
                     dissertation_degree_type_value: (cv_output['dissertation'] && 
                         cv_output['dissertation']['degree-type'] && 
                         cv_output['dissertation']['degree-type']['value']) ? 
-                    cv_output['dissertation']['degree-type']['value'] : "Not defined",
+                    cv_output['dissertation']['degree-type']['value'] : "Not defined.",
 
                     dissertation_classification: (cv_output['dissertation'] && 
                         cv_output['dissertation']['classification']) ? 
-                    cv_output['dissertation']['classification'] : "Not defined",
+                    cv_output['dissertation']['classification'] : "Not defined.",
 
                     dissertation_completion_date_year: (cv_output['dissertation'] && 
                         cv_output['dissertation']['completion-date'] && 
                         cv_output['dissertation']['completion-date']['year']) ? 
-                    cv_output['dissertation']['completion-date']['year'] : "Not defined",
+                    cv_output['dissertation']['completion-date']['year'] : "Not defined.",
 
                     dissertation_url: (cv_output['dissertation'] && 
                         cv_output['dissertation']['url']) ? 
-                        cv_output['dissertation']['url'] : "Not defined",
+                        cv_output['dissertation']['url'] : "Not defined.",
 
                     dissertation_authors_citation: (cv_output['dissertation'] && 
                         cv_output['dissertation']['authors'] && 
@@ -1160,22 +1172,22 @@ export default {
 
                     license_title: (cv_output['license'] && 
                         cv_output['license']['license-title']) ? 
-                    cv_output['license']['license-title'] : "Not defined",
+                    cv_output['license']['license-title'] : "Not defined.",
 
                     license_date_issued_year: (cv_output['license'] && 
                         cv_output['license']['date-issued'] &&
                         cv_output['license']['date-issued']['year']) ? 
-                    cv_output['license']['date-issued']['year'] : "Not defined",
+                    cv_output['license']['date-issued']['year'] : "Not defined.",
                     
                     license_end_date: (cv_output['license'] && 
                         cv_output['license']['end-date'] &&
                         cv_output['license']['end-date']['year']) ? 
-                    cv_output['license']['end-date']['year'] : "Not defined",
+                    cv_output['license']['end-date']['year'] : "Not defined.",
 
                     license_country:(cv_output['license'] && 
                         cv_output['license']['country'] &&
                         cv_output['license']['country']['value']) ? 
-                    cv_output['license']['country']['value'] : "Not defined",
+                    cv_output['license']['country']['value'] : "Not defined.",
 
                     license_authors_citation: (cv_output['license'] && 
                         cv_output['license']['authors'] && 
@@ -1260,7 +1272,7 @@ export default {
 
                     book_publication_year: (cv_output['book'] &&
                             cv_output['book']['publication-year']) ?
-                        cv_output['book']['publication-year'] : "Not defined",
+                        cv_output['book']['publication-year'] : "Not defined.",
 
                     book_publication_location_country: (cv_output['book'] &&
                             cv_output['book']['publication-location'] &&
@@ -1274,74 +1286,74 @@ export default {
 
                     book_url: (cv_output['book'] &&
                             cv_output['book']['url']) ?
-                        cv_output['book']['url'] : "Not defined",
+                        cv_output['book']['url'] : "Not defined.",
 
                     conference_paper_paper_title: (cv_output['conference-paper'] &&
                             cv_output['conference-paper']['paper-title']) ?
-                        cv_output['conference-paper']['paper-title'] : "Not defined",
+                        cv_output['conference-paper']['paper-title'] : "Not defined.",
 
                     conference_paper_conference_date_year: (cv_output['conference-paper'] &&
                             cv_output['conference-paper']['conference-date'] &&
                             cv_output['conference-paper']['conference-date']['year']) ?
-                        cv_output['conference-paper']['conference-date']['year'] : "Not defined",
+                        cv_output['conference-paper']['conference-date']['year'] : "Not defined.",
 
                     conference_paper_conference_location_value: (cv_output['conference-paper'] &&
                             cv_output['conference-paper']['conference-location'] &&
                             cv_output['conference-paper']['conference-location']['country'] &&
                             cv_output['conference-paper']['conference-location']['country']['value']) ?
-                        cv_output['conference-paper']['conference-location']['country']['value'] : "Not defined",
+                        cv_output['conference-paper']['conference-location']['country']['value'] : "Not defined.",
 
                     conference_paper_proceedings_publisher: (cv_output['conference-paper'] &&
                             cv_output['conference-paper']['proceedings-publisher']) ?
-                        cv_output['conference-paper']['proceedings-publisher'] : "Not defined",
+                        cv_output['conference-paper']['proceedings-publisher'] : "Not defined.",
 
                     conference_paper_url: (cv_output['conference-paper'] &&
                             cv_output['conference-paper']['url']) ?
-                        cv_output['conference-paper']['url'] : "Not defined",
+                        cv_output['conference-paper']['url'] : "Not defined.",
 
                     conference_paper_authors: (cv_output['conference-paper'] &&
                             cv_output['conference-paper']['authors'] && cv_output['conference-paper']['authors']['citation']) ?
-                        cv_output['conference-paper']['authors']['citation'] : "Not defined",
+                        cv_output['conference-paper']['authors']['citation'] : "Not defined.",
 
                     other_output_title: (cv_output['other-output'] &&
                             cv_output['other-output']['title']) ?
-                        cv_output['other-output']['title'] : "Not defined",
+                        cv_output['other-output']['title'] : "Not defined.",
 
                     other_output_url: (cv_output['other-output'] &&
                             cv_output['other-output']['title']) ?
-                        cv_output['other-output']['title'] : "Not defined",
+                        cv_output['other-output']['title'] : "Not defined.",
 
                     other_output_authors_citation: (cv_output['other-output'] &&
                             cv_output['other-output']['authors'] &&
                             cv_output['other-output']['authors']['citation']) ?
-                        cv_output['other-output']['authors']['citation'] : "Not defined",
+                        cv_output['other-output']['authors']['citation'] : "Not defined.",
 
                     other_output_identifiers_identifier_identifier: (cv_output['other-output'] &&
                             cv_output['other-output']['identifiers'] &&
                             cv_output['other-output']['identifiers']['identifier'] &&
                             cv_output['other-output']['identifiers']['identifier'][0]['identifier']) ?
-                        cv_output['other-output']['identifiers']['identifier'][0]['identifier'] : "Not defined",
+                        cv_output['other-output']['identifiers']['identifier'][0]['identifier'] : "Not defined.",
 
                     other_output_identifiers_identifier_identifier_type_code: (cv_output['other-output'] &&
                             cv_output['other-output']['identifiers'] &&
                             cv_output['other-output']['identifiers']['identifier'] &&
                             cv_output['other-output']['identifiers']['identifier'][0]['identifier-type'] &&
                             cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['code']) ?
-                        cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['code'] : "Not defined",
+                        cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['code'] : "Not defined.",
 
                     other_output_identifiers_identifier_identifier_type_value: (cv_output['other-output'] &&
                             cv_output['other-output']['identifiers'] &&
                             cv_output['other-output']['identifiers']['identifier'] &&
                             cv_output['other-output']['identifiers']['identifier'][0]['identifier-type'] &&
                             cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['value']) ?
-                        cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['value'] : "Not defined",
+                        cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['value'] : "Not defined.",
 
                     other_output_identifiers_identifier_relationship_type_code: (cv_output['other-output'] &&
                             cv_output['other-output']['identifiers'] &&
                             cv_output['other-output']['identifiers']['identifier'] &&
                             cv_output['other-output']['identifiers']['identifier'][0]['relationship-type'] &&
                             cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['code']) ?
-                        cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['code'] : "Not defined",
+                        cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['code'] : "Not defined.",
 
                     other_output_identifiers_identifier_relationship_type_value: (cv_output['other-output'] &&
                             cv_output['other-output']['identifiers'] &&
@@ -1349,12 +1361,12 @@ export default {
                             cv_output['other-output']['identifiers']['identifier'][0] &&
                             cv_output['other-output']['identifiers']['identifier'][0]['relationship-type'] &&
                             cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['value']) ?
-                        cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['value'] : "Not defined",
+                        cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['value'] : "Not defined.",
 
                     other_output_publication_date_year: (cv_output['other-output'] &&
                             cv_output['other-output']['publication-date'] &&
                             cv_output['other-output']['publication-date']['year']) ?
-                        cv_output['other-output']['publication-date']['year'] : "Not defined",
+                        cv_output['other-output']['publication-date']['year'] : "Not defined.",
 
                 });
 
@@ -1418,10 +1430,10 @@ export default {
             for (let cv_output of this.cv_outputs) {
 
 
-                    if(cv_output['report']){
+                    /*if(cv_output['report']){
                         console.log("teste2");
                         console.log(cv_output['report']['institutions']['institution'][0]['institution-name'])
-                    }
+                    }*/
                     
                 axios({
 
@@ -1486,7 +1498,7 @@ export default {
 
                             'book_chapter_publication_year': (cv_output['book-chapter'] &&
                                     cv_output['book-chapter']['publication-year']) ?
-                                cv_output['book-chapter']['publication-year'] : "Not defined",
+                                cv_output['book-chapter']['publication-year'] : "Not defined.",
 
                             'book_chapter_publication_location_country': (cv_output['book-chapter'] &&
                                     cv_output['book-chapter']['publication-location'] &&
@@ -1500,7 +1512,7 @@ export default {
 
                             'book_chapter_url': (cv_output['book-chapter'] &&
                                     cv_output['book-chapter']['url']) ?
-                                cv_output['book-chapter']['url'] : "Not defined",
+                                cv_output['book-chapter']['url'] : "Not defined.",
 
                             //FIM CAPITULO LIVRO
                             
@@ -1508,31 +1520,31 @@ export default {
 
                             'dissertation_title': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['title']) ? 
-                                cv_output['dissertation']['title'] : "Not defined",
+                                cv_output['dissertation']['title'] : "Not defined.",
 
                             'dissertation_number_of_volumes': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['number-of-volumes']) ? 
-                                cv_output['dissertation']['number-of-volumes'] : "Not defined",
+                                cv_output['dissertation']['number-of-volumes'] : "Not defined.",
 
                             //'dissertation_institutions', // confirmar este
 
                             'dissertation_degree_type_value': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['degree-type'] && 
                                 cv_output['dissertation']['degree-type']['value']) ? 
-                            cv_output['dissertation']['degree-type']['value'] : "Not defined",
+                            cv_output['dissertation']['degree-type']['value'] : "Not defined.",
 
                             'dissertation_classification': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['classification']) ? 
-                            cv_output['dissertation']['classification'] : "Not defined",
+                            cv_output['dissertation']['classification'] : "Not defined.",
 
                             'dissertation_completion_date_year': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['completion-date'] && 
                                 cv_output['dissertation']['completion-date']['year']) ? 
-                            cv_output['dissertation']['completion-date']['year'] : "Not defined",
+                            cv_output['dissertation']['completion-date']['year'] : "Not defined.",
 
                             'dissertation_url': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['url']) ? 
-                                cv_output['dissertation']['url'] : "Not defined",
+                                cv_output['dissertation']['url'] : "Not defined.",
 
                             'dissertation_authors_citation': (cv_output['dissertation'] && 
                                 cv_output['dissertation']['authors'] && 
@@ -1545,22 +1557,22 @@ export default {
 
                             'license_title': (cv_output['license'] && 
                                 cv_output['license']['license-title']) ? 
-                            cv_output['license']['license-title'] : "Not defined",
+                            cv_output['license']['license-title'] : "Not defined.",
 
                             'license_date_issued_year': (cv_output['license'] && 
                                 cv_output['license']['date-issued'] &&
                                 cv_output['license']['date-issued']['year']) ? 
-                            cv_output['license']['date-issued']['year'] : "Not defined",
+                            cv_output['license']['date-issued']['year'] : "Not defined.",
                             
                             'license_end_date': (cv_output['license'] &&
                                 cv_output['license']['end-date'] && 
                                 cv_output['license']['end-date']['year']) ? 
-                            cv_output['license']['end-date']['year'] : "Not defined",
+                            cv_output['license']['end-date']['year'] : "Not defined.",
 
                             'license_country':(cv_output['license'] && 
                                 cv_output['license']['country'] &&
                                 cv_output['license']['country']['value']) ? 
-                            cv_output['license']['country']['value'] : "Not defined",
+                            cv_output['license']['country']['value'] : "Not defined.",
 
                             'license_authors_citation': (cv_output['license'] && 
                                 cv_output['license']['authors'] && 
@@ -1646,7 +1658,7 @@ export default {
 
                             'book_publication_year': (cv_output['book'] &&
                                     cv_output['book']['publication-year']) ?
-                                cv_output['book']['publication-year'] : "Not defined",
+                                cv_output['book']['publication-year'] : "Not defined.",
 
                             'book_publication_location_country': (cv_output['book'] &&
                                     cv_output['book']['publication-location'] &&
@@ -1660,74 +1672,74 @@ export default {
 
                             'book_url': (cv_output['book'] &&
                                     cv_output['book']['url']) ?
-                                cv_output['book']['url'] : "Not defined",
+                                cv_output['book']['url'] : "Not defined.",
 
                             'conference_paper_paper_title': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['paper-title']) ?
-                                cv_output['conference-paper']['paper-title'] : "Not defined",
+                                cv_output['conference-paper']['paper-title'] : "Not defined.",
 
                             'conference_paper_conference_date_year': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['conference-date'] &&
                                     cv_output['conference-paper']['conference-date']['year']) ?
-                                cv_output['conference-paper']['conference-date']['year'] : "Not defined",
+                                cv_output['conference-paper']['conference-date']['year'] : "Not defined.",
 
                             'conference_paper_conference_location_value': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['conference-location'] &&
                                     cv_output['conference-paper']['conference-location']['country'] &&
                                     cv_output['conference-paper']['conference-location']['country']['value']) ?
-                                cv_output['conference-paper']['conference-location']['country']['value'] : "Not defined",
+                                cv_output['conference-paper']['conference-location']['country']['value'] : "Not defined.",
 
                             'conference_paper_proceedings_publisher': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['proceedings-publisher']) ?
-                                cv_output['conference-paper']['proceedings-publisher'] : "Not defined",
+                                cv_output['conference-paper']['proceedings-publisher'] : "Not defined.",
 
                             'conference_paper_url': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['url']) ?
-                                cv_output['conference-paper']['url'] : "Not defined",
+                                cv_output['conference-paper']['url'] : "Not defined.",
 
                             'conference_paper_authors': (cv_output['conference-paper'] &&
                                     cv_output['conference-paper']['authors'] && cv_output['conference-paper']['authors']['citation']) ?
-                                cv_output['conference-paper']['authors']['citation'] : "Not defined",
+                                cv_output['conference-paper']['authors']['citation'] : "Not defined.",
 
                             'other_output_title': (cv_output['other-output'] &&
                                     cv_output['other-output']['title']) ?
-                                cv_output['other-output']['title'] : "Not defined",
+                                cv_output['other-output']['title'] : "Not defined.",
 
                             'other_output_url': (cv_output['other-output'] &&
                                     cv_output['other-output']['title']) ?
-                                cv_output['other-output']['title'] : "Not defined",
+                                cv_output['other-output']['title'] : "Not defined.",
 
                             'other_output_authors_citation': (cv_output['other-output'] &&
                                     cv_output['other-output']['authors'] &&
                                     cv_output['other-output']['authors']['citation']) ?
-                                cv_output['other-output']['authors']['citation'] : "Not defined",
+                                cv_output['other-output']['authors']['citation'] : "Not defined.",
 
                             'other_output_identifiers_identifier_identifier': (cv_output['other-output'] &&
                                     cv_output['other-output']['identifiers'] &&
                                     cv_output['other-output']['identifiers']['identifier'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['identifier']) ?
-                                cv_output['other-output']['identifiers']['identifier'][0]['identifier'] : "Not defined",
+                                cv_output['other-output']['identifiers']['identifier'][0]['identifier'] : "Not defined.",
 
                             'other_output_identifiers_identifier_identifier_type_code': (cv_output['other-output'] &&
                                     cv_output['other-output']['identifiers'] &&
                                     cv_output['other-output']['identifiers']['identifier'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['identifier-type'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['code']) ?
-                                cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['code'] : "Not defined",
+                                cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['code'] : "Not defined.",
 
                             'other_output_identifiers_identifier_identifier_type_value': (cv_output['other-output'] &&
                                     cv_output['other-output']['identifiers'] &&
                                     cv_output['other-output']['identifiers']['identifier'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['identifier-type'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['value']) ?
-                                cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['value'] : "Not defined",
+                                cv_output['other-output']['identifiers']['identifier'][0]['identifier-type']['value'] : "Not defined.",
 
                             'other_output_identifiers_identifier_relationship_type_code': (cv_output['other-output'] &&
                                     cv_output['other-output']['identifiers'] &&
                                     cv_output['other-output']['identifiers']['identifier'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['relationship-type'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['code']) ?
-                                cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['code'] : "Not defined",
+                                cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['code'] : "Not defined.",
 
                             'other_output_identifiers_identifier_relationship_type_value': (cv_output['other-output'] &&
                                     cv_output['other-output']['identifiers'] &&
@@ -1735,12 +1747,12 @@ export default {
                                     cv_output['other-output']['identifiers']['identifier'][0] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['relationship-type'] &&
                                     cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['value']) ?
-                                cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['value'] : "Not defined",
+                                cv_output['other-output']['identifiers']['identifier'][0]['relationship-type']['value'] : "Not defined.",
 
                             'other_output_publication_date_year': (cv_output['other-output'] &&
                                     cv_output['other-output']['publication-date'] &&
                                     cv_output['other-output']['publication-date']['year']) ?
-                                cv_output['other-output']['publication-date']['year'] : "Not defined",
+                                cv_output['other-output']['publication-date']['year'] : "Not defined.",
                         },
 
                     }).then(function (response) {
@@ -1774,6 +1786,7 @@ export default {
         },
     },
     created() {
+        this.getScienceId();
         this.checkAllFilters();
         this.loadOutputs();
         this.getLocalDataToCSV();

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\MemberRoles;
 use Carbon\Carbon;
+use App\MemberRoles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UsersResource;
 use App\Http\Resources\MemberRolesResource;
@@ -20,11 +21,38 @@ class UsersController extends Controller
 
     public function searchPermission(){
         $id = auth('api')->user()->id;
-        $comissao_cientifica = MemberRoles::select('role_id')->where('user_id',$id)->get(); //vai buscar o membro com o id igual ao id que está logado
+
+        $roles = array();
+        $roles = (array)DB::table('user_roles as s')
+        ->select('s.*')
+        ->leftJoin('user_roles as s1', function ($join) {
+              $join->on('s.user_id', '=', 's1.user_id')
+                   ->whereRaw(DB::raw('s.updated_at < s1.updated_at'));
+         })
+        ->whereNull('s1.role_id')
+        ->get();
+
+        $collection = collect($roles)->values();
+
+        $size = count($collection[0]);
+        $collection = json_decode( json_encode($collection), true); // sem esta linha conseguia aceder a $collection[0][$i] mas não conseguia aceder a $collection[0][$i]['user_id'] porque dava erro "Cannot use object of type stdClass as array"
+        $user_role = 0;
+
+        for($i=0; $i<$size; $i++){
+            //return response()->json($collection[0][$i]['user_id'],402);
+            if($collection[0][$i]['user_id'] == $id)
+            {
+                $user_role = $collection[0][$i]['role_id'];
+            }
+        }
+        //return response()->json($user_role,402);
+
+        //$comissao_cientifica = $roles::select('role_id')->where('user_id',$id)->get(); //vai buscar o membro com o id igual ao id que está logado
         //$admin = auth('api')->user()->isAdmin;
+
         $aux = 1;
 
-        if($comissao_cientifica[0]['role_id'] == 6){
+        if($user_role == 6 || $user_role == 7){
             $aux = 0;
         }else{
             $aux = 1;

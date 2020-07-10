@@ -320,34 +320,37 @@
     </section>
 
     <!-- Labs -->
-    <section class="bg-light" id="portfolio">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">Laboratories</h2>
-                    <h3 class="section-subheading text-muted">CIIC advanced facilities</h3>
-                </div>
-            </div>
-            <div class="row">
-                @foreach (\App\Laboratories::all()->take(3) as $lab)
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a class="portfolio-link" data-toggle="modal" href="#portfolioModalLab{{ $lab->id }}">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fas fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img alt="lab" class="img-fluid" src="img/labs/{{ $lab->lab_img_path }}" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h5>{{ $lab->name }}</h5>
-                        <p class="text-muted">{{ $lab->workgroup }}</p>
+    <a id="labs">
+        <section class="bg-light" id="portfolio">
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading text-uppercase">Laboratories</h2>
+                        <h3 class="section-subheading text-muted">CIIC advanced facilities</h3>
                     </div>
                 </div>
-                @endforeach
+                <div class="row">
+                    @foreach (\App\Laboratories::all()->take(3) as $lab)
+                    <div class="col-md-4 col-sm-6 portfolio-item">
+                        <a class="portfolio-link" data-toggle="modal" href="#portfolioModalLab{{ $lab->id }}">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content">
+                                    <i class="fas fa-plus fa-3x"></i>
+                                </div>
+                            </div>
+                            <img alt="lab" class="img-fluid" src="img/labs/{{ $lab->lab_img_path }}" alt="">
+                        </a>
+                        <div class="portfolio-caption">
+                            <h5>{{ $lab->name }}</h5>
+                            <p class="text-muted">{{ $lab->workgroup }}</p>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </a>
 
     @foreach (\App\Laboratories::all() as $lab)
     <div class="portfolio-modal modal fade" id="portfolioModalLab{{ $lab->id }}" tabindex="-1" role="dialog" aria-hidden="true">

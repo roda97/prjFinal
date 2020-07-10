@@ -107,27 +107,27 @@
 
           'value': 
           (cv_citation['value']) ? 
-          cv_citation['value']: "Not defined",
+          cv_citation['value']: "Not defined.",
 
           'id_row_entry': 
           (cv_citation['id']) ? 
-          cv_citation['id']: "Not defined",
+          cv_citation['id']: "Not defined.",
 
           'privacy_level': 
           (cv_citation['privacy-level']) ? 
-          cv_citation['privacy-level']: "Not defined",
+          cv_citation['privacy-level']: "Not defined.",
 
           'source_name': 
           (cv_citation['source-name']) ? 
-          cv_citation['source-name']: "Not defined",
+          cv_citation['source-name']: "Not defined.",
 
           'last_modified_date': 
           (cv_citation['last-modified-date']) ? 
-          cv_citation['last-modified-date']: "Not defined",
+          cv_citation['last-modified-date']: "Not defined.",
 
           'preferred_citation_name': 
           (cv_citation['preferred-citation-name']) ? 
-          cv_citation['preferred-citation-name']: "Not defined",
+          cv_citation['preferred-citation-name']: "Not defined.",
 
           },
 

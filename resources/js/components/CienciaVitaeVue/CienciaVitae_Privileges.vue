@@ -124,61 +124,61 @@
           'api_user_name': 
           (this.cv_privileges['api-user']
           && this.cv_privileges['api-user']['name']) ?
-          this.cv_privileges['api-user']['name']: "Not defined",
+          this.cv_privileges['api-user']['name']: "Not defined.",
 
           'api_user_privacy_level_code': 
           (this.cv_privileges['api-user']
           && this.cv_privileges['api-user']['privacy-level']
           && this.cv_privileges['api-user']['privacy-level']['code']) ?
-          this.cv_privileges['api-user']['privacy-level']['code']: "Not defined",
+          this.cv_privileges['api-user']['privacy-level']['code']: "Not defined.",
 
           'api_user_privacy_level_value': 
           (this.cv_privileges['api-user']
           && this.cv_privileges['api-user']['privacy-level']
           && this.cv_privileges['api-user']['privacy-level']['value']) ?
-          this.cv_privileges['api-user']['privacy-level']['value']: "Not defined",
+          this.cv_privileges['api-user']['privacy-level']['value']: "Not defined.",
 
           'api_user_role_code': 
           (this.cv_privileges['api-user']
           && this.cv_privileges['api-user']['role']
           && this.cv_privileges['api-user']['role']['code']) ?
-          this.cv_privileges['api-user']['role']['code']: "Not defined",
+          this.cv_privileges['api-user']['role']['code']: "Not defined.",
 
           'api_user_role_value': 
           (this.cv_privileges['api-user']
           && this.cv_privileges['api-user']['role']
           && this.cv_privileges['api-user']['role']['value']) ?
-          this.cv_privileges['api-user']['role']['value']: "Not defined",
+          this.cv_privileges['api-user']['role']['value']: "Not defined.",
 
           'api_user_url': 
           (this.cv_privileges['api-user']
           && this.cv_privileges['api-user']['url']) ?
-          this.cv_privileges['api-user']['url']: "Not defined",
+          this.cv_privileges['api-user']['url']: "Not defined.",
 
           'privilege_ciencia_id': 
           (this.cv_privileges['privilege']
           && this.cv_privileges['privilege']['ciencia-id']) ?
-          this.cv_privileges['privilege']['ciencia-id']: "Not defined",
+          this.cv_privileges['privilege']['ciencia-id']: "Not defined.",
 
           'privilege_effective_privacy_level_code': 
           (this.cv_privileges['privilege']['effective-privacy-level']
           && this.cv_privileges['privilege']['effective-privacy-level']['code']) ?
-          this.cv_privileges['privilege']['effective-privacy-level']['code']: "Not defined",
+          this.cv_privileges['privilege']['effective-privacy-level']['code']: "Not defined.",
 
           'privilege_effective_privacy_level_value': 
           (this.cv_privileges['privilege']['effective-privacy-level']
           && this.cv_privileges['privilege']['effective-privacy-level']['value']) ?
-          this.cv_privileges['privilege']['effective-privacy-level']['value']: "Not defined",
+          this.cv_privileges['privilege']['effective-privacy-level']['value']: "Not defined.",
 
           'privilege_effective_role_code': 
           (this.cv_privileges['privilege']['effective-role']
           && this.cv_privileges['privilege']['effective-role']['code']) ?
-          this.cv_privileges['privilege']['effective-role']['code']: "Not defined",
+          this.cv_privileges['privilege']['effective-role']['code']: "Not defined.",
 
           'privilege_effective_role_value': 
           (this.cv_privileges['privilege']['effective-role']
           && this.cv_privileges['privilege']['effective-role']['value']) ?
-          this.cv_privileges['privilege']['effective-role']['value']: "Not defined",
+          this.cv_privileges['privilege']['effective-role']['value']: "Not defined.",
 
           },
 

@@ -87,11 +87,11 @@
 
           'fundings_outputs': 
           (this.cv_groups['fundings-outputs']) ?
-          this.cv_groups['fundings-outputs']: "Not defined" ,
+          this.cv_groups['fundings-outputs']: "Not defined." ,
 
           'employments_services': 
           (this.cv_groups['employments-services']) ?
-          this.cv_groups['employments-services']: "Not defined" ,
+          this.cv_groups['employments-services']: "Not defined." ,
 
           },
 

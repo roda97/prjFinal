@@ -20,12 +20,12 @@
                     <th>Project Name</th>
                     <th>Actions</th>
                   </tr>               
-                  <!--<tr v-for="partner in partners" :key="partner.id">-->
-                    <tr v-for="(partner, i) in partners" :key="i">
+                  <tr v-for="partner in partnersPerProject" :key="partner.id">
+                    <!--<tr v-for="(partner, i) in partners" :key="i">-->
                     <td>{{ partner.partner_id }}</td>
-                    <td>{{ partner.name }}</td>
+                    <td>{{ partner.partner_name }}</td>
                     <td>{{ partner.project_id }}</td>
-                    <td>{{ partner.title }}</td>
+                    <td>{{ partner.project_title }}</td>
                     <td>
                       <!--
                         <a href="#" @click="editModal(partner)">
@@ -61,8 +61,8 @@
 	        <select name="partnerSelected" v-model="form.partnerSelected" class="form-control" 
             :class="{'is-invalid': form.errors.has('partnerSelected')}"> 
            <option :value="''" disabled selected> - Please select a Partner - </option> 
-           <!--<option v-for="partner in partners" :value="partner.id" :key="partner.id">{{ partner.name }}</option>-->
-           <option v-for="(partner, i) in partners" :value="partner.id" :key="i">{{ partner.name }}</option>
+           <option v-for="partner in partners" :value="partner.id" :key="partner.id">{{ partner.name }}</option>
+           <!--<option v-for="(partner, i) in partners" :value="partner.id" :key="i">{{ partner.name }}</option>-->
            </select>
            <has-error :form="form" field="partnerSelected"></has-error>
         </div>
@@ -94,6 +94,7 @@
   export default {
 		data: function () {
 		return {
+        partnersPerProject: [],
         editmode: false,
         partners: [],
         partners:[],
@@ -139,7 +140,7 @@
       loadPartnersPerProject(){
           axios.get('api/partners/getPartnersPerProject')
   					.then(response=>{
-  					this.partners = response.data.data; 
+  					this.partnersPerProject = response.data.data; 
   				});		
         },
         

@@ -336,7 +336,7 @@ export default {
           && cv_degree['institutions']['institution']
           && cv_degree['institutions']['institution'][0]['institution-address'] 
           && cv_degree['institutions']['institution'][0]['institution-address']['city']) ?
-          cv_degree['institutions']['institution'][0]['institution-address']['city']: "Not defined",
+          cv_degree['institutions']['institution'][0]['institution-address']['city']: "Not defined.",
 
 
           'institution_country': 
@@ -345,7 +345,7 @@ export default {
           && cv_degree['institutions']['institution'][0]['institution-address'] 
           && cv_degree['institutions']['institution'][0]['institution-address']['country']
           && cv_degree['institutions']['institution'][0]['institution-address']['country']['value']) ?
-          cv_degree['institutions']['institution'][0]['institution-address']['country']['value']: "Not defined",
+          cv_degree['institutions']['institution'][0]['institution-address']['country']['value']: "Not defined.",
 
           'degree_major': 
           (cv_degree['degree-major']) ? 
@@ -354,12 +354,12 @@ export default {
           'degree_status_value': 
           (cv_degree['degree-status']
           && cv_degree['degree-status']['value']) ?
-          cv_degree['degree-status']['value']:  "Not defined",
+          cv_degree['degree-status']['value']:  "Not defined.",
 
           'degree_status_code': 
           (cv_degree['degree-status']
           && cv_degree['degree-status']['code']) ?
-          cv_degree['degree-status']['code']:  "Not defined",
+          cv_degree['degree-status']['code']:  "Not defined.",
           
           'description': 
           (cv_degree['description']) ? 
@@ -368,7 +368,7 @@ export default {
           'degree_end_date': 
           (cv_degree['end-date']
           && cv_degree['end-date']['year']) ?
-          cv_degree['end-date']['year']:  "Not defined",
+          cv_degree['end-date']['year']:  "Not defined.",
                 
           'privacy_level': 
           (cv_degree['privacy-level']) ? 

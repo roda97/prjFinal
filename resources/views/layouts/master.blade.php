@@ -145,7 +145,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Investigadores</p>
                 </a>
               </li>-->
-              <li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">
+              <!--<li class="nav-item" v-if="{{Auth::user()->isAdmin}} == 1">-->
+              <li class="nav-item">
                 <router-link to ="/scientific" class="nav-link">
                   <i class="fas fa-globe"></i>
                   <p>Reunion</p>

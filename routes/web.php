@@ -49,3 +49,4 @@ Route::group(['middleware' => ['auth', 'verified', 'isActive']], function(){
 
 }
 );
+

@@ -7,7 +7,7 @@
                 <h3 class="card-title">Reunion Table</h3>
 
                 <div class="card-tools">
-                  <button class ="btn btn-success" @click="newModal">Add new Reunion</button>
+                  <button class ="btn btn-success" v-if="id == 1 || membroComissaoCientifica == 0" @click="newModal">Add new Reunion</button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -37,13 +37,20 @@
                         </a>
                          /-->
                     
-                        <a href="#" @click="deletereunion(scientificCommittee.id)">
+                        <a href="#" v-if="id == 1 || membroComissaoCientifica == 0" @click="deletereunion(scientificCommittee.id)">
                             <i class ="fa fa-trash red"></i>
                         </a>
+                        <a v-if="id == 1 || membroComissaoCientifica == 0">
                           /
-                         <a href="#" @click="editModal(scientificCommittee)">
+                        </a>
+
+                        <a href="#" v-if="id == 1 || membroComissaoCientifica == 0" @click="editModal(scientificCommittee)">
                             <i class ="fa fa-edit blue"></i>
                         </a> 
+
+                        <a v-else>
+                        -
+                        </a>  
                        
                     </td>
                   </tr>
@@ -130,6 +137,8 @@
 	export default{
 		data: function () {
 		return {
+        id: '',
+        membroComissaoCientifica: '',
         editmode: false,
         attachment: null,
         memberRoles: [],
@@ -149,6 +158,23 @@
 		  }
     },
     methods:{
+      searchPermission(){
+        axios.get('api/searchPermission')
+            .then(response => {
+                this.membroComissaoCientifica = response.data;
+                //this.$store.commit("setSearchPermission", response.data);
+            });
+      },
+
+      searchPermissionAwardsAndProjects(){
+        axios.get('api/searchPermissionAwardsAndProjects')
+            .then(response => {
+                this.id = response.data;
+                console.log(this.id);
+                //this.$store.commit("setSearchPermission", response.data);
+            });
+      },
+
       loadScientificCommittees(){
           axios.get('api/scientificCommittee')
   					.then(response=>{
@@ -305,24 +331,28 @@
           })
         }
     },
-        created(){
-            Fire.$on('searching',() => {
-            let query = this.$parent.search;
-            axios.get('api/findMember?q=' + query)
-            .then((response) =>{
-              this.members = response.data;
-            })
-            .catch(() =>{
-              
-            })
-          })
-          this.loadUsers();
-          this.loadMemberRoles();
-          this.loadScientificCommittees();
-          Fire.$on('refresh',()=>{
-            this.loadScientificCommittees();
-          })
-        },  
+    created(){
+        Fire.$on('searching',() => {
+        let query = this.$parent.search;
+        axios.get('api/findMember?q=' + query)
+        .then((response) =>{
+          this.scientificCommittee = response.data;
+        })
+        .catch(() =>{
+          
+        })
+      })
+      this.loadUsers();
+      this.loadMemberRoles();
+      this.loadScientificCommittees();
+      Fire.$on('refresh',()=>{
+        this.loadScientificCommittees();
+      })
+    },  
+    mounted(){
+      this.searchPermissionAwardsAndProjects();
+      this.searchPermission();
+    } 
 	}
 </script>
 

@@ -106,24 +106,24 @@
           'site_type_code': 
           (cv_web['site-type']
           && cv_web['site-type']['code']) ?
-          cv_web['site-type']['code']: "Not defined" ,
+          cv_web['site-type']['code']: "Not defined." ,
 
           'site_type_value': 
           (cv_web['site-type']
           && cv_web['site-type']['value']) ?
-          cv_web['site-type']['value']: "Not defined" ,
+          cv_web['site-type']['value']: "Not defined." ,
 
           'url': 
           (cv_web['url']) ?
-          cv_web['url']: "Not defined" ,
+          cv_web['url']: "Not defined." ,
 
           'id_row_entry': 
           (cv_web['id']) ?
-          cv_web['id']: "Not defined" ,
+          cv_web['id']: "Not defined." ,
 
           'last_modified_date': 
           (cv_web['last-modified-date']) ?
-          cv_web['last-modified-date']: "Not defined" ,
+          cv_web['last-modified-date']: "Not defined." ,
           },
 
         }).then(function (response) {

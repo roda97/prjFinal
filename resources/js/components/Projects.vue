@@ -67,14 +67,14 @@
                                 <td v-if="project.ciic_budget != null">{{ project.ciic_budget }}€</td>
                                 <td v-else>{{ project.ciic_budget }}-</td>
                                 <td>
-                                    <a href="#" v-if="aux == 1 || membroComissaoCientifica == 0|| aux == project.user_id" @click="editModal(project)">
+                                    <a href="#" v-if="id == 1 || membroComissaoCientifica == 0 || id == project.user_id" @click="editModal(project)">
                                         <i class ="fa fa-edit blue"></i>
                                     </a>
-                                    <a v-if="aux == 1 || membroComissaoCientifica == 0|| aux == project.user_id">
+                                    <a v-if="id == 1 || membroComissaoCientifica == 0 || id == project.user_id">
                                     /
                                     </a> 
                                     
-                                    <a href="#" v-if="aux == 1 || membroComissaoCientifica == 0|| aux == project.user_id" @click="deleteProject(project.id)">
+                                    <a href="#" v-if="id == 1 || membroComissaoCientifica == 0 || id == project.user_id" @click="deleteProject(project.id)">
                                         <i class ="fa fa-trash red"></i>
                                     </a>
                                     
@@ -236,7 +236,7 @@
 export default {
     data: function () {
         return {
-            aux: '',
+            id: '',
             membroComissaoCientifica: '',
             text_to_copy: '',
             editmode: false,
@@ -268,8 +268,8 @@ export default {
       searchPermissionAwardsAndProjects(){
         axios.get('api/searchPermissionAwardsAndProjects')
             .then(response => {
-                this.aux = response.data;
-                console.log(this.aux);
+                this.id = response.data;
+                console.log(this.id);
                 //this.$store.commit("setSearchPermission", response.data);
             });
       },

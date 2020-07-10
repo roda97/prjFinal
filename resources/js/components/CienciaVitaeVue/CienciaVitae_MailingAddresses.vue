@@ -132,45 +132,45 @@ export default {
           'address_type_value': 
           (cv_mailing['address-type']
           && cv_mailing['address-type']['value'])?
-          cv_mailing['address-type']['value']: "Not defined",
+          cv_mailing['address-type']['value']: "Not defined.",
 
           'address_type_code': 
           (cv_mailing['address-type']
           && cv_mailing['address-type']['code'])?
-          cv_mailing['address-type']['code']: "Not defined",
+          cv_mailing['address-type']['code']: "Not defined.",
 
           'street_address': 
           (cv_mailing['street-address'])?
-          cv_mailing['street-address']: "Not defined",
+          cv_mailing['street-address']: "Not defined.",
 
           'postal_code': 
           (cv_mailing['postal-code'])?
-          cv_mailing['postal-code']: "Not defined",
+          cv_mailing['postal-code']: "Not defined.",
 
           'city': 
           (cv_mailing['city'])?
-          cv_mailing['city']: "Not defined",
+          cv_mailing['city']: "Not defined.",
 
           'province_state': 
           (cv_mailing['province-state'])?
-          cv_mailing['province-state']: "Not defined",
+          cv_mailing['province-state']: "Not defined.",
 
           'country_value': 
           (cv_mailing['country']
           && cv_mailing['country']['value'])?
-          cv_mailing['country']['value']: "Not defined",
+          cv_mailing['country']['value']: "Not defined.",
 
           'preferred_mailing_address': 
           (cv_mailing['preferred-mailing-address'])?
-          cv_mailing['preferred-mailing-address']: "Not defined",
+          cv_mailing['preferred-mailing-address']: "Not defined.",
 
           'last_modified_date': 
           (cv_mailing['last-modified-date'])?
-          cv_mailing['last-modified-date']: "Not defined",
+          cv_mailing['last-modified-date']: "Not defined.",
 
           'privacy_level': 
           (cv_mailing['privacy-level'])?
-          cv_mailing['privacy-level']: "Not defined",
+          cv_mailing['privacy-level']: "Not defined.",
           },
 
         }).then(function (response) {

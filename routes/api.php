@@ -30,7 +30,9 @@ Route::put('about/edit/{id}', 'AboutController@editAbout');
 
 Route::get('roles/{name}', 'RoleController@name');
 Route::get('roles', 'RoleController@getAll');
-Route::get('memberRoles', 'RoleController@getRoles');
+Route::get('memberRolesFullMember', 'RoleController@getRolesFullMember');
+Route::get('memberRolesExternalMember', 'RoleController@getRolesExternalMember');
+Route::get('memberRolesCollaboratorMember', 'RoleController@getRolesCollaboratorMember');
 Route::post('memberRoles/create', 'MemberRolesController@createMemberRole');//->middleware('can:admin');
 Route::delete('memberRoles/delete/{id}', 'MemberRolesController@deleteMemberRole');//->middleware('can:admin');
 

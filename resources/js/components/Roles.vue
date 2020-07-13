@@ -19,7 +19,7 @@
                     <th>Role Function</th>
                     <th>Actions</th>
                   </tr>               
-                  <tr v-for="memberRole in memberRoles" :key="memberRole.id">            
+                  <tr v-for="memberRole in memberRolesFullMember" :key="memberRole.id">            
                     <td v-if= "memberRole['name'] == 'Full Member'">{{ memberRole.user_id }}</td>
                     <td v-if= "memberRole['name'] == 'Full Member'">{{ memberRole.user_name }}</td>
                     <td v-if= "memberRole['name'] == 'Full Member'">{{ memberRole.name }}</td>
@@ -35,8 +35,15 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+
+            <!-- Paginação Full Member Table -->
+            <div>
+                <b-pagination  align="left" size="md-c"  v-model="page" :total-rows="total" :per-page="10" @input="loadMemberRolesFullMember(page)"></b-pagination>
+                <br>            
+            </div>
+            <!-- Fim Paginação Full Member Table -->
           </div>
-          </div>
+        </div>
           <div class="row mt-5">
        <div class="col-md-12">
             <div class="card">
@@ -53,7 +60,7 @@
                     <th>Role Function</th>
                     <th>Actions</th>
                   </tr>               
-                  <tr v-for="memberRole in memberRoles" :key="memberRole.id">            
+                  <tr v-for="memberRole in memberRolesExternalMember" :key="memberRole.id">            
                     <td v-if= "memberRole['name'] == 'External Member'">{{ memberRole.user_id }}</td>
                     <td v-if= "memberRole['name'] == 'External Member'">{{ memberRole.user_name }}</td>
                     <td v-if= "memberRole['name'] == 'External Member'">{{ memberRole.name }}</td>
@@ -69,6 +76,13 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+
+            <!-- Paginação Collaborator Member Table -->
+            <div>
+                <b-pagination  align="left" size="md-c"  v-model="page2" :total-rows="total2" :per-page="10" @input="loadMemberRolesExternalMember(page2)"></b-pagination>
+                <br>            
+            </div>
+            <!-- Fim Paginação Collaborator Member Table -->
           </div>
           </div>
           <div class="row mt-5">
@@ -87,7 +101,7 @@
                     <th>User Career</th>
                     <th>Actions</th>
                   </tr>               
-                  <tr v-for="memberRole in memberRoles" :key="memberRole.id">            
+                  <tr v-for="memberRole in memberRolesCollaboratorMember" :key="memberRole.id">            
                     <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.user_id }}</td>
                     <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.user_name }}</td>
                     <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.name }}</td>
@@ -103,6 +117,12 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+            <!-- Paginação Collaborator Member Table -->
+            <div>
+                <b-pagination  align="left" size="md-c"  v-model="page3" :total-rows="total3" :per-page="10" @input="loadMemberRolesCollaboratorMember(page3)"></b-pagination>
+                <br>            
+            </div>
+            <!-- Fim Paginação Collaborator Member Table -->
           </div>
           </div>
           <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
@@ -154,7 +174,6 @@
   </div>
 </div>
  </div>
-    
 </template>
 
 <script type="text/javascript">
@@ -163,17 +182,25 @@
 	export default{
 		data: function () {
 		return {
+        page:1,
+        total:1,
+        page2:1,
+        total2:1,
+        page3:1,
+        total3:1,
         editmode: false,
-        memberRoles: [],
+        memberRolesFullMember: [],
+        memberRolesExternalMember: [],
+        memberRolesCollaboratorMember: [],
         users:[],
         roles:[],
         roleFunctions:[],
         form : new Form({
-            id:'',
-            userSelected:'',
-            roleSelected:'',
-            functionSelected: '',   
-            }), 
+          id:'',
+          userSelected:'',
+          roleSelected:'',
+          functionSelected: '',   
+          }), 
 		}
     },
     methods:{
@@ -208,10 +235,39 @@
         $('#addNew').modal('show');
         this.form.fill(memberRole);
       },
-      loadMemberRoles(){
-          axios.get('api/memberRoles')
+      loadMemberRolesFullMember(page){
+          axios.get('api/memberRolesFullMember?page='+page)
   					.then(response=>{
-            this.memberRoles = response.data;
+            this.memberRolesFullMember = response.data.data;
+            console.log("roles")
+            console.log(response.data)
+            //para a paginação:
+            this.page = response.data.current_page;
+            this.total = response.data.total;
+    
+  				});		
+        },
+        loadMemberRolesExternalMember(page){
+          axios.get('api/memberRolesExternalMember?page='+page)
+  					.then(response=>{
+            this.memberRolesExternalMember = response.data.data;
+            console.log("roles")
+            console.log(response.data)
+            //para a paginação:
+            this.page2 = response.data.current_page;
+            this.total2 = response.data.total;
+    
+  				});		
+        },
+        loadMemberRolesCollaboratorMember(page){
+          axios.get('api/memberRolesCollaboratorMember?page='+page)
+  					.then(response=>{
+            this.memberRolesCollaboratorMember = response.data.data;
+            console.log("roles")
+            console.log(response.data)
+            //para a paginação:
+            this.page3 = response.data.current_page;
+            this.total3 = response.data.total;
     
   				});		
         },
@@ -283,11 +339,15 @@
 
             })
           })
-          this.loadMemberRoles();
+          this.loadMemberRolesFullMember(1);
+          this.loadMemberRolesExternalMember(1);
+          this.loadMemberRolesCollaboratorMember(1);
           this.loadUsers();
           this.loadRoles();
           Fire.$on('refresh',()=>{
-            this.loadMemberRoles();
+            this.loadMemberRolesFullMember(1);
+            this.loadMemberRolesExternalMember(1);
+            this.loadMemberRolesCollaboratorMember(1);
           })
         },  
 	}

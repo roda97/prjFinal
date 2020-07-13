@@ -54,7 +54,7 @@
         <div class="filterButtons" align="right">
             <button class="btn btn-primary" @click="checkAllFilters()">CHECK ALL TYPES</button>
             <button class="btn btn-success" @click="loadOutputsByYearRange(selectedStartYear.begin, selectedEndYear.end)">FILTER</button>
-            <button class="btn btn-danger" @click="loadOutputs(1); checkAllFilters()">RESET</button>
+            <button class="btn btn-danger" @click="loadOutputs(); checkAllFilters()">RESET</button>
         </div>
 
     </div>
@@ -598,13 +598,6 @@
     </div>
     <!-- ********************************************************************************** -->
 
-    <!-- Paginação -->
-    <div>
-        <b-pagination  align="left" size="md-c"  v-model="page" :total-rows="total" :per-page="10" @input="loadOutputs(page)"></b-pagination>
-        <br>            
-    </div>
-    <!-- Fim Paginação -->
-
 </div>
 </template>
 
@@ -615,8 +608,6 @@ export default {
 
     data: function () {
         return {
-            page:1,
-            total:1,
             sciendId: '',
             userAuthenticated: '',
             isbulkUpdateFailed: false,
@@ -891,42 +882,13 @@ export default {
                 });
         },
 
-        chunk(array, size) {
-    const chunked_arr = [];
-    for (let i = 0; i < array.length; i++) {
-      const last = chunked_arr[chunked_arr.length - 1];
-      if (!last || last.length === size) {
-        chunked_arr.push([array[i]]);
-      } else {
-        last.push(array[i]);
-      }
-    }
-    return chunked_arr;
-},
-
-        loadOutputs(page) {
-            axios.get('api/cv_outputs/getRemoteCienciaVitaeOutputs?page='+page)
+        loadOutputs() {
+            axios.get('api/cv_outputs/getRemoteCienciaVitaeOutputs')
                 .then(response => {
-
                     this.cv_outputs = response.data.output;
-                    //this.cv_outputs = this.chunk(this.cv_outputs,2)
                     this.filtered_data_to_csv = [];
                     this.selectedStartYear=0;
                     this.selectedEndYear=0;
-                    console.log("outputs:")
-                    console.log(this.cv_outputs)
-                    console.log(response.data)
-                    //para a paginação:
-
-                     const chunkSize = 10;
-                    //const arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
-                    const groups = this.cv_outputs.map((e, i) => { 
-                        return i % chunkSize === 0 ? this.cv_outputs.slice(i, i + chunkSize) : null; 
-                    }).filter(e => { return e; });
-                    console.log("teste", groups)
-
-                    this.page = response.data.current_page;
-                    this.total = response.data.total;
                 });
         },
         loadOutputsByYearRange(begin, end) {
@@ -1826,11 +1788,11 @@ export default {
     created() {
         this.getScienceId();
         this.checkAllFilters();
-        this.loadOutputs(1);
+        this.loadOutputs();
         this.getLocalDataToCSV();
 
         Fire.$on('refresh', () => {
-            this.loadOutputs(1);
+            this.loadOutputs();
         })
         Fire.$on('updateLocalCSV', () => {
             this.getLocalDataToCSV();

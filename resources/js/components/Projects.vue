@@ -24,7 +24,6 @@
                                       data-target="#copyAllRowsModal">Copy All</button>
                                 </th>
 
-                                <th>ID</th>
                                 <th>Title</th>
                                 <th>Abstract</th>
                                 <th>Consortium</th>
@@ -53,7 +52,6 @@
                                       data-toggle="modal"
                                       data-target="#copyRowModal">Copy</button>
                                 </td>
-                                <td>{{ project.id }}</td>
                                 <td>{{ project.title }}</td>
                                 <td>{{ project.abstract }}</td>
                                 <td v-if="project.consortium != null">{{ project.consortium }}</td>

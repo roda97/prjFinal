@@ -20,7 +20,6 @@
                     <table class="table table-hover">
                         <tbody>
                             <tr>
-                                <th>ID</th>
                                 <th>Title</th>
                                 <th>Author</th>
                                 <th>Description</th>
@@ -30,7 +29,6 @@
                                 <!-- <th>Status</th> -->
                             </tr>
                             <tr v-for="article in news" :key="article.id" :class="{activerow: currentNew === article}">
-                                <td>{{ article.id }}</td>
                                 <td>{{ article.title }}</td>
                                 <td>{{ article.author }}</td>
                                 <td>{{ article.description }}</td>

@@ -14,13 +14,11 @@
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody><tr>
-                    <th>ID</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Actions</th>
                   </tr>               
                   <tr v-for="award in awards" :key="award.id">
-                    <td>{{ award.id }}</td>
                     <td>{{ award.title }}</td>
                     <td>{{ award.description }}</td>
                     <td>

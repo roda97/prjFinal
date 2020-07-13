@@ -37,16 +37,17 @@
                         </a>
                          /-->
                     
-                        <a href="#" v-if="id == 1 || membroComissaoCientifica == 0" @click="deletereunion(scientificCommittee.id)">
-                            <i class ="fa fa-trash red"></i>
-                        </a>
-                        <a v-if="id == 1 || membroComissaoCientifica == 0">
-                          /
-                        </a>
-
                         <a href="#" v-if="id == 1 || membroComissaoCientifica == 0" @click="editModal(scientificCommittee)">
                             <i class ="fa fa-edit blue"></i>
                         </a> 
+
+                         <a v-if="id == 1 || membroComissaoCientifica == 0">
+                          /
+                        </a>
+
+                        <a href="#" v-if="id == 1 || membroComissaoCientifica == 0" @click="deletereunion(scientificCommittee.id)">
+                            <i class ="fa fa-trash red"></i>
+                        </a>
 
                         <a v-else>
                         -

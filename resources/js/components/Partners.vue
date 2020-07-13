@@ -21,12 +21,10 @@
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody><tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Actions</th>
                   </tr>               
                   <tr v-for="partner in partners" :key="partner.id">
-                    <td>{{ partner.id }}</td>
                     <td>{{ partner.name }}</td>
                     <td>
                         <a href="#" @click="editModal(partner)">

@@ -14,7 +14,6 @@
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody><tr>
-                    <th>ID</th>
                     <th>Lab ID</th>
                     <th>Location</th>
                     <th>Name</th>
@@ -25,7 +24,6 @@
                     <th>Actions</th>
                   </tr>               
                   <tr v-for="lab in labs" :key="lab.id">
-                    <td>{{ lab.id }}</td>
                     <td>{{ lab.laboratoy_real_id }}</td>
                     <!--<td>{{ lab.campus_id  }}</td>-->
                     <td>{{ lab.school_campus_name }}</td>

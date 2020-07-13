@@ -150,7 +150,12 @@ return $subset;
         }
 
         if (!empty($request->password)) {
+            if (Hash::check($request->oldpassword, $user->password)) {
             $request->merge(['password' => Hash::make($request['password'])]);
+            }
+            else{
+            return response()->json('Old Password is incorrect !', 402);
+            }
         }
 
         $user->update($request->all());

@@ -13,14 +13,13 @@
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody><tr>
-                    <th>User ID</th>
+                    
                     <th>User Name</th>
                     <th>Role Name</th>
                     <th>Role Function</th>
                     <th>Actions</th>
                   </tr>               
                   <tr v-for="memberRole in memberRolesFullMember" :key="memberRole.id">            
-                    <td v-if= "memberRole['name'] == 'Full Member'">{{ memberRole.user_id }}</td>
                     <td v-if= "memberRole['name'] == 'Full Member'">{{ memberRole.user_name }}</td>
                     <td v-if= "memberRole['name'] == 'Full Member'">{{ memberRole.name }}</td>
                     <td v-if= "memberRole['name'] == 'Full Member'">{{ memberRole.function }}</td>
@@ -54,14 +53,13 @@
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody><tr>
-                    <th>User ID</th>
+               
                     <th>User Name</th>
                     <th>Role Name</th>
                     <th>Role Function</th>
                     <th>Actions</th>
                   </tr>               
                   <tr v-for="memberRole in memberRolesExternalMember" :key="memberRole.id">            
-                    <td v-if= "memberRole['name'] == 'External Member'">{{ memberRole.user_id }}</td>
                     <td v-if= "memberRole['name'] == 'External Member'">{{ memberRole.user_name }}</td>
                     <td v-if= "memberRole['name'] == 'External Member'">{{ memberRole.name }}</td>
                     <td v-if= "memberRole['name'] == 'External Member'">{{ memberRole.function }}</td>
@@ -95,14 +93,13 @@
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody><tr>
-                    <th>User ID</th>
+         
                     <th>User Name</th>
                     <th>Role Name</th>
                     <th>User Career</th>
                     <th>Actions</th>
                   </tr>               
                   <tr v-for="memberRole in memberRolesCollaboratorMember" :key="memberRole.id">            
-                    <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.user_id }}</td>
                     <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.user_name }}</td>
                     <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.name }}</td>
                     <td v-if= "memberRole['name'] == 'Collaborator Member'">{{ memberRole.user_career }}</td>

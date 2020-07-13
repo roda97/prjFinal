@@ -14,7 +14,6 @@
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody><tr>
-                    <th>ID</th>
                     <th>Title</th>
                     <th>Keywords</th>
                     <th>Scientific Domains</th>
@@ -23,7 +22,6 @@
                     <th>Actions</th>
                   </tr>               
                   <tr v-for="team in teams" :key="team.id">
-                    <td>{{ team.id }}</td>
                     <td>{{ team.title }}</td>
                     <td>{{ team.keywords }}</td>
                     <td>{{ team.scientific_domains }}</td>

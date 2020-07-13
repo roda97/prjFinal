@@ -157,6 +157,15 @@
                           <input type="file" @change="updatePhoto" name="photo" classform="form-input ">
                         </div>
                       </div>
+                      <div class="form-group">
+                        <label for="inputPassword" class="col-sm-12">Old Password (leave empty if not changing)</label>
+
+                        <div class="col-sm-10">
+                          <input type="password" v-model="form.oldpassword" class="form-control" id="inputOld" placeholder="Old Password"
+                          :class="{'is-invalid': form.errors.has('password')}">
+                          <has-error :form="form" field="oldpassword"></has-error>
+                        </div>
+                      </div>
 
                       <div class="form-group">
                         <label for="inputPassword" class="col-sm-12">Password (leave empty if not changing)</label>
@@ -165,6 +174,15 @@
                           <input type="password" v-model="form.password" class="form-control" id="inputPassport" placeholder="Password"
                           :class="{'is-invalid': form.errors.has('password')}">
                           <has-error :form="form" field="password"></has-error>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputPassword" class="col-sm-12">Confirm Password (leave empty if not changing)</label>
+
+                        <div class="col-sm-10">
+                          <input type="password" v-model="form.confirmpassword" class="form-control" id="inputConfirm" placeholder="Confirm Password"
+                          :class="{'is-invalid': form.errors.has('password')}">
+                          <has-error :form="form" field="confirmpassword"></has-error>
                         </div>
                       </div>
                       <div class="form-group">
@@ -193,6 +211,8 @@
                   id: '',
                   name: '',
                   password:'',
+                  confirmpassword:'',
+                  oldpassword:'',
                   email: '',
                   institution_name: '',
                   academic_degree: '',
@@ -228,7 +248,9 @@
                   })
                 }
             },
+            
             update(){
+              if(this.form.password == this.form.confirmpassword){
               this.$Progress.start();
               if(this.form.password == ''){
                 this.form.password = undefined;
@@ -248,9 +270,24 @@
                 type: 'error',
                 title: 'Oops...',
                 text: 'Something went wrong!',
-                })           
+                })
+                console.log("text",error);
+                if(error.response.data == "Old Password is incorrect !"){
+                  Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Old password wrong!',
+                })
+              }           
               });
               this.$Progress.fail();
+              }else{
+                Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Different passwords!',
+                })
+              }
             },
 
             getData(){

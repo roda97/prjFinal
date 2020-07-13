@@ -16,7 +16,6 @@
                         <tbody>
                             <tr>
                                 <th>Download Curriculum</th>
-                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Institution</th>
@@ -33,7 +32,6 @@
                                     <a href="#" @click="downloadStandardCV(user.science_id)">
                                     <i class ="fa fa-file-pdf red fa-3x"></i></a>
                                 </td>
-                                <td>{{ user.id }}</td>
                                 <td>{{ user.name }}</td>
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.institution_name }}</td>

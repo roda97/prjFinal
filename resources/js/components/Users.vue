@@ -175,6 +175,13 @@
         <button type="button" class="close-btn" v-on:click="showMessage=false">&times;</button>
         <strong>{{ message }}</strong>
     </div>
+
+    <!-- Paginação -->
+    <div>
+        <b-pagination  align="left" size="md-c"  v-model="page" :total-rows="total" :per-page="10" @input="loadUsers(page)"></b-pagination>
+        <br>            
+    </div>
+    <!-- Fim Paginação -->
 </div>
 </template>
 
@@ -200,6 +207,8 @@ export default {
                 photo: '',
                 career: '',
             }),
+            page:1,
+            total:1,
             showMessage: false,
             successMessage: '',
             currentUser: null,
@@ -284,10 +293,15 @@ export default {
             $('#addNew').modal('show');
             this.form.fill(user);
         },
-        loadUsers() {
-            axios.get('api/users')
+        loadUsers(page) {
+            axios.get('api/users?page='+page)
                 .then(response => {
                     this.users = response.data.data;
+                    console.log("users:")
+                    console.log(response)
+                    //para a paginação:
+                    this.page = response.data.meta.current_page;
+                    this.total = response.data.meta.total;
                 });
         },
         editUser() {
@@ -417,10 +431,10 @@ export default {
 
                 })
         })
-        this.loadUsers();
+        this.loadUsers(1);
         //this.getResults();
         Fire.$on('refresh', () => {
-            this.loadUsers();
+            this.loadUsers(1);
         });
     },
 }

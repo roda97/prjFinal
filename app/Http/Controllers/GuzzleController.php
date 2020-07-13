@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class GuzzleController extends Controller
 {
@@ -99,8 +102,18 @@ class GuzzleController extends Controller
         );
 
         $data = $request->getBody()->getContents();
+
+        //$data = collect($data)->values()->toArray();//->paginate(10);
+        //$data = $this->paginate($data,10);
+        //return response()->json($data,402);
         
         return $data;
+    }
+
+    public function paginate($items, $perPage, $page = null, $options = []) { 
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1); 
+        $items = $items instanceof Collection ? $items : Collection::make($items); 
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options); 
     }
 
     public function getRemoteCienciaVitaePhones()

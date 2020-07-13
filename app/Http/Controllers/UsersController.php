@@ -45,10 +45,6 @@ class UsersController extends Controller
                 $user_role = $collection[0][$i]['role_id'];
             }
         }
-        //return response()->json($user_role,402);
-
-        //$comissao_cientifica = $roles::select('role_id')->where('user_id',$id)->get(); //vai buscar o membro com o id igual ao id que está logado
-        //$admin = auth('api')->user()->isAdmin;
 
         $aux = 1;
 
@@ -63,18 +59,6 @@ class UsersController extends Controller
     public function searchPermissionAwardsAndProjects(){
         $id = auth('api')->user()->id;
 
-        //$awards = Award::select('user_id')->where('user_id',$id)->get();
-
-        //return response()->json($awards,402);
-        /*$comissao_cientifica = MemberRoles::select('role_id')->where('user_id',$id)->get(); //vai buscar o membro com o id igual ao id que está logado
-        //$admin = auth('api')->user()->isAdmin;
-        $aux = 1;
-
-        if($comissao_cientifica[0]['role_id'] == 6){
-            $aux = 0;
-        }else{
-            $aux = 1;
-        }*/
         return $id;
     }
 
@@ -123,7 +107,7 @@ return $subset;
 
     public function getAll()
     {
-        return UsersResource::collection(User::all());
+        return UsersResource::collection(User::paginate(10));
     }
 
     public function profile()

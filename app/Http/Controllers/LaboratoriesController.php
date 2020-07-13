@@ -30,17 +30,23 @@ class LaboratoriesController extends Controller
         $lab = new Laboratories(); 
         
         $exploded = explode(',', $request->lab_img_path);
-        $decoded = base64_decode($exploded[1]);
-        if(str_contains($exploded[0], 'jpeg'))
-        {
-            $extension = 'jpg';
+        //return response()->json($exploded,402);
+        if($exploded[0] != ''){
+            $decoded = base64_decode($exploded[1]);
+            if(str_contains($exploded[0], 'jpeg'))
+            {
+                $extension = 'jpg';
+            }
+            else{
+                $extension = 'png';
+            }
+            $fileName = str_random().'.'.$extension;
+            $path = public_path().'/img/labs/'.$fileName;
+            file_put_contents($path, $decoded);
         }
         else{
-            $extension = 'png';
+            $fileName = null;
         }
-        $fileName = str_random().'.'.$extension;
-        $path = public_path().'/img/labs/'.$fileName;
-        file_put_contents($path, $decoded);
 
         $lab->laboratoy_real_id = $request->laboratoy_real_id;
         $lab->school_campus_name = $request->school_campus_name;

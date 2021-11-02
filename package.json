@@ -47,7 +47,7 @@
         "pug-beautify": "^0.1.1",
         "startbootstrap-agency": "^6.0.2",
         "sweetalert2": "^8.19.0",
-        "tinymce": "^5.4.0",
+        "tinymce": "^5.10.0",
         "tinymce-vue-2": "0.0.5",
         "v-pagination": "^0.1.4",
         "vee-validate": "^2.2.15",

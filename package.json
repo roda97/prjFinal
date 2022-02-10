@@ -42,7 +42,7 @@
         "laravel-vue": "^1.0.0",
         "laravel-vue-pagination": "^2.3.1",
         "mdbvue": "^6.7.1",
-        "node-sass": "^4.14.1",
+        "node-sass": "^7.0.0",
         "pagination": "^0.4.6",
         "pug-beautify": "^0.1.1",
         "startbootstrap-agency": "^6.0.2",

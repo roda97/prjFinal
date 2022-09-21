@@ -61,6 +61,6 @@
         "vue-router": "^3.3.4",
         "vue-tinymce-editor": "^1.6.2",
         "vue2-google-maps": "^0.10.7",
-        "vuetify": "^2.3.4"
+        "vuetify": "^2.6.10"
     }
 }
